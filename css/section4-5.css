@@ -1,0 +1,291 @@
+/* ================================================================
+   Section 4-5 — Licenses & Patents (dark bg + 3D card carousels)
+   - 01-draft card-carosel.js/css pattern (auto-rotate, hover focus)
+   - Section 4: 6 cards (Electronic Financial Licenses)
+   - Section 5: 4 cards (Intellectual Property & Patents)
+================================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #0d1426;
+  color: #fff;
+  font-family: 'Inter', 'Pretendard', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+:root {
+  --redorange-500: #ea4109;
+  --primary-orange: #e52006;
+}
+
+/* ============================================================
+   Section shell
+============================================================ */
+.s45 {
+  position: relative;
+  width: 100%;
+  background: #0d1426;
+  overflow: hidden;
+  padding: 0;
+}
+
+.s45-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;       /* let clicks pass through to content */
+  z-index: 0;
+  overflow: hidden;
+  background: #0d1426;        /* fallback while Spline loads */
+}
+
+/* Spline 3D viewer fills the section behind all content */
+.s45-spline {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: auto;       /* allow Spline interactivity */
+}
+
+/* ============================================================
+   Blocks — each one a tag + title + sub + carousel area
+============================================================ */
+.s45-block {
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 160px 24px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.s45-block--patents { padding-top: 48px; padding-bottom: 120px; }
+
+.s45-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 20px;
+  background: var(--redorange-500);
+  border-radius: 31px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.14px;
+  color: #fff;
+  line-height: 1.2;
+  white-space: nowrap;
+  margin-bottom: 0;
+}
+
+/* Figma section4: tag (y:160, h:29) → title (y:261)
+   Gap = 261 - 189 = 72px */
+.s45-title {
+  margin: 72px 0 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 200;
+  font-size: clamp(40px, 5.6vw, 72px);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: #fff;
+  max-width: 720px;
+}
+
+.s45-sub {
+  margin: 16px 0 0;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: #fff;
+  opacity: 0.8;
+}
+
+/* ============================================================
+   Reveal helpers
+============================================================ */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+  line-height: inherit;
+  padding-bottom: 0.22em;
+}
+.reveal-line-inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
+  will-change: transform;
+}
+.section-title-reveal.is-visible .reveal-line-inner {
+  transform: translateY(0);
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
+  will-change: opacity, transform;
+}
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Card carousel — 3D fan layout (from 01-draft)
+============================================================ */
+.carosel-area {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  height: 600px;
+  margin-top: 24px;
+}
+
+.carosel-page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.carosel-glow {
+  position: absolute;
+  width: 900px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(234, 65, 9, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.carosel-scene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  perspective: 2600px;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carosel-card {
+  position: absolute;
+  width: 210px;
+  height: 360px;
+  border-radius: 16px;
+  overflow: hidden;
+  transition:
+    transform 1.35s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.2s ease,
+    filter 1.2s ease,
+    z-index 0.2s linear;
+  will-change: transform;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.carosel-area[data-carosel="2"] .carosel-card {
+  width: 260px;
+  height: 360px;
+}
+
+.carosel-card-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carosel-card-icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 42px;
+  object-fit: contain;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.carosel-overlay {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 50px;
+  color: #fff;
+  z-index: 5;
+  text-align: left;
+  pointer-events: none;
+}
+
+.carosel-num {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.carosel-title {
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -1.12px;
+}
+
+.carosel-reflection {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+/* ============================================================
+   Reduced motion
+============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-line-inner,
+  .reveal-up,
+  .carosel-card {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   Responsive
+============================================================ */
+@media (max-width: 1024px) {
+  .s45-block { padding-left: 16px; padding-right: 16px; }
+  .carosel-area { height: 520px; }
+  .carosel-scene { transform: scale(0.85); }
+}
+
+@media (max-width: 720px) {
+  .carosel-scene { transform: scale(0.65); }
+  .carosel-area { height: 440px; }
+}
+
+@media (max-width: 480px) {
+  .carosel-scene { transform: scale(0.5); }
+  .carosel-area { height: 380px; }
+}

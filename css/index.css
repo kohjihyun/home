@@ -1,0 +1,224 @@
+/* ================================================================
+   Index — global overrides that win when all section CSS files are
+   combined on a single page. Loaded last in <head>.
+   Reference: Figma "작업중 2" → Home (node 118:1160).
+   Only affects index.html (not standalone section pages).
+================================================================ */
+
+/* ----------------------------------------------------------------
+   Body — reset background/color so each section paints its own.
+---------------------------------------------------------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #111;
+  font-family: 'Inter', 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+/* ----------------------------------------------------------------
+   GNB — fixed wrap (kept from prior change)
+---------------------------------------------------------------- */
+.hero-gnb-wrap.is-fixed {
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: min(1118px, calc(100% - 80px));
+  animation: gnbDrop 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-gnb-wrap.is-fixed.is-hidden {
+  transform: translate(-50%, calc(-100% - 40px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes gnbDrop {
+  from { opacity: 0; transform: translate(-50%, -16px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* GNB — Figma 118:1173 — WHITE bar with drop-shadow, color logo,
+   bold navy menu, orange-bordered EN, orange CONTACT */
+.hero-gnb-wrap.is-fixed .hero-gnb {
+  background: #fff;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.25));
+}
+.hero-gnb-wrap.is-fixed .hero-gnb__menu {
+  font-weight: 700;               /* Bold per Figma 118:1176 */
+  color: #122956;                 /* deep navy */
+}
+.hero-gnb-wrap.is-fixed .hero-gnb__menu-item {
+  color: #122956;
+}
+.hero-gnb-wrap.is-fixed .hero-gnb__menu-item:hover {
+  color: #ea4109;                 /* redorange hover */
+}
+.hero-gnb-wrap.is-fixed .hero-gnb__lang {
+  border-color: #ea4109;          /* redorange-500 */
+  color: #ea4109;
+  font-weight: 700;               /* Bold per Figma 118:1182 */
+}
+.hero-gnb-wrap.is-fixed .hero-gnb__contact {
+  background: #e52006;            /* primary-orange */
+  color: #fff;
+  font-weight: 700;               /* Bold per Figma 118:1185 */
+}
+.hero-gnb-wrap.is-fixed .hero-gnb__contact:hover,
+.hero-gnb-wrap.is-fixed .hero-gnb__contact:focus-visible {
+  background-color: #ea4109;
+  color: #fff;
+}
+
+/* ----------------------------------------------------------------
+   HERO — Figma 118:1171
+   Title: Inter Bold 88px, color #e52006, text-shadow 0 0 5px rgba(0,0,0,.5)
+   Sub:   Inter Regular 18px, color #9ca6c1, opacity 0.7
+---------------------------------------------------------------- */
+.hero .hero-title {
+  font-weight: 700;               /* Bold */
+  color: #e52006;                 /* primary-orange */
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.hero .hero-sub {
+  font-weight: 400;               /* Regular */
+  color: #9ca6c1;
+  opacity: 0.7;
+}
+
+/* Third hero video color layer — Figma 119:1601 */
+.hero .hero-video__color3 {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  mix-blend-mode: screen;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 3 — Figma 118:1328
+   Section bg: primary-orange. Tag/card-front: dark navy #101c34.
+   Title: Bold white.
+---------------------------------------------------------------- */
+.section3 {
+  background: #e52006;            /* primary-orange */
+}
+.s3-tag {
+  background: #101c34;
+  color: #fff;
+}
+.s3-title {
+  font-weight: 700;               /* Bold */
+  color: #fff;
+}
+/* card-front cover (default state) — dark navy */
+.s3-card__cover {
+  background: #101c34;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 6 — Figma 118:1478
+   Section bg: primary-orange. Tag: dark navy. Text: white.
+   "Remittance" Bold.
+---------------------------------------------------------------- */
+.s6 {
+  background: #e52006;
+}
+.s6-tag {
+  background: #101c34;
+  color: #fff;
+}
+.s6-title-block,
+.s6-eyebrow,
+.s6-title,
+.s6-desc {
+  color: #fff;
+}
+.s6-title {
+  font-weight: 700;               /* Bold */
+}
+.s6-eyebrow {
+  font-weight: 300;               /* Light per Figma 118:1490 */
+}
+.s6-desc {
+  opacity: 0.8;
+}
+/* Section6 video — only the #282f38 screen layer (Figma 118:1487) */
+.s6 .s6-video__layer--black {
+  display: none;
+}
+
+/* Resize video to Figma 118:1485 spec (609×500) so the left title
+   has breathing room and Bold "Remittance" isn't clipped */
+.s6 .s6-video {
+  width: 609px;
+}
+
+/* Let the left text use the full title-block width — the Bold weight
+   makes "Remittance" wider than the original 349px clamp */
+.s6 .s6-text,
+.s6 .s6-title-block {
+  width: 510px;
+}
+.s6 .s6-eyebrow,
+.s6 .s6-title {
+  width: auto;
+  max-width: 510px;
+}
+
+/* Remittance — kerning 0 (user request) + left padding so the Bold "R"
+   doesn't get clipped by .reveal-line overflow:hidden */
+.s6 .s6-title {
+  letter-spacing: 0;
+  padding-left: 8px;
+  margin-left: -8px;
+}
+.s6 .s6-title .reveal-line {
+  padding-left: 8px;
+  margin-left: -8px;
+}
+
+/* ----------------------------------------------------------------
+   All section titles — Bold / SemiBold (user instruction)
+---------------------------------------------------------------- */
+.s2-title  { font-weight: 700; }  /* Why Partners Trust Us */
+.s45-title { font-weight: 600; }  /* SemiBold per Figma 118:1448 — Electronic Financial Licenses / IP & Patents */
+
+/* News & Media — Figma 119:1595: Inter SemiBold 72px, tracking -2.88px */
+.s7-title  {
+  font-weight: 600;
+  font-size: clamp(44px, 6.1vw, 72px);
+  letter-spacing: -0.04em;
+}
+
+/* ----------------------------------------------------------------
+   Stacking — each section paints its own isolated context.
+---------------------------------------------------------------- */
+.hero,
+.section1,
+.section2,
+.section3,
+.s45,
+.s6,
+.s7,
+.ft {
+  position: relative;
+  isolation: isolate;
+}
+
+/* ----------------------------------------------------------------
+   Reduced motion respects user setting.
+---------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-gnb-wrap.is-fixed {
+    animation: none;
+  }
+}

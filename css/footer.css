@@ -1,0 +1,206 @@
+/* ================================================================
+   Footer — Figma 1:581
+   bg #e52006 (primary orange) · text white / orange-50 (#ffe7d7)
+   divider lines: #f97753
+================================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #e52006;
+  color: #fff;
+  font-family: 'Inter', 'Pretendard', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+:root {
+  --ft-bg: #e52006;
+  --ft-divider: #f97753;
+  --ft-meta: #ffe7d7;     /* orange/50 — section titles and meta text */
+  --ft-contact-bg: #ffddd5;
+  --ft-contact-text: #e52f06;
+}
+
+/* ============================================================
+   Footer shell
+============================================================ */
+.ft {
+  position: relative;
+  width: 100%;
+  background: var(--ft-bg);
+  color: #fff;
+}
+
+.ft-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 48px clamp(24px, 5.5vw, 160px) 65px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ============================================================
+   Logo
+============================================================ */
+.ft-logo {
+  display: inline-flex;
+  align-items: center;
+  width: 64px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.ft-logo img { width: 100%; height: 100%; object-fit: contain; }
+
+/* ============================================================
+   Sitemap row — 3 columns + contact, top+bottom dividers
+============================================================ */
+.ft-row--sitemap {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(40px, 12vw, 180px);
+  padding: 32px 0;
+  border-top: 1px solid var(--ft-divider);
+  border-bottom: 1px solid var(--ft-divider);
+  width: 100%;
+}
+
+.ft-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  white-space: nowrap;
+}
+
+.ft-col__title {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;     /* SemiBold per Figma */
+  font-size: 14px;
+  color: var(--ft-meta);
+  line-height: 1.2;
+}
+
+.ft-col__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ft-col__list a {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;     /* Light per Figma */
+  font-size: 18px;
+  line-height: 1.4;
+  color: #fff;
+  transition: opacity 0.18s ease;
+}
+
+.ft-col__list a:hover,
+.ft-col__list a:focus-visible {
+  opacity: 0.78;
+}
+
+/* Push CONTACT to the right edge */
+.ft-col--contact {
+  margin-left: auto;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.ft-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  background: var(--ft-contact-bg);
+  color: var(--ft-contact-text);
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: -0.12px;
+  line-height: 1.2;
+  transition: background-color 0.18s ease,
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ft-contact:hover,
+.ft-contact:focus-visible {
+  background-color: #fff;
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   Legal links row (under sitemap, bottom divider)
+============================================================ */
+.ft-legal {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--ft-divider);
+}
+
+.ft-legal a {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;     /* Medium per Figma */
+  font-size: 14px;
+  color: var(--ft-meta);
+  white-space: nowrap;
+  transition: opacity 0.18s ease;
+}
+
+.ft-legal a:hover,
+.ft-legal a:focus-visible {
+  opacity: 0.78;
+}
+
+/* ============================================================
+   Bottom info row
+============================================================ */
+.ft-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--ft-meta);
+  line-height: 1.2;
+}
+
+/* ============================================================
+   Responsive
+============================================================ */
+@media (max-width: 960px) {
+  .ft-inner { padding: 40px 24px 48px; gap: 32px; }
+  .ft-row--sitemap {
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+  .ft-col--contact {
+    margin-left: 0;
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .ft-row--sitemap { gap: 28px 40px; }
+  .ft-col { flex: 1 1 calc(50% - 20px); }
+  .ft-legal { gap: 12px 20px; padding-bottom: 28px; }
+  .ft-info { gap: 8px 16px; }
+}

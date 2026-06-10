@@ -1,0 +1,411 @@
+/* ================================================================
+   Section 2 — Trust Indicators + Stats Card + Partners marquees
+   Figma: 1440 × 1340, dark gradient bg
+   - Tag pill + headline (text reveal)
+   - Stats card with red glow (rises in, content reveals in sequence)
+   - Two partner rows: line1 scrolls left, line2 scrolls right
+   - 64px vertical gap between rows
+================================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #0b111d;
+  color: #fff;
+  font-family: 'Inter', 'Pretendard', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+:root {
+  --redorange-500: #ea4109;
+}
+
+/* ============================================================
+   Section shell — dark gradient (Figma)
+============================================================ */
+.section2 {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(
+    to bottom,
+    #0b111d 0%,
+    #0b111d 18.154%,
+    #0b1529 61.628%,
+    #111e36 100%
+  );
+  padding: 160px 0 100px;
+  overflow: hidden;
+}
+
+.s2-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5.5vw, 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ============================================================
+   Tag pill — "Trust Indicators"
+============================================================ */
+.s2-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 20px;
+  background: var(--redorange-500);
+  border-radius: 31px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.14px;
+  color: #fff;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Title — "Why Partners Trust Us"
+============================================================ */
+.s2-title {
+  margin: clamp(40px, 6vw, 80px) 0 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 200; /* ExtraLight */
+  font-size: clamp(40px, 5.6vw, 64px);
+  line-height: 1.15; /* leave room for descenders (the "y" in "Why") */
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-align: center;
+  max-width: 1120px;
+}
+
+/* ============================================================
+   Reveal animations — jeton-style clip + translateY
+============================================================ */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+  line-height: inherit;
+  padding-bottom: 0.22em; /* room for descenders so they aren't clipped */
+}
+.reveal-line-inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
+  will-change: transform;
+}
+.section-title-reveal.is-visible .reveal-line-inner {
+  transform: translateY(0);
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16,1,0.3,1) var(--delay, 0s),
+    transform 0.8s cubic-bezier(0.16,1,0.3,1) var(--delay, 0s);
+  will-change: opacity, transform;
+}
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Stats card
+   Figma: 1120 × 400, content padded; red glow at top of card.
+   Card rises in on scroll, then each stat reveals in sequence.
+============================================================ */
+.s2-card {
+  position: relative;
+  width: 100%;
+  max-width: 1120px;
+  height: 400px; /* Figma exact */
+  margin: clamp(48px, 7vw, 92px) auto 0;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.card-reveal {
+  opacity: 0;
+  transform: translateY(80px);
+  transition:
+    opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.card-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.s2-card-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.s2-card-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.s2-card-grid {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr 1px 1fr;
+  align-items: stretch;
+  padding: 32px 12px 48px 24px; /* Figma: cards y:32, ends at 352, card 400 → 48px bottom */
+}
+
+.s2-divider {
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.18) 20%,
+    rgba(255,255,255,0.18) 80%,
+    rgba(255,255,255,0) 100%
+  );
+  align-self: stretch;
+  height: 100%;
+}
+
+/* Each stat — Figma stat block is 200 × 320 (positioned at y:0 within cards) */
+.s2-stat {
+  position: relative;
+  height: 100%; /* fills grid cell — 320px */
+}
+
+/* Number — top:48 from stat top, centered horizontally */
+.s2-stat-num {
+  position: absolute;
+  top: 48px; /* Figma exact */
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 48px;  /* Figma exact */
+  line-height: 1;   /* leading-none */
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.s2-stat-num .num-unit {
+  font-weight: 200;
+  font-size: 36px; /* Figma exact for USD */
+}
+.s2-stat-num .num-unit--plus {
+  font-weight: 200;
+  font-size: 36px; /* + on 30K+ */
+}
+
+/* Label — top:213 from stat top, left-aligned with Figma per-stat x/width */
+.s2-stat-lbl {
+  position: absolute;
+  top: 213px; /* Figma exact */
+  left: 24px;
+  margin: 0;
+  width: 140px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 200;        /* Inter ExtraLight per Figma */
+  font-size: 24px;         /* Figma exact */
+  line-height: 1.2;        /* Figma exact (3 lines × 24 × 1.2 ≈ 87) */
+  letter-spacing: -0.01em;
+  color: #fff;
+  text-align: left;        /* user request */
+}
+
+/* Per-stat label x/width — Figma exact positions */
+.s2-stat[data-idx="0"] .s2-stat-lbl { left: 31px;   width: 138px; }
+.s2-stat[data-idx="1"] .s2-stat-lbl { left: 27.5px; width: 113px; }
+.s2-stat[data-idx="2"] .s2-stat-lbl { left: 34px;   width: 132px; }
+.s2-stat[data-idx="3"] .s2-stat-lbl { left: 48.5px; width: 104px; }
+.s2-stat[data-idx="4"] .s2-stat-lbl { left: 48px;   width: 104px; }
+
+/* Number clip-reveal (single line) */
+.num-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: inherit;
+  padding-bottom: 0.05em;
+}
+.num-inner {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Label fade-up reveal (multi-line text) */
+.s2-stat-lbl {
+  opacity: 0;
+  /* combine translateY with the absolute centering not needed (label is positioned left) */
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* Sequenced reveal — numbers fire first, labels follow shortly */
+.s2-card.is-visible .s2-stat[data-idx="0"] .num-inner   { transition-delay: 0.15s; transform: translateY(0); }
+.s2-card.is-visible .s2-stat[data-idx="1"] .num-inner   { transition-delay: 0.30s; transform: translateY(0); }
+.s2-card.is-visible .s2-stat[data-idx="2"] .num-inner   { transition-delay: 0.45s; transform: translateY(0); }
+.s2-card.is-visible .s2-stat[data-idx="3"] .num-inner   { transition-delay: 0.60s; transform: translateY(0); }
+.s2-card.is-visible .s2-stat[data-idx="4"] .num-inner   { transition-delay: 0.75s; transform: translateY(0); }
+
+.s2-card.is-visible .s2-stat[data-idx="0"] .s2-stat-lbl { transition-delay: 0.30s; opacity: 1; transform: translateY(0); }
+.s2-card.is-visible .s2-stat[data-idx="1"] .s2-stat-lbl { transition-delay: 0.45s; opacity: 1; transform: translateY(0); }
+.s2-card.is-visible .s2-stat[data-idx="2"] .s2-stat-lbl { transition-delay: 0.60s; opacity: 1; transform: translateY(0); }
+.s2-card.is-visible .s2-stat[data-idx="3"] .s2-stat-lbl { transition-delay: 0.75s; opacity: 1; transform: translateY(0); }
+.s2-card.is-visible .s2-stat[data-idx="4"] .s2-stat-lbl { transition-delay: 0.90s; opacity: 1; transform: translateY(0); }
+
+/* ============================================================
+   Partners — two marquee rows
+   Row 1: scrolls left (line1 + line1-2 combined)
+   Row 2: scrolls right (line2 + line2-2 combined)
+   64px gap between rows.
+============================================================ */
+.s2-partners {
+  width: 100vw;
+  margin-left: calc(50% - 50vw); /* break out of inner padding */
+  margin-top: 128px;             /* gap between card and partners */
+  display: flex;
+  flex-direction: column;
+  gap: 64px;                     /* gap between line1 and line2 */
+  overflow: hidden;
+}
+
+.s2-marquee {
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.s2-marquee-list {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 90px;
+  padding-right: 90px; /* keep gap when looping */
+  will-change: transform;
+}
+
+.s2-marquee--left .s2-marquee-list {
+  animation: s2MarqueeLeft 60s linear infinite;
+}
+.s2-marquee--right .s2-marquee-list {
+  animation: s2MarqueeRight 60s linear infinite;
+}
+
+@keyframes s2MarqueeLeft {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-100%, 0, 0); }
+}
+@keyframes s2MarqueeRight {
+  from { transform: translate3d(-100%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+.s2-marquee-list li {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s2-logo {
+  width: var(--w, 100px);
+  height: var(--h, 24px);
+  object-fit: contain;
+  object-position: center;
+  flex-shrink: 0;
+  display: block;
+  opacity: 0.85;
+  transition: opacity 0.25s ease;
+}
+.s2-logo:hover { opacity: 1; }
+
+/* Pause on hover */
+.s2-marquee:hover .s2-marquee-list {
+  animation-play-state: paused;
+}
+
+/* ============================================================
+   Reduced motion
+============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-line-inner,
+  .reveal-up,
+  .card-reveal,
+  .num-inner,
+  .s2-marquee-list {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   Responsive
+============================================================ */
+@media (max-width: 1024px) {
+  .s2-card-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    padding: 24px 12px 32px;
+  }
+  .s2-divider { display: none; }
+  .s2-stat-num { font-size: 36px; }
+  .s2-stat-num .num-unit,
+  .s2-stat-num .num-unit--plus { font-size: 26px; }
+  .s2-stat-lbl { font-size: 18px; width: auto; left: 12px; right: 12px; }
+}
+
+@media (max-width: 768px) {
+  .section2 { padding: 100px 0 64px; }
+  .s2-card { height: auto; }
+  .s2-card-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 20px;
+    padding: 32px 20px;
+    height: auto;
+  }
+  .s2-stat {
+    height: auto;
+    min-height: 180px;
+  }
+  .s2-stat-num,
+  .s2-stat-lbl {
+    position: static;
+    transform: none;
+  }
+  .s2-stat-num { margin-bottom: 24px; }
+  .s2-stat-lbl {
+    margin: 0;
+    width: 100%;
+    text-align: left;
+  }
+  .s2-partners { gap: 48px; }
+}

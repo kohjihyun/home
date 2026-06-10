@@ -1,0 +1,111 @@
+/* ================================================================
+   Section 1 — Orange brand-keyword marquee
+   Figma: 1440 × 82, bg #e52006
+   - 8 items: icon (16x16) + text (Inter, 18px, white)
+   - icon ↔ text gap: 8px
+   - item ↔ item gap: 72px
+   - Infinite leftward scroll (CSS keyframe marquee)
+================================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #111;
+  font-family: 'Inter', 'Pretendard', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+img, svg { display: block; max-width: 100%; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+:root {
+  --primary-orange: #e52006;
+  --s1-gap: 72px;          /* gap between items */
+  --s1-icon-gap: 8px;      /* gap between icon and text */
+  --s1-speed: 40s;         /* one full loop duration */
+}
+
+/* ============================================================
+   Section shell
+============================================================ */
+.section1 {
+  position: relative;
+  width: 100%;
+  height: 82px;
+  background: var(--primary-orange);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* ============================================================
+   Marquee track
+   Two duplicate <ul> groups sit side by side and slide left by
+   exactly one group width — seamless infinite loop.
+============================================================ */
+.section1-track {
+  display: flex;
+  align-items: center;
+  width: max-content;            /* let inner groups define width */
+  flex-shrink: 0;
+  animation: section1Marquee var(--s1-speed) linear infinite;
+  will-change: transform;
+}
+
+.section1-list {
+  display: flex;
+  align-items: center;
+  gap: var(--s1-gap);
+  flex-shrink: 0;
+  padding-right: var(--s1-gap); /* keep gap between Group A's last item and Group B's first */
+}
+
+.section1-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1-icon-gap);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;             /* All items share the same weight */
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.section1-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  object-fit: contain;
+  display: block;
+}
+
+/* ============================================================
+   Marquee animation
+   Translate by -50% of track width — since the track is two
+   identical groups, -50% lands Group B exactly where Group A was.
+============================================================ */
+@keyframes section1Marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Pause on hover (optional UX) */
+.section1:hover .section1-track {
+  animation-play-state: paused;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .section1-track {
+    animation: none;
+  }
+}

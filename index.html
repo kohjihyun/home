@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ICB — Cross-Border Fintech Leading Company</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Pretendard via Adobe Fonts (swap YOUR_KIT_ID with your kit) + jsDelivr fallback -->
+  <link rel="stylesheet" href="https://use.typekit.net/YOUR_KIT_ID.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+
+  <!-- Section CSS (load in section order) -->
+  <link rel="stylesheet" href="./css/hero.css" />
+  <link rel="stylesheet" href="./css/section1.css" />
+  <link rel="stylesheet" href="./css/section2.css" />
+  <link rel="stylesheet" href="./css/section3.css" />
+  <link rel="stylesheet" href="./css/section4-5.css" />
+  <link rel="stylesheet" href="./css/section6.css" />
+  <link rel="stylesheet" href="./css/section7.css" />
+  <link rel="stylesheet" href="./css/footer.css" />
+  <!-- Index-level overrides (loaded last so it wins) -->
+  <link rel="stylesheet" href="./css/index.css" />
+
+  <!-- Spline 3D viewer (used by section4-5 and section7) — load once -->
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.97/build/spline-viewer.js"></script>
+</head>
+<body>
+
+  <!-- ============================================================
+       Global GNB — fixed to viewport while scrolling (Figma 1:416)
+  ============================================================ -->
+  <header class="hero-gnb-wrap is-fixed" data-name="GNB">
+    <div class="hero-gnb">
+      <a href="#" class="hero-gnb__logo" aria-label="ICB Home" data-name="ICB_logo">
+        <img src="./assets/svg/ICB_logo.svg" alt="ICB" />
+      </a>
+
+      <nav class="hero-gnb__menu" aria-label="Primary">
+        <a href="#" class="hero-gnb__menu-item" data-menu="personal">PERSONAL</a>
+        <a href="#" class="hero-gnb__menu-item" data-menu="business">BUSINESS</a>
+        <a href="#" class="hero-gnb__menu-item" data-menu="company">COMPANY</a>
+      </nav>
+
+      <div class="hero-gnb__actions">
+        <button type="button" class="hero-gnb__lang" data-name="EN">
+          <span>EN</span>
+          <img src="./assets/svg/arrow-down.svg" alt="" aria-hidden="true" />
+        </button>
+        <a href="#" class="hero-gnb__contact">CONTACT</a>
+      </div>
+    </div>
+
+    <!-- Sub-panels -->
+    <div class="hero-gnb__sub" data-name="GNB-Personal" data-sub="personal" aria-hidden="true">
+      <ul class="hero-gnb__sub-list">
+        <li><a href="#">Remittance</a></li>
+      </ul>
+    </div>
+    <div class="hero-gnb__sub" data-name="GNB-Business" data-sub="business" aria-hidden="true">
+      <ul class="hero-gnb__sub-list">
+        <li><a href="#">Cross border Payment</a></li>
+        <li><a href="#">BtoB Settlement</a></li>
+        <li><a href="#">Prepaid card</a></li>
+        <li><a href="#">Payment link</a></li>
+      </ul>
+    </div>
+    <div class="hero-gnb__sub" data-name="GNB-Company" data-sub="company" aria-hidden="true">
+      <ul class="hero-gnb__sub-list">
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Our culture</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Media</a></li>
+        <li><a href="#">CI</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       HERO (Figma 1:328)
+  ============================================================ -->
+  <section id="hero" class="hero" data-name="Hero">
+    <div class="hero-video" data-name="Video" aria-hidden="true">
+      <div class="hero-video__area" data-name="video-area">
+        <video class="hero-video__media" data-name="hero-video.mp4"
+               src="./assets/video/hero-video.mp4" autoplay loop muted playsinline></video>
+        <div class="hero-video__color2" data-name="color2"></div>
+        <div class="hero-video__color"  data-name="color"></div>
+        <div class="hero-video__color3" data-name="color3"></div>
+      </div>
+    </div>
+
+    <div class="hero-title-wrap" data-name="Hero Title EN">
+      <h1 class="hero-title">
+        <span class="hero-line"><span class="hero-line-inner">Cross-Border</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">Fintech</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.24s">Leading Company</span></span>
+      </h1>
+      <p class="hero-sub">
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.42s">ICB is a cross-border payment and settlement infrastructure company for platforms and enterprises.</span></span>
+      </p>
+    </div>
+
+    <div class="hero-scroll" data-name="scroll" aria-hidden="true">
+      <span class="hero-scroll__text">SCROLL</span>
+      <span class="hero-scroll__line"></span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 1 — Orange brand-keyword marquee
+  ============================================================ -->
+  <section id="section1" class="section1" data-name="section1" aria-label="Brand keywords">
+    <div class="section1-track" data-marquee>
+      <ul class="section1-list">
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-seamless.svg" alt="" /><span>Seamless</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-payments.svg" alt="" /><span>Payments</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-growth.svg" alt="" /><span>Growth</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-access.svg" alt="" /><span>Access</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-fintech.svg" alt="" /><span>Fintech</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-expansion.svg" alt="" /><span>Expansion</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-reach.svg" alt="" /><span>Reach</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-infrastructure.svg" alt="" /><span>Infrastructure</span></li>
+      </ul>
+      <ul class="section1-list" aria-hidden="true">
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-seamless.svg" alt="" /><span>Seamless</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-payments.svg" alt="" /><span>Payments</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-growth.svg" alt="" /><span>Growth</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-access.svg" alt="" /><span>Access</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-fintech.svg" alt="" /><span>Fintech</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-expansion.svg" alt="" /><span>Expansion</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-reach.svg" alt="" /><span>Reach</span></li>
+        <li class="section1-item"><img class="section1-icon" src="./assets/svg/icon-infrastructure.svg" alt="" /><span>Infrastructure</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — Trust Indicators (stats card + partners marquees)
+  ============================================================ -->
+  <section id="section2" class="section2" data-name="section2">
+    <div class="s2-inner">
+      <span class="s2-tag reveal-up" data-name="tag">Trust Indicators</span>
+      <h2 class="s2-title section-title-reveal" data-name="title">
+        <span class="reveal-line"><span class="reveal-line-inner">Why Partners Trust Us</span></span>
+      </h2>
+
+      <div class="s2-card card-reveal" data-name="card">
+        <div class="s2-card-bg" aria-hidden="true">
+          <img src="./assets/svg/partners/bg-card.svg" alt="" />
+        </div>
+        <div class="s2-card-grid">
+          <div class="s2-stat" data-idx="0">
+            <p class="s2-stat-num"><span class="num-clip"><span class="num-inner">1.5B<span class="num-unit"> USD</span></span></span></p>
+            <p class="s2-stat-lbl">Annual Transaction Volume</p>
+          </div>
+          <div class="s2-divider" aria-hidden="true"></div>
+          <div class="s2-stat" data-idx="1">
+            <p class="s2-stat-num"><span class="num-clip"><span class="num-inner">2.1M</span></span></p>
+            <p class="s2-stat-lbl">QR Payment Locations</p>
+          </div>
+          <div class="s2-divider" aria-hidden="true"></div>
+          <div class="s2-stat" data-idx="2">
+            <p class="s2-stat-num"><span class="num-clip"><span class="num-inner">30K<span class="num-unit num-unit--plus">+</span></span></span></p>
+            <p class="s2-stat-lbl">Directly Contracted Merchants</p>
+          </div>
+          <div class="s2-divider" aria-hidden="true"></div>
+          <div class="s2-stat" data-idx="3">
+            <p class="s2-stat-num"><span class="num-clip"><span class="num-inner">18</span></span></p>
+            <p class="s2-stat-lbl">Payment Affiliate Country</p>
+          </div>
+          <div class="s2-divider" aria-hidden="true"></div>
+          <div class="s2-stat" data-idx="4">
+            <p class="s2-stat-num"><span class="num-clip"><span class="num-inner">35</span></span></p>
+            <p class="s2-stat-lbl">Global Payment Methods</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="s2-partners" data-name="partners">
+        <div class="s2-marquee s2-marquee--left" data-marquee="left">
+          <ul class="s2-marquee-list">
+            <li><img class="s2-logo" style="--w:109px;--h:18px" src="./assets/svg/partners/alipay-plus.svg" alt="Alipay+" /></li>
+            <li><img class="s2-logo" style="--w:118px;--h:26px" src="./assets/svg/partners/unionpay.svg" alt="UnionPay" /></li>
+            <li><img class="s2-logo" style="--w:159px;--h:18px" src="./assets/svg/partners/western-union.svg" alt="Western Union" /></li>
+            <li><img class="s2-logo" style="--w:59px;--h:20px"  src="./assets/svg/partners/paypal.svg" alt="PayPal" /></li>
+            <li><img class="s2-logo" style="--w:95px;--h:20px"  src="./assets/svg/partners/yoomoney.svg" alt="YooMoney" /></li>
+            <li><img class="s2-logo" style="--w:89px;--h:28px"  src="./assets/svg/partners/wechat-pay.svg" alt="WeChat Pay" /></li>
+            <li><img class="s2-logo" style="--w:65px;--h:24px"  src="./assets/svg/partners/kakao-pay.svg" alt="Kakao Pay" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:78px;--h:24px"  src="./assets/img/partners/pingpong.png" alt="PingPong" /></li>
+            <li><img class="s2-logo" style="--w:74px;--h:26px"  src="./assets/svg/partners/alipay-cn.svg" alt="Alipay" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:90px;--h:20px"  src="./assets/img/partners/thunes.png" alt="Thunes" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:100px;--h:20px" src="./assets/img/partners/lianlian-pay.png" alt="LianLian Pay" /></li>
+            <li><img class="s2-logo" style="--w:86px;--h:26px"  src="./assets/svg/partners/thai-qr.svg" alt="Thai QR" /></li>
+            <li><img class="s2-logo" style="--w:52px;--h:28px"  src="./assets/svg/partners/xnap.svg" alt="xnap" /></li>
+            <li><img class="s2-logo" style="--w:82px;--h:28px"  src="./assets/svg/partners/hivex.svg" alt="HIVEX" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:115px;--h:24px" src="./assets/img/partners/coral-global.png" alt="Coral Global" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:132px;--h:24px" src="./assets/img/partners/metrobank.png" alt="Metrobank" /></li>
+          </ul>
+          <ul class="s2-marquee-list" aria-hidden="true">
+            <li><img class="s2-logo" style="--w:109px;--h:18px" src="./assets/svg/partners/alipay-plus.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:118px;--h:26px" src="./assets/svg/partners/unionpay.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:159px;--h:18px" src="./assets/svg/partners/western-union.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:59px;--h:20px"  src="./assets/svg/partners/paypal.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:95px;--h:20px"  src="./assets/svg/partners/yoomoney.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:89px;--h:28px"  src="./assets/svg/partners/wechat-pay.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:65px;--h:24px"  src="./assets/svg/partners/kakao-pay.svg" alt="" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:78px;--h:24px"  src="./assets/img/partners/pingpong.png" alt="" /></li>
+            <li><img class="s2-logo" style="--w:74px;--h:26px"  src="./assets/svg/partners/alipay-cn.svg" alt="" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:90px;--h:20px"  src="./assets/img/partners/thunes.png" alt="" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:100px;--h:20px" src="./assets/img/partners/lianlian-pay.png" alt="" /></li>
+            <li><img class="s2-logo" style="--w:86px;--h:26px"  src="./assets/svg/partners/thai-qr.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:52px;--h:28px"  src="./assets/svg/partners/xnap.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:82px;--h:28px"  src="./assets/svg/partners/hivex.svg" alt="" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:115px;--h:24px" src="./assets/img/partners/coral-global.png" alt="" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:132px;--h:24px" src="./assets/img/partners/metrobank.png" alt="" /></li>
+          </ul>
+        </div>
+
+        <div class="s2-marquee s2-marquee--right" data-marquee="right">
+          <ul class="s2-marquee-list">
+            <li><img class="s2-logo" style="--w:95px;--h:14px"  src="./assets/svg/partners/cuckoo.svg" alt="CUCKOO" /></li>
+            <li><img class="s2-logo" style="--w:42px;--h:18px"  src="./assets/svg/partners/11st.svg" alt="11번가" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:35px;--h:32px"  src="./assets/img/partners/lotte-duty-free.png" alt="Lotte Duty Free" /></li>
+            <li><img class="s2-logo" style="--w:98px;--h:22px"  src="./assets/svg/partners/shinsegae.svg" alt="Shinsegae" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:74px;--h:32px"  src="./assets/img/partners/shilla-duty-free.png" alt="Shilla Duty Free" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:116px;--h:24px" src="./assets/img/partners/hyundai-duty-free.png" alt="Hyundai Duty Free" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:22px;--h:28px"  src="./assets/img/partners/gtog.png" alt="gtog" /></li>
+            <li><img class="s2-logo" style="--w:102px;--h:20px" src="./assets/svg/partners/lg-h-h.svg" alt="LG생활건강" /></li>
+            <li><img class="s2-logo" style="--w:157px;--h:14px" src="./assets/svg/partners/public-beacon.svg" alt="Public Beacon" /></li>
+            <li><img class="s2-logo" style="--w:161px;--h:16px" src="./assets/svg/partners/amorepacific.svg" alt="Amorepacific" /></li>
+            <li><img class="s2-logo" style="--w:58px;--h:32px"  src="./assets/svg/partners/diesel.svg" alt="Diesel" /></li>
+            <li><img class="s2-logo" style="--w:56px;--h:20px"  src="./assets/svg/partners/nike.svg" alt="Nike" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:46px;--h:46px"  src="./assets/img/partners/polo.png" alt="Polo Ralph Lauren" /></li>
+            <li><img class="s2-logo" style="--w:48px;--h:32px"  src="./assets/svg/partners/adidas.svg" alt="Adidas" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:56px;--h:36px"  src="./assets/img/partners/marithe.png" alt="Marithé" /></li>
+          </ul>
+          <ul class="s2-marquee-list" aria-hidden="true">
+            <li><img class="s2-logo" style="--w:95px;--h:14px"  src="./assets/svg/partners/cuckoo.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:42px;--h:18px"  src="./assets/svg/partners/11st.svg" alt="" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:35px;--h:32px"  src="./assets/img/partners/lotte-duty-free.png" alt="" /></li>
+            <li><img class="s2-logo" style="--w:98px;--h:22px"  src="./assets/svg/partners/shinsegae.svg" alt="" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:74px;--h:32px"  src="./assets/img/partners/shilla-duty-free.png" alt="" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:116px;--h:24px" src="./assets/img/partners/hyundai-duty-free.png" alt="" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:22px;--h:28px"  src="./assets/img/partners/gtog.png" alt="" /></li>
+            <li><img class="s2-logo" style="--w:102px;--h:20px" src="./assets/svg/partners/lg-h-h.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:157px;--h:14px" src="./assets/svg/partners/public-beacon.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:161px;--h:16px" src="./assets/svg/partners/amorepacific.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:58px;--h:32px"  src="./assets/svg/partners/diesel.svg" alt="" /></li>
+            <li><img class="s2-logo" style="--w:56px;--h:20px"  src="./assets/svg/partners/nike.svg" alt="" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:46px;--h:46px"  src="./assets/img/partners/polo.png" alt="" /></li>
+            <li><img class="s2-logo" style="--w:48px;--h:32px"  src="./assets/svg/partners/adidas.svg" alt="" /></li>
+            <li><img class="s2-logo s2-logo--png" style="--w:56px;--h:36px"  src="./assets/img/partners/marithe.png" alt="" /></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 — Business Services (hover-flip cards)
+  ============================================================ -->
+  <section id="section3" class="section3" data-name="section3">
+    <div class="s3-inner">
+      <span class="s3-tag reveal-up" data-name="tag">Business Services</span>
+      <h2 class="s3-title section-title-reveal" data-name="title">
+        <span class="reveal-line"><span class="reveal-line-inner">One Platform.</span></span>
+        <span class="reveal-line"><span class="reveal-line-inner" style="--delay:.15s">Every Payment.</span></span>
+      </h2>
+
+      <div class="s3-cards" data-name="cards-hover">
+        <article class="s3-card" data-idx="0" data-name="payment" style="--overlay-color:#00021a; --overlay-opacity:.7">
+          <video class="s3-card__video" src="./assets/video/business-globe.mp4" autoplay loop muted playsinline></video>
+          <div class="s3-card__overlay" aria-hidden="true"></div>
+          <div class="s3-card__cover" aria-hidden="true"></div>
+          <span class="s3-card__corner" aria-hidden="true"><img src="./assets/svg/icon-arrow.svg" alt="" /></span>
+          <span class="s3-card__icon"><img src="./assets/svg/icon-globe.svg" alt="" /></span>
+          <h3 class="s3-card__title">Cross-Border Payment</h3>
+          <p class="s3-card__desc">Integrated global payment infrastructure.</p>
+        </article>
+
+        <article class="s3-card" data-idx="1" data-name="B2B" style="--overlay-color:#000413; --overlay-opacity:.8">
+          <video class="s3-card__video" src="./assets/video/business-btob.mp4" autoplay loop muted playsinline></video>
+          <div class="s3-card__overlay" aria-hidden="true"></div>
+          <div class="s3-card__cover" aria-hidden="true"></div>
+          <span class="s3-card__corner" aria-hidden="true"><img src="./assets/svg/icon-arrow.svg" alt="" /></span>
+          <span class="s3-card__icon"><img src="./assets/svg/icon-btb.svg" alt="" /></span>
+          <h3 class="s3-card__title">B2B Settlement</h3>
+          <p class="s3-card__desc">Fast and accurate B2B trade settlement.</p>
+        </article>
+
+        <article class="s3-card" data-idx="2" data-name="card" style="--overlay-color:#292336; --overlay-opacity:.5">
+          <video class="s3-card__video" src="./assets/video/business-card.mp4" autoplay loop muted playsinline></video>
+          <div class="s3-card__overlay" aria-hidden="true"></div>
+          <div class="s3-card__cover" aria-hidden="true"></div>
+          <span class="s3-card__corner" aria-hidden="true"><img src="./assets/svg/icon-arrow.svg" alt="" /></span>
+          <span class="s3-card__icon"><img src="./assets/svg/icon-credit-card.svg" alt="" /></span>
+          <h3 class="s3-card__title">Prepaid Card</h3>
+          <p class="s3-card__desc">Customized corporate prepaid solutions.</p>
+        </article>
+
+        <article class="s3-card" data-idx="3" data-name="link" style="--overlay-color:#1c1f35; --overlay-opacity:.5">
+          <video class="s3-card__video" src="./assets/video/business-link.mp4" autoplay loop muted playsinline></video>
+          <div class="s3-card__overlay" aria-hidden="true"></div>
+          <div class="s3-card__cover" aria-hidden="true"></div>
+          <span class="s3-card__corner" aria-hidden="true"><img src="./assets/svg/icon-arrow.svg" alt="" /></span>
+          <span class="s3-card__icon"><img src="./assets/svg/icon-message.svg" alt="" /></span>
+          <h3 class="s3-card__title">Payment Link</h3>
+          <p class="s3-card__desc">Simple remote payment via shareable links.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4-5 — Licenses & Patents (Spline bg + carousels)
+  ============================================================ -->
+  <section id="section4-5" class="s45" data-name="section4-5">
+    <div class="s45-bg" aria-hidden="true">
+      <spline-viewer
+        class="s45-spline"
+        url="https://prod.spline.design/Jl8-IW-mOCy2zN3A/scene.splinecode"
+        loading-anim-type="spinner-small-light"
+      ></spline-viewer>
+    </div>
+
+    <div class="s45-block s45-block--licenses" data-name="section4">
+      <span class="s45-tag reveal-up" data-name="tag">Licenses &amp; Patents</span>
+      <h2 class="s45-title section-title-reveal" data-name="section4-title">
+        <span class="reveal-line"><span class="reveal-line-inner">Electronic Financial Licenses</span></span>
+      </h2>
+      <p class="s45-sub reveal-up" style="--delay:.2s">Licensed to power secure global payments</p>
+      <div class="carosel-area" data-carosel="1">
+        <div class="carosel-page">
+          <div class="carosel-glow" aria-hidden="true"></div>
+          <div class="carosel-scene" data-scene="1"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="s45-block s45-block--patents" data-name="section5">
+      <h2 class="s45-title section-title-reveal" data-name="section5-title">
+        <span class="reveal-line"><span class="reveal-line-inner">Intellectual Property</span></span>
+        <span class="reveal-line"><span class="reveal-line-inner" style="--delay:.14s">&amp; Patents</span></span>
+      </h2>
+      <p class="s45-sub reveal-up" style="--delay:.2s">Patented technology for smarter digital commerce</p>
+      <div class="carosel-area" data-carosel="2">
+        <div class="carosel-page">
+          <div class="carosel-glow" aria-hidden="true"></div>
+          <div class="carosel-scene" data-scene="2"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6 — Personal Service / Remittance
+  ============================================================ -->
+  <section id="section6" class="s6" data-name="section6">
+    <div class="s6-inner">
+      <div class="s6-text">
+        <span class="s6-tag reveal-up" data-name="tag">Personal Service</span>
+        <div class="s6-title-block" data-name="title">
+          <p class="s6-eyebrow"><span class="reveal-line"><span class="reveal-line-inner">Fast · Secure· Simple</span></span></p>
+          <h2 class="s6-title"><span class="reveal-line"><span class="reveal-line-inner" style="--delay:.12s">Remittance</span></span></h2>
+          <p class="s6-desc"><span class="reveal-line"><span class="reveal-line-inner" style="--delay:.28s">Fast and reliable international transfers</span></span></p>
+        </div>
+        <div class="s6-stores reveal-up" data-name="app download" style="--delay:.4s">
+          <a href="#" class="s6-store" aria-label="Get it on Google Play"><img src="./assets/svg/google-play.svg" alt="Get it on Google Play" /></a>
+          <a href="#" class="s6-store" aria-label="Download on the App Store"><img src="./assets/svg/app-store.svg" alt="Download on the App Store" /></a>
+        </div>
+      </div>
+
+      <div class="s6-video" data-name="video" aria-hidden="true">
+        <div class="s6-video__stack">
+          <video class="s6-video__media" src="./assets/video/debunk-video.mp4" autoplay loop muted playsinline></video>
+          <div class="s6-video__layer s6-video__layer--screen"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 7 — What's New (Spline bg + announcements)
+  ============================================================ -->
+  <section id="section7" class="s7" data-name="section7">
+    <div class="s7-bg" data-name="bg-embed7" aria-hidden="true">
+      <spline-viewer
+        class="s7-spline"
+        url="https://prod.spline.design/oxqJj48C3ZKWemuk/scene.splinecode"
+        loading-anim-type="spinner-small-light"
+      ></spline-viewer>
+    </div>
+
+    <div class="s7-inner">
+      <span class="s7-tag reveal-up" data-name="tag">What's New</span>
+      <h2 class="s7-title section-title-reveal" data-name="title">
+        <span class="reveal-line"><span class="reveal-line-inner">News &amp; Media</span></span>
+      </h2>
+
+      <ul class="s7-list" data-name="list">
+        <li class="s7-item reveal-up" style="--delay:.05s">
+          <a href="#" class="s7-item__link">
+            <span class="s7-item__date">2025. 12. 05</span>
+            <span class="s7-item__title">제3자배정 신주발행 공고</span>
+            <span class="s7-item__arrow" aria-hidden="true"><img src="./assets/svg/icon-arrow-list.svg" alt="" /></span>
+          </a>
+        </li>
+        <li class="s7-item reveal-up" style="--delay:.12s">
+          <a href="#" class="s7-item__link">
+            <span class="s7-item__date">2025. 12. 05</span>
+            <span class="s7-item__title">㈜아이씨비 ‘영상정보처리리기 운영 관리방침’ 변경에 대한 안내</span>
+            <span class="s7-item__arrow" aria-hidden="true"><img src="./assets/svg/icon-arrow-list.svg" alt="" /></span>
+          </a>
+        </li>
+        <li class="s7-item reveal-up" style="--delay:.19s">
+          <a href="#" class="s7-item__link">
+            <span class="s7-item__date">2025. 12. 05</span>
+            <span class="s7-item__title">[공지] 전자금융거래 이용약관 개정 안내</span>
+            <span class="s7-item__arrow" aria-hidden="true"><img src="./assets/svg/icon-arrow-list.svg" alt="" /></span>
+          </a>
+        </li>
+        <li class="s7-item reveal-up" style="--delay:.26s">
+          <a href="#" class="s7-item__link">
+            <span class="s7-item__date">2025. 12. 05</span>
+            <span class="s7-item__title">㈜아이씨비 ‘개인정보 처리방침’ 변경에 대한 안내</span>
+            <span class="s7-item__arrow" aria-hidden="true"><img src="./assets/svg/icon-arrow-list.svg" alt="" /></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer id="footer" class="ft" data-name="footer">
+    <div class="ft-inner">
+      <a href="#" class="ft-logo" aria-label="ICB Home" data-name="ICB_logo">
+        <img src="./assets/svg/ICB_logo_white.svg" alt="ICB" />
+      </a>
+
+      <div class="ft-row ft-row--sitemap">
+        <div class="ft-col">
+          <p class="ft-col__title">Personal</p>
+          <ul class="ft-col__list">
+            <li><a href="#">Remittance</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <p class="ft-col__title">Business</p>
+          <ul class="ft-col__list">
+            <li><a href="#">Cross-Border Payment</a></li>
+            <li><a href="#">B2B Settlement</a></li>
+            <li><a href="#">Prepaid Card</a></li>
+            <li><a href="#">Payment Link</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <p class="ft-col__title">Company</p>
+          <ul class="ft-col__list">
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Our culture</a></li>
+            <li><a href="#">Carears</a></li>
+            <li><a href="#">Media</a></li>
+            <li><a href="#">CI</a></li>
+          </ul>
+        </div>
+        <div class="ft-col ft-col--contact">
+          <a href="#" class="ft-contact" data-name="CONTACT">CONTACT</a>
+        </div>
+      </div>
+
+      <ul class="ft-legal" data-name="legal">
+        <li><a href="#">Privacy Polocy</a></li>
+        <li><a href="#">Digital Finance Business User Security Guide</a></li>
+        <li><a href="#">Ethical Management Policy</a></li>
+        <li><a href="#">Electronic Financial Transaction Terms and Conditions</a></li>
+      </ul>
+
+      <div class="ft-info" data-name="info">
+        <span class="ft-info__phone">+82.2.332.1880</span>
+        <span class="ft-info__addr">7th- 8th Floor, 22, World Cup buk-ro, Mapo-gu, Seoul (03992)</span>
+        <span class="ft-info__copy">© ICB Inc. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       Scripts — one per section
+  ============================================================ -->
+  <script src="./js/hero.js"></script>
+  <script src="./js/section1.js"></script>
+  <script src="./js/section2.js"></script>
+  <script src="./js/section3.js"></script>
+  <script src="./js/section4-5.js"></script>
+  <script src="./js/section6.js"></script>
+  <script src="./js/section7.js"></script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+/* ================================================================
+   Section 3 — "One Platform. Every Payment."
+   - Tag + headline
+   - 4 hover-flip cards (front = orange / back = video)
+   - On scroll-in: cards rise from below showing BACK,
+     then rotate to FRONT as they arrive
+   - On hover (after reveal): rotate back to BACK
+================================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: rgba(221, 231, 238, 0.4);
+  color: #233965;
+  font-family: 'Inter', 'Pretendard', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+
+:root {
+  --redorange-500: #ea4109;
+  --primary-orange: #e52006;
+  --navy: #233965;
+}
+
+/* ============================================================
+   Section shell
+   Figma: bg rgba(221,231,238,0.4)
+============================================================ */
+.section3 {
+  position: relative;
+  width: 100%;
+  background: rgba(221, 231, 238, 0.4);
+  padding: 160px 0 140px;
+  overflow: hidden;
+}
+
+.s3-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5.5vw, 160px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ============================================================
+   Tag pill
+============================================================ */
+.s3-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 20px;
+  background: var(--redorange-500);
+  border-radius: 31px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.14px;
+  color: #fff;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Title
+   Figma: Inter Light 64px, line-height 1.2, color #233965
+============================================================ */
+.s3-title {
+  margin: clamp(40px, 6vw, 80px) 0 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300; /* Light */
+  font-size: clamp(40px, 5.6vw, 64px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+  text-align: center;
+  max-width: 1120px;
+}
+
+/* ============================================================
+   Reveal helpers — shared with hero/section2 style
+============================================================ */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+  line-height: inherit;
+  padding-bottom: 0.22em; /* descenders visible */
+}
+.reveal-line-inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
+  will-change: transform;
+}
+.section-title-reveal.is-visible .reveal-line-inner {
+  transform: translateY(0);
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16,1,0.3,1) var(--delay, 0s),
+    transform 0.8s cubic-bezier(0.16,1,0.3,1) var(--delay, 0s);
+  will-change: opacity, transform;
+}
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Cards container — 4 cards across, space-between
+============================================================ */
+.s3-cards {
+  width: 100%;
+  max-width: 1120px;
+  margin: clamp(48px, 7vw, 88px) auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 16px;
+}
+
+/* ============================================================
+   Adyen-style card — no 3D, simple stacking + cross-fade hover
+   Stack (bottom → top):
+     1. <video>            video always present, plays on loop
+     2. .s3-card__overlay  per-card colored tint over video
+     3. .s3-card__cover    opaque orange — fades out on hover
+     4. content            icon, arrow, title, desc (always on top)
+   On hover: card lifts slightly, .s3-card__cover fades to 0
+   so the video underneath is revealed.
+============================================================ */
+.s3-card {
+  position: relative;
+  flex: 1 1 0;
+  max-width: 272px;
+  height: 464px;
+  border-radius: 4px;
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateY(80px);
+  opacity: 0;
+  transition:
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.55s ease,
+    box-shadow 0.4s ease;
+  will-change: transform, opacity;
+}
+
+.s3-card.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.s3-card.is-visible:hover,
+.s3-card.is-visible:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px -20px rgba(20, 30, 60, 0.35);
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease;
+}
+
+/* Layer 1 — Video (always renders, autoplays) */
+.s3-card__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Per-card focal point — Figma framing */
+.s3-card[data-idx="0"] .s3-card__video { object-position: 37% 57%; }
+.s3-card[data-idx="1"] .s3-card__video { object-position: 36% 43%; }
+.s3-card[data-idx="2"] .s3-card__video { object-position: 35% 50%; }
+.s3-card[data-idx="3"] .s3-card__video { object-position: 39% 50%; }
+
+/* Layer 2 — Colored overlay tint over video */
+.s3-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-color, #00021a);
+  opacity: var(--overlay-opacity, 0.7);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Layer 3 — Orange cover.
+   Initial fade-in uses a CSS animation (with its own delay) so it
+   doesn't fight with the snappy hover/un-hover transition. */
+.s3-card__cover {
+  position: absolute;
+  inset: 0;
+  background: var(--primary-orange);
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.s3-card.is-visible .s3-card__cover {
+  opacity: 1;
+  animation: s3CoverIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+}
+
+@keyframes s3CoverIn {
+  from { opacity: 0; }
+}
+
+.s3-card.is-visible:hover .s3-card__cover,
+.s3-card.is-visible:focus-within .s3-card__cover {
+  opacity: 0;
+  animation: none;
+}
+
+/* ============================================================
+   Card content (icon, title, desc, corner arrow)
+   Figma exact positions inside the 272x464 card
+============================================================ */
+.s3-card__corner {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 20px;
+  height: 20px;
+  z-index: 4;
+  display: block;
+}
+.s3-card__corner img { width: 100%; height: 100%; display: block; }
+
+.s3-card__icon {
+  position: absolute;
+  top: 156px;
+  left: 32px;
+  width: 20px;
+  height: 20px;
+  z-index: 4;
+  display: block;
+}
+.s3-card__icon img { width: 100%; height: 100%; display: block; }
+
+.s3-card__title {
+  position: absolute;
+  top: 192px;
+  left: 32px;
+  margin: 0;
+  width: 195px;
+  z-index: 4;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;       /* SemiBold per Figma */
+  font-size: 28px;        /* Figma exact */
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.s3-card__desc {
+  position: absolute;
+  top: 276px;
+  left: 32px;
+  margin: 0;
+  width: 195px;
+  z-index: 4;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;       /* Regular per Figma */
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+/* ============================================================
+   Reduced motion
+============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .s3-card,
+  .s3-card__cover,
+  .reveal-up,
+  .reveal-line-inner {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   Responsive
+============================================================ */
+@media (max-width: 1024px) {
+  .s3-cards {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+  }
+  .s3-card {
+    flex: 0 0 auto;
+    width: calc(50% - 12px);
+    max-width: 360px;
+  }
+  /* Reset video framing on smaller screens — keep it centered */
+  .s3-card .s3-card__video {
+    object-position: center center;
+  }
+}
+
+@media (max-width: 600px) {
+  .section3 { padding: 100px 0 80px; }
+  .s3-cards { gap: 16px; }
+  .s3-card { width: 100%; }
+}

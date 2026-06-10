@@ -1,0 +1,250 @@
+/* ================================================================
+   Section 7 — What's New / Latest announcements
+   Figma: 1440 × 911, dark bg #0d1426
+   Background image (Figma "image 28") replaced with a Spline scene.
+================================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #0d1426;
+  color: #fff;
+  font-family: 'Inter', 'Pretendard Variable', 'Pretendard', 'pretendard', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+:root {
+  --redorange-500: #ea4109;
+  --divider: #32455e;
+}
+
+/* ============================================================
+   Section shell
+============================================================ */
+.s7 {
+  position: relative;
+  width: 100%;
+  min-height: 911px;
+  overflow: hidden;
+  padding: 152px 0 120px;
+}
+
+/* Spline 3D background fills the section, behind all content */
+.s7-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.s7-spline {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: auto;
+  cursor: default;
+}
+
+/* ============================================================
+   Content
+   pointer-events:none lets mouse moves pass straight through the
+   text/UI down to the Spline canvas (so it reacts instantly).
+   Interactive children (list links) re-enable pointer-events.
+============================================================ */
+.s7-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+/* Re-enable interaction on the actual clickable elements */
+.s7-tag,
+.s7-item__link {
+  pointer-events: auto;
+}
+
+.s7-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 20px;
+  background: var(--redorange-500);
+  border-radius: 31px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Title — Inter ExtraLight 48px
+   Figma tracking -0.96px @ 48px = -0.02em */
+.s7-title {
+  margin: 32px 0 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 200;
+  font-size: clamp(32px, 4.2vw, 48px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-align: center;
+  max-width: 720px;
+}
+
+/* ============================================================
+   Reveal helpers
+============================================================ */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+  line-height: inherit;
+  padding-bottom: 0.22em;
+}
+.reveal-line-inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
+  will-change: transform;
+}
+.section-title-reveal.is-visible .reveal-line-inner {
+  transform: translateY(0);
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
+  will-change: opacity, transform;
+}
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Announcement list
+   Figma: 843 × 304, top:449. Each row 64h with bottom border #32455e.
+============================================================ */
+.s7-list {
+  width: 100%;
+  max-width: 843px;
+  margin-top: clamp(56px, 8vw, 104px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.s7-item {
+  border-bottom: 1px solid var(--divider);
+}
+
+.s7-item__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  color: #fff;
+  transition: background-color 0.15s ease;
+  will-change: background-color;
+}
+
+.s7-item__link:hover,
+.s7-item__link:focus-visible {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.s7-item__date {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300; /* Light */
+  font-size: 14px;
+  letter-spacing: -0.05em;
+  color: #ffffff;
+  flex-shrink: 0;
+  width: 100px;
+}
+
+.s7-item__title {
+  font-family: 'Pretendard Variable', 'Pretendard', 'pretendard', sans-serif;
+  font-weight: 300; /* Light — every item by default */
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  flex: 1;
+  margin-left: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* font-weight change is heavy (re-rasterises glyphs). Snap, don't transition. */
+}
+
+/* Hover/Focus → Regular weight (only state above Light) */
+.s7-item__link:hover .s7-item__title,
+.s7-item__link:focus-visible .s7-item__title {
+  font-weight: 400;
+}
+
+.s7-item__arrow {
+  display: inline-flex;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.s7-item__arrow img { width: 100%; height: 100%; display: block; }
+
+.s7-item__link:hover .s7-item__arrow,
+.s7-item__link:focus-visible .s7-item__arrow {
+  transform: translate3d(4px, 0, 0);
+}
+
+/* ============================================================
+   Reduced motion
+============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-line-inner,
+  .reveal-up,
+  .s7-item__link,
+  .s7-item__arrow {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   Responsive
+============================================================ */
+@media (max-width: 720px) {
+  .s7 { padding: 100px 0 80px; }
+  .s7-list { margin-top: 48px; }
+  .s7-item__link { height: auto; min-height: 64px; padding: 14px 0; flex-wrap: wrap; }
+  .s7-item__title {
+    margin-left: 0;
+    flex-basis: 100%;
+    white-space: normal;
+    font-size: 16px;
+    margin-top: 4px;
+  }
+  .s7-item__arrow { display: none; }
+}

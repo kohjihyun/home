@@ -1,0 +1,303 @@
+/* ================================================================
+   Section 6 — Personal Service / Remittance
+   Figma: 1440 × 805, bg rgba(255,225,213,0.2) — light cream
+   Right-side video (688×500) with two blend-mode overlay layers:
+     · #282f38 mix-blend-mode: screen
+     · transparent base + mix-blend-mode: soft-light
+================================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: rgba(255, 225, 213, 0.2);
+  color: #233965;
+  font-family: 'Inter', 'Pretendard', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+a { color: inherit; text-decoration: none; }
+img, svg, video { display: block; max-width: 100%; }
+
+:root {
+  --redorange-500: #ea4109;
+  --navy: #233965;
+}
+
+/* ============================================================
+   Section shell
+============================================================ */
+.s6 {
+  position: relative;
+  width: 100%;
+  background: rgba(255, 225, 213, 0.2);
+  padding: 152px 0;          /* Figma: Frame 60 top=152, section height 805 → matching bottom */
+  overflow: hidden;
+}
+
+/* Inner content area = Figma "Frame 60" (1120 × 501) */
+.s6-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 80px;            /* simulates Figma 160px section margin at 1440 */
+  height: 501px;
+}
+
+/* ============================================================
+   Left text column — Figma frame slot 0 → 432, height 501
+   Children positioned absolutely to match Figma Y coordinates.
+============================================================ */
+.s6-text {
+  position: absolute;
+  top: 0;
+  left: 80px;                 /* aligns with .s6-inner content edge */
+  width: 432px;
+  height: 100%;
+}
+
+/* tag — Figma (2, 0) within Frame 60 */
+.s6-tag {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 20px;
+  background: var(--redorange-500);
+  border-radius: 31px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.14px;
+  color: #fff;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Title block — Figma (0, 108) 432×183.
+   Inner texts positioned at Figma Y values inside it. */
+.s6-title-block {
+  position: absolute;
+  top: 108px;
+  left: 0;
+  width: 432px;
+  height: 183px;
+  color: var(--navy);
+}
+
+.s6-eyebrow,
+.s6-title,
+.s6-desc {
+  position: absolute;
+  left: 0;
+  margin: 0;
+  color: var(--navy);
+}
+
+/* Fast · Secure · Simple — Figma y:2, 36px Regular */
+.s6-eyebrow {
+  top: 2px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  width: 349px;
+  white-space: nowrap;
+}
+
+/* Remittance — Figma y:41, 72px Light, tracking -3.6px (-0.05em) */
+.s6-title {
+  top: 41px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 72px;
+  letter-spacing: -0.05em;
+  line-height: 1.2;
+  width: 349px;
+  white-space: nowrap;
+}
+
+/* Fast and reliable international transfers — Figma y:133, 16px */
+.s6-desc {
+  top: 133px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  width: 283px;
+}
+
+/* App download badges — Figma (2, 352), 157×108 column */
+.s6-stores {
+  position: absolute;
+  top: 352px;
+  left: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.s6-store {
+  display: block;
+  width: 157px;
+  height: 46px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+.s6-store img { width: 100%; height: 100%; object-fit: contain; }
+
+.s6-store:hover,
+.s6-store:focus-visible {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+/* ============================================================
+   Right — video with two rectangle overlay layers
+   - .s6-video       : sets size, clip + rounded corners
+   - .s6-video__stack: a fresh stacking context (isolation: isolate)
+                       so mix-blend-mode only blends video + layers
+============================================================ */
+/* Video — Figma (432, 0) 688×500, right edge aligned with content area */
+.s6-video {
+  position: absolute;
+  top: 0;
+  right: 80px;                 /* matches .s6-inner right padding */
+  width: 688px;
+  height: 500px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;            /* base color while video loads */
+}
+
+.s6-video__stack {
+  position: absolute;
+  inset: 0;
+  isolation: isolate;          /* scope blend modes to this stack only */
+}
+
+.s6-video__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* Rectangle layer — Figma id 1:530
+   fill: #282f38, mix-blend-mode: screen */
+.s6-video__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+.s6-video__layer--screen {
+  background-color: #282f38;
+  mix-blend-mode: screen;
+}
+
+/* Top layer — black screen overlay (matches hero color3) */
+.s6-video__layer--black {
+  background-color: #000;
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+/* ============================================================
+   Reveal helpers — same pattern as other sections
+============================================================ */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+  line-height: inherit;
+  padding-bottom: 0.22em;
+}
+.reveal-line-inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
+  will-change: transform;
+}
+.is-visible .reveal-line-inner,
+.s6-title-block.is-visible .reveal-line-inner {
+  transform: translateY(0);
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
+  will-change: opacity, transform;
+}
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Reduced motion
+============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-line-inner,
+  .reveal-up,
+  .s6-store {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   Responsive
+============================================================ */
+/* ============================================================
+   Responsive — stack columns under 1100px and collapse the
+   absolute-positioned children back to normal flow.
+============================================================ */
+@media (max-width: 1100px) {
+  .s6 { padding: 100px 0; }
+  .s6-inner {
+    height: auto;
+    padding: 0 clamp(24px, 5.5vw, 48px);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .s6-text,
+  .s6-tag,
+  .s6-title-block,
+  .s6-eyebrow,
+  .s6-title,
+  .s6-desc,
+  .s6-stores,
+  .s6-video {
+    position: static;
+    width: auto;
+  }
+  .s6-text { display: flex; flex-direction: column; gap: 28px; }
+  .s6-title-block { height: auto; }
+  .s6-eyebrow,
+  .s6-title,
+  .s6-desc { white-space: normal; max-width: 100%; }
+  .s6-eyebrow { font-size: clamp(24px, 4.5vw, 36px); }
+  .s6-title { font-size: clamp(44px, 8vw, 72px); line-height: 1.1; }
+  .s6-video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 688 / 500;
+  }
+}
