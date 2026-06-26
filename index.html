@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ICB — Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/hero.css" />
+</head>
+<body>
+  <!-- ============ GNB ============ -->
+  <header class="gnb" id="gnb">
+    <div class="gnb__bg"></div>
+
+    <div class="gnb__inner">
+      <a class="gnb__logo" href="#"><img src="assets/ICB_logo-color.svg" alt="ICB" /></a>
+
+      <nav class="gnb__nav">
+        <div class="gnb__item" data-menu="business"><span class="gnb__label">BUSINESS</span></div>
+        <div class="gnb__item" data-menu="personal"><span class="gnb__label">PERSONAL</span></div>
+        <div class="gnb__item" data-menu="company"><span class="gnb__label">COMPANY</span></div>
+      </nav>
+
+      <div class="gnb__right">
+        <div class="gnb__flag">
+          <img class="flag" src="assets/flag_en.svg" alt="EN" />
+          <img class="arrow" src="assets/arrow down.svg" alt="" />
+        </div>
+        <a class="gnb__contact" href="#">CONTACT US</a>
+      </div>
+    </div>
+
+    <!-- Mega panels -->
+    <div class="gnb__mega gnb__mega--business">
+      <div class="gnb__mega-inner">
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-globe.png" alt="" /></span><span class="gnb__svc-title">Cross-Border Payment</span></span>
+          <span class="gnb__svc-desc">Integrated global payment infrastructure.</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-btb.png" alt="" /></span><span class="gnb__svc-title">B2B Settlement</span></span>
+          <span class="gnb__svc-desc">Fast and accurate B2B trade settlement.</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-card.png" alt="" /></span><span class="gnb__svc-title">Prepaid Card</span></span>
+          <span class="gnb__svc-desc">Customized corporate prepaid solutions.</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-link.png" alt="" /></span><span class="gnb__svc-title">Payment link</span></span>
+          <span class="gnb__svc-desc">Simple remote payment via shareable links.</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="gnb__mega gnb__mega--personal">
+      <div class="gnb__mega-inner">
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-debunk.png" alt="" /></span><span class="gnb__svc-title">DEBUNK</span></span>
+          <span class="gnb__svc-desc">Personal Remmitance</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="gnb__mega gnb__mega--company">
+      <div class="gnb__mega-inner">
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-building.png" alt="" /></span><span class="gnb__svc-title">About us</span></span>
+          <span class="gnb__svc-desc">Get to know us</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-culture.png" alt="" /></span><span class="gnb__svc-title">Our culture</span></span>
+          <span class="gnb__svc-desc">Life at ICB</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-hire.png" alt="" /></span><span class="gnb__svc-title">Carears</span></span>
+          <span class="gnb__svc-desc">Work with us</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-news.png" alt="" /></span><span class="gnb__svc-title">News & Media</span></span>
+          <span class="gnb__svc-desc">Latest news</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-icb.png" alt="" /></span><span class="gnb__svc-title">ICB CI</span></span>
+          <span class="gnb__svc-desc">Visual Guideline</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ Hero ============ -->
+  <section class="hero" id="hero">
+    <!-- Shared video background (stays in place) -->
+    <div class="hero__bg">
+      <video autoplay muted loop playsinline poster="">
+        <source src="assets/hero-video.mp4" type="video/mp4" />
+      </video>
+      <div class="overlay ov-1"></div>
+      <div class="overlay ov-2"></div>
+      <div class="overlay ov-3"></div>
+      <div class="overlay ov-4"></div>
+    </div>
+
+    <div class="hero__sections">
+      <!-- hero-1 -->
+      <section class="panel hero-1">
+        <div class="stage">
+          <h1 class="hero-title">
+            <span class="hero-line"><span class="hero-line-inner">Cross-Border Fintech</span></span>
+            <span class="hero-line"><span class="hero-line-inner" style="--delay:.15s">Leading Company</span></span>
+          </h1>
+          <div class="hero1-bottom">
+            <p class="hero-subtitle">ICB is a cross-border payment and settlement infrastructure company for platforms and enterprises.</p>
+            <div class="hero-cta">
+              <a class="btn btn--primary" href="#">For Business
+                <img class="ico" src="assets/icon-contract-business.svg" alt="" />
+              </a>
+              <a class="btn btn--ghost" href="#">Start Remittance
+                <img class="ico" src="assets/icon-contract-remmittance.svg" alt="" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- hero-2 -->
+      <section class="panel hero-2" id="hero2">
+        <div class="stage">
+          <div class="hero2-head">
+            <div class="tag">
+              <span class="tag__bg"></span>
+              <span class="tag__dot"></span>
+              <span class="tag__label">WHO WE ARE</span>
+            </div>
+
+            <p class="hero2-lead">
+              <span class="hero-line"><span class="hero-line-inner">We provide end-to-end</span></span>
+              <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">solutions for payment</span></span>
+              <span class="hero-line"><span class="hero-line-inner" style="--delay:.24s">acceptance,settlement, and</span></span>
+              <span class="hero-line"><span class="hero-line-inner" style="--delay:.36s">remittance —</span></span>
+              <span class="hero-line"><span class="hero-line-inner" style="--delay:.48s">enabling overseas businesses</span></span>
+              <span class="hero-line"><span class="hero-line-inner" style="--delay:.6s">to operate seamlessly in</span></span>
+              <span class="hero-line"><span class="hero-line-inner" style="--delay:.72s">South Korea and beyond.</span></span>
+            </p>
+          </div>
+
+          <div class="partners">
+            <div class="marquee marquee--left">
+              <div class="marquee__track" data-group="line1"></div>
+            </div>
+            <div class="marquee marquee--right">
+              <div class="marquee__track" data-group="line2"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <script src="js/hero.js"></script>
+</body>
+</html>
