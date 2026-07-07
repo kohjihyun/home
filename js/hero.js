@@ -314,12 +314,16 @@
       else if (P > 1) P = 1;
 
       let pan;
+      // Pills scatter is scrubbed by scroll: the spread is tied directly to the scroll
+      // position across the whole MOTION window, so it moves only as fast as you scroll
+      // (and slowly, since it's spread over a large scroll range). A short hold at the
+      // start keeps them stacked behind the Prepaid pill before they begin to fan out.
+      const HOLD_FRAC = 0.15; // fraction of the motion window to hold stacked first
       let pillP;
       if (frameH <= vh) {
-        // Frame fits the viewport: no room to pan — centre it and run the whole
-        // expansion across the scroll.
+        // Frame fits the viewport: no room to pan — centre it.
         pan = (vh - frameH) / 2;
-        pillP = easeInOut(P);
+        pillP = easeInOut(Math.max(0, Math.min(1, (P - 0.1) / 0.6)));
       } else {
         const panEnter = 0; // pin engages: frame top at viewport top (Figma 200px margin above the tag is visible)
         const panHold = -TAG_TOP * s; // tag pinned to the viewport top (top margin scrolled off)
@@ -329,9 +333,10 @@
           pan = panEnter + (panHold - panEnter) * (P / ENTER_END);
           pillP = 0;
         } else if (P <= MOTION_END) {
-          // Freeze at the tag and run the pill expansion.
+          // Freeze at the tag; the pills scatter, scrubbed by scroll (with a short hold).
           pan = panHold;
-          pillP = easeInOut((P - ENTER_END) / (MOTION_END - ENTER_END));
+          const raw = (P - ENTER_END) / (MOTION_END - ENTER_END); // 0..1 across the window
+          pillP = easeInOut(Math.max(0, (raw - HOLD_FRAC) / (1 - HOLD_FRAC)));
         } else {
           // Exit: pan down the frame to reveal the lower pills and bottom margin,
           // then hand off to the next section.

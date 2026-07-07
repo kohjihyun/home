@@ -808,11 +808,10 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
 
 .sec42__title {
   position: absolute;
-  left: 50%;
-  top: 536px;
-  width: 807px;
-  transform: translateX(-50%);
-  text-align: center;
+  left: 80px;
+  top: 278px;
+  width: 840px;
+  text-align: left;
   z-index: 2; /* keep the heading above any pills that overlap it */
 }
 .sec42__line {
@@ -829,7 +828,7 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   display: block;
   width: 48px;
   height: 48px;
-  margin: 24px auto;
+  margin: 24px 0;
 }
 .sec42__plus::before,
 .sec42__plus::after { content: ""; position: absolute; background: #fff; }
@@ -847,9 +846,16 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   border-radius: 4px;
   white-space: nowrap;
   will-change: transform;
+  /* scatter is scrubbed by scroll (see hero.js); tiny transition just smooths jitter */
+  transition: transform .12s linear;
 }
 .lpill--fill { background: #c70300; }
 .lpill--outline { border: 1px solid rgba(255, 255, 255, .4); }
+/* keep this pill on top of the others where they stack (collapsed start) */
+/* slightly larger so the front pill fully covers the stack ("one visible" effect) */
+.lpill--top { z-index: 1; padding: 17px 41px 17px 26px; }
+/* slightly smaller so it hides cleanly behind the front pill while stacked */
+.lpill--small { padding: 15px 40px 15px 24px; }
 .lpill__icon { flex: 0 0 auto; width: 32px; height: 32px; display: block; }
 .lpill__text { font-weight: 300; font-size: 20px; line-height: normal; color: #fff; }
 
@@ -1149,4 +1155,5 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   .stat__clip > * { transform: none !important; transition: none !important; }
   .sec42 { height: auto !important; }
   .sec42__pin { position: static !important; height: auto !important; min-height: 0 !important; }
+  .lpill { transition: none !important; }
 }
