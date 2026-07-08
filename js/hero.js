@@ -229,11 +229,13 @@
 
   /* ---- stacking scroll: sec2 rises over sec1, sec4 rises over sec3 ---------
      sec1 and sec3 are sticky so they stay put while the next panel scrolls up
-     over them (sec2 -> sec3 is a normal scroll in between). Sections are taller
-     than the viewport, so we pin them bottom-aligned (negative top) to keep
-     their key content visible at the moment they freeze. */
+     over them (sec2 -> sec3 is a normal scroll in between).
+     sec1 is taller than the viewport, so it's pinned bottom-aligned (negative
+     top) to keep its key content visible at the moment it freezes.
+     sec3 is pinned top-aligned (top:0, set in CSS) so sec4 rises up and stops
+     at the point where sec3 starts (its top edge). */
   (function stackScroll() {
-    const pinned = ["sec1", "sec3"]
+    const pinned = ["sec1"]
       .map((id) => document.getElementById(id))
       .filter(Boolean);
     if (!pinned.length) return;

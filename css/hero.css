@@ -147,12 +147,13 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 12px;
+  padding: 8px 16px;
   background: var(--orange);
   border-radius: 6px;
-  font-size: 14px;
-  font-weight: 300;
-  letter-spacing: -0.14px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.13px;
   color: #fff;
   text-decoration: none;
   white-space: nowrap;
@@ -477,7 +478,7 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   height: 100%;
   overflow: hidden;
   isolation: isolate;
-  border-radius: 16px;
+  border-radius: 8px;
   background: var(--orange-500);
   cursor: pointer;
   transform: translateY(80px);
@@ -506,13 +507,14 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   position: absolute;
   inset: 0;
   background: var(--overlay-color, #00021a);
-  opacity: .68;
+  opacity: var(--overlay-opacity, .68);
   z-index: 2;
   pointer-events: none;
   transition: opacity .55s ease;
 }
-/* active card brightens, the others darken further */
-.bizcards:hover .bizcard .bizcard__overlay { opacity: .78; }
+/* hovered card brightens; contracted cards keep their own resting color layer
+   (Figma: contracted B2B stays #0d1930 at .92) */
+.bizcards:hover .bizcard .bizcard__overlay { opacity: var(--overlay-opacity, .68); }
 .bizcards:hover .bizcard:hover .bizcard__overlay { opacity: .34; }
 
 .bizcard__body { position: relative; z-index: 4; padding: 40px 24px 0; }
@@ -525,7 +527,7 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
 .bizcard__icon img { width: 100%; height: 100%; display: block; }
 .bizcard__title {
   margin: 16px 0 0;
-  max-width: 80%;
+  max-width: var(--title-maxw, 80%);
   font-weight: 600;
   font-size: clamp(22px, 2vw, 30px);
   line-height: 1.2;
@@ -605,23 +607,34 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
 /* ============ Section 3 — Personal Service / Remittance ============ */
 .sec3 {
   position: sticky;
-  top: 0; /* JS sets a negative top so the section bottom-aligns when pinned */
+  top: 0; /* top-aligned pin: the next section (sec4) rises and stops at sec3's start */
   z-index: 3;
-  height: clamp(720px, 69.79vw, 1005px);
+  height: clamp(794px, 76.94vw, 1108px);
   background: #e52006;
   border-top: 1px solid #ec5635;
   overflow: hidden;
 }
 /* full-bleed background image */
 .sec3__bg { position: absolute; inset: 0; overflow: hidden; }
-.sec3__img,
 .sec3__video { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Figma: the image box is 1220px tall inside the 1108px section, bottom-aligned
+   (the top ~112px is clipped by .sec3__bg's overflow). 1220/1108 = 110.11%. */
+.sec3__img {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 110.11%;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+}
 /* DEBUNK logo overlaid on the phone screen (Figma logo_debunk_B_wt) */
 .sec3__logo {
   position: absolute;
-  left: 60.98%;
-  top: 39.12%;
-  width: 9.15%;
+  left: 62.09%;
+  top: 35.39%;
+  width: 9.155%;
   height: auto;
   aspect-ratio: 1 / 1; /* SVG uses preserveAspectRatio="none"; keep it square */
   z-index: 2;
@@ -635,7 +648,7 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   max-width: var(--maxw);
   height: 100%;
   margin: 0 auto;
-  padding: clamp(120px, 13.13vw, 189px) var(--pad) 0;
+  padding: clamp(67px, 7.22vw, 104px) var(--pad) 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -657,7 +670,7 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
 .sec3__title .hero-line { margin-bottom: -.08em; }
 
 .sec3__subtitle {
-  margin: clamp(40px, 5.56vw, 80px) 0 0;
+  margin: clamp(72px, 8.75vw, 126px) 0 0;
   max-width: 647px;
   font-weight: 400;
   font-size: clamp(16px, 1.39vw, 20px);
@@ -842,7 +855,7 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   display: inline-flex;
   align-items: center;
   gap: 20px;
-  padding: 16px 40px 16px 24px;
+  padding: 24px 40px 24px 24px;
   border-radius: 4px;
   white-space: nowrap;
   will-change: transform;
@@ -850,12 +863,13 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   transition: transform .12s linear;
 }
 .lpill--fill { background: #c70300; }
-.lpill--outline { border: 1px solid rgba(255, 255, 255, .4); }
-/* keep this pill on top of the others where they stack (collapsed start) */
-/* slightly larger so the front pill fully covers the stack ("one visible" effect) */
-.lpill--top { z-index: 1; padding: 17px 41px 17px 26px; }
-/* slightly smaller so it hides cleanly behind the front pill while stacked */
-.lpill--small { padding: 15px 40px 15px 24px; }
+/* inset shadow (not a border) so outline pills keep the exact same box size as fill
+   pills — otherwise a layout border makes them 2px taller/wider and they peek out
+   from behind the front pill while stacked. */
+.lpill--outline { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .4); }
+/* element 15 sits on top of the stack; min-width guarantees it fully covers the
+   widest pill behind it so only one pill shows while collapsed. */
+.lpill--top { z-index: 1; min-width: 482px; }
 .lpill__icon { flex: 0 0 auto; width: 32px; height: 32px; display: block; }
 .lpill__text { font-weight: 300; font-size: 20px; line-height: normal; color: #fff; }
 
