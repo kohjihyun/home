@@ -617,30 +617,20 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
 /* full-bleed background image */
 .sec3__bg { position: absolute; inset: 0; overflow: hidden; }
 .sec3__video { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* Figma: the image box is 1220px tall inside the 1108px section, bottom-aligned
-   (the top ~112px is clipped by .sec3__bg's overflow). 1220/1108 = 110.11%. */
+/* Figma (392:505 bg img -> section-debunk 4): full-width image, 110.1% tall
+   (1440x1220 from the 4320x3660 source), anchored bottom (top:-10.06%) so the
+   phone/hand composition stays in view and the top (sky) is cropped. On wider
+   screens object-fit:cover crops the excess height off the top too. */
 .sec3__img {
   position: absolute;
   left: 0;
-  bottom: 0;
+  top: -10.06%;
   width: 100%;
-  height: 110.11%;
+  height: 110.1%;
   object-fit: cover;
   object-position: center bottom;
   display: block;
 }
-/* DEBUNK logo overlaid on the phone screen (Figma logo_debunk_B_wt) */
-.sec3__logo {
-  position: absolute;
-  left: 62.09%;
-  top: 35.39%;
-  width: 9.155%;
-  height: auto;
-  aspect-ratio: 1 / 1; /* SVG uses preserveAspectRatio="none"; keep it square */
-  z-index: 2;
-  pointer-events: none;
-}
-
 .sec3__inner {
   position: relative;
   z-index: 1;
@@ -1109,7 +1099,8 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
 @media (max-width: 900px) {
   .sec3 { height: auto; min-height: 100svh; }
   .sec3__inner { padding-bottom: clamp(60px, 12vw, 120px); }
-  .sec3__logo { display: none; }
+  /* anchor the bg image to the top-center so the bottom is cropped instead */
+  .sec3__img { top: 0; height: 100%; object-position: center top; }
 }
 @media (max-width: 900px) {
   .stat { flex-direction: column; align-items: flex-start; gap: 16px; }
