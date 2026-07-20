@@ -398,8 +398,8 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
 }
 /* two right lines : each rises one at a time via the clip mask */
 .capitem__label {
-  font-weight: 400;
-  font-size: clamp(18px, 1.67vw, 24px);
+  font-weight: 200;
+  font-size: clamp(24px, 2.22vw, 32px);
   line-height: 1.2;
   color: #fff;
   white-space: nowrap;
@@ -774,94 +774,101 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   flex-direction: column;
   gap: 5px;
 }
-.stat__label { font-weight: 300; font-size: clamp(20px, 1.7vw, 24px); line-height: 1.2; color: #e1e1e2; }
+.stat__label { font-weight: 200; font-size: clamp(24px, 2.22vw, 32px); line-height: 1.2; color: #e1e1e2; }
 .stat__desc { font-weight: 300; font-size: 14px; line-height: 1.4; color: #c4c4c5; opacity: .7; }
 
-/* ============ Section 4-2 — Electronic Financial Licenses (card carousel) ============ */
+/* ============ Section 4-2 — Electronic Financial Licenses (focus carousel) ============ */
 .sec42 {
   position: relative;
   z-index: 4;
   background: #e52006;
-  height: 300vh; /* long scrub range so the pills expand slowly */
-}
-.sec42__pin {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  min-height: 600px;
+  min-height: 100vh;
   overflow: hidden;
+  display: flex;
 }
-/* Fixed 1440x1396 design canvas (matches the Figma frame). Rendered at its true
-   1440px size at 100% (viewport >= 1440) and scaled by width below that — the
-   frame is taller than the viewport, so JS pans it vertically as you scroll:
-   tag-at-top -> title centred -> bottom margin. Anchored top-centre so the pan
-   maths (screen_y = cy * scale + pan) stays simple; JS sets the transform. */
-.sec42__canvas {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  margin-left: -720px;
-  width: 1440px;
-  height: 1396px;
-  transform-origin: 50% 0;
-  transform: translateY(0) scale(var(--s42, 1));
+.sec42__inner {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  /* two columns: title left, arc right (arc bleeds to the section right edge → no right pad).
+     the arc sits near the top (Figma y≈24); the title is pushed down (Figma y≈190) via
+     .sec42__head margin-top so the arc reads as raised above the title. */
+  padding: clamp(24px, 4vh, 44px) 0 clamp(20px, 5vh, 46px) 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: clamp(60px, 17.8vw, 256px);
 }
-.sec42__tag { position: absolute; left: 80px; top: 200px; }
+.sec42__head { flex: 0 0 auto; width: clamp(280px, 30vw, 430px); margin-top: clamp(90px, 16vh, 146px); }
+.sec42__tag { display: inline-block; margin-bottom: 40px; }
 .sec42__tag .tag__bg { background: #fff; opacity: .3; }
-
-.sec42__title {
-  position: absolute;
-  left: 80px;
-  top: 278px;
-  width: 840px;
-  text-align: left;
-  z-index: 2; /* keep the heading above any pills that overlap it */
-}
+/* centre the LICENSES label vertically within the pill (was top-aligned) */
+.sec42__tag .tag__label { top: 50%; transform: translateY(-50%); }
 .sec42__line {
   margin: 0;
   font-weight: 500;
-  font-size: 88px;
+  font-size: clamp(44px, 6vw, 88px);
   line-height: 1.1;
   letter-spacing: -1.76px;
   color: #fff;
 }
-.sec42__title .hero-line { margin-bottom: -.08em; }
-.sec42__plus {
-  position: relative;
-  display: block;
-  width: 48px;
-  height: 48px;
-  margin: 24px 0;
-}
-.sec42__plus::before,
-.sec42__plus::after { content: ""; position: absolute; background: #fff; }
-.sec42__plus::before { left: 50%; top: 0; width: 3px; height: 100%; transform: translateX(-50%); }
-.sec42__plus::after { top: 50%; left: 0; width: 100%; height: 3px; transform: translateY(-50%); }
+.sec42__line .hero-line { margin-bottom: -.08em; }
 
-.lpill {
+/* The six licences scroll upward forever along an arc: each row's horizontal indent
+   follows a curve that is left-most near the vertical centre and swings right toward
+   the top/bottom edges (matching the Figma "원호 영역"). hero.js positions every row
+   each frame; the top/bottom masks fade the wrap seam. */
+.sec42__list {
+  position: relative;
+  /* right column: fixed Figma arc-area width (809px). Pushed right by the inner gap so it
+     starts at Figma x≈766 and its right portion bleeds past the section edge (clipped). */
+  flex: 0 0 809px;
+  /* fixed design band height (= one loop cycle) so hero.js renders rows at 1:1 Figma
+     scale (64px titles) and the six rows tile the band exactly */
+  height: 978px;
+  overflow: hidden;
+  /* wide top/bottom fades with fully-transparent plateaus (>= one row height, ~14% of
+     the 741px band) at both ends, so a wrapping row reaches 0 opacity BEFORE it jumps —
+     text fades smoothly in from the bottom and out at the top with no "pop" at the seam */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 14%, #000 32%, #000 68%, transparent 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, transparent 14%, #000 32%, #000 68%, transparent 86%, transparent 100%);
+}
+.lrow {
   position: absolute;
   left: 0;
   top: 0;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 24px 40px 24px 24px;
-  border-radius: 4px;
   white-space: nowrap;
   will-change: transform;
-  /* scatter is scrubbed by scroll (see hero.js); tiny transition just smooths jitter */
-  transition: transform .12s linear;
+  /* translate (arc X + scroll Y), gap + sizes driven inline by hero.js */
 }
-.lpill--fill { background: #c70300; }
-/* inset shadow (not a border) so outline pills keep the exact same box size as fill
-   pills — otherwise a layout border makes them 2px taller/wider and they peek out
-   from behind the front pill while stacked. */
-.lpill--outline { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .4); }
-/* element 15 sits on top of the stack; min-width guarantees it fully covers the
-   widest pill behind it so only one pill shows while collapsed. */
-.lpill--top { z-index: 1; min-width: 482px; }
-.lpill__icon { flex: 0 0 auto; width: 32px; height: 32px; display: block; }
-.lpill__text { font-weight: 300; font-size: 20px; line-height: normal; color: #fff; }
+/* the licence thumbnail sits inside a corner-bracket frame (SVG); size set inline by hero.js */
+.lrow__icon {
+  position: relative;
+  flex: 0 0 auto;
+  background: url(../assets/svg/license-corners.svg) center / 100% 100% no-repeat;
+  /* width + height set inline */
+}
+.lrow__img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  object-fit: cover;
+  opacity: .9;
+  border-radius: 1px;
+  /* width + height set inline */
+}
+.lrow__title {
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: #ffddd5;
+  white-space: nowrap;
+  /* font-size set inline by hero.js */
+}
 
 /* ============ Section 5 — What's New / Latest Updates ============ */
 .sec5 {
@@ -968,6 +975,7 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   z-index: 6;
   overflow: hidden;
   background: var(--orange);
+  border-bottom: 1px solid rgba(236, 86, 53, .7);
   padding: clamp(100px, 16.67vw, 240px) 0;
 }
 .sec6__watermark {
@@ -1001,8 +1009,12 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   position: relative;
   z-index: 7;
   background: var(--orange);
-  border-top: 1px solid #ec5635;
   color: #fff;
+}
+.footer__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-bottom: 48px;
 }
 .footer__top {
   display: flex;
@@ -1018,7 +1030,7 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   font-size: 18px;
   font-weight: 600;
   line-height: 1.2;
-  color: #ffa585;
+  color: rgba(255, 255, 255, .5);
 }
 .footer__links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
 .footer__links a {
@@ -1031,20 +1043,19 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
 }
 .footer__links a:hover { opacity: .7; }
 .footer__policy {
+  align-self: stretch;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-  padding: 40px var(--pad);
-  border-top: 1px solid rgba(236, 86, 53, .7);
-  border-bottom: 1px solid rgba(236, 86, 53, .7);
+  gap: 32px;
+  padding-left: clamp(24px, 5.56vw, 80px);
 }
 .footer__policy a {
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 500;
   line-height: 1.2;
-  color: #ffe7d7;
+  color: rgba(255, 255, 255, .7);
   text-decoration: none;
   white-space: nowrap;
   transition: opacity .25s ease;
@@ -1054,11 +1065,13 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   display: flex;
   gap: 32px;
   flex-wrap: wrap;
-  padding: 40px var(--pad) 120px;
-  font-size: 14px;
+  margin: 0 var(--pad);
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.2;
-  color: #ffe7d7;
+  color: rgba(255, 255, 255, .8);
 }
 
 /* ============ Responsive ============ */
@@ -1113,37 +1126,19 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   .news__link { height: 72px; }
 }
 @media (max-width: 900px) {
-  .sec42 { height: auto; padding: clamp(80px, 14vw, 140px) 0; }
-  .sec42__pin { position: static; height: auto; min-height: 0; overflow: visible; }
-  .sec42__canvas {
-    position: static;
-    width: 100%;
-    height: auto;
-    transform: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 var(--pad);
-  }
-  .sec42__tag { position: static; margin-bottom: clamp(24px, 4vh, 32px); }
-  .sec42__title { position: static; width: 100%; transform: none; }
+  .sec42 { min-height: 100vh; }
+  .sec42__inner { flex-direction: column; align-items: stretch; gap: 0; padding: clamp(72px, 12vh, 120px) var(--pad) 40px; }
+  .sec42__head { width: auto; margin-top: 0; margin-bottom: clamp(20px, 3.5vh, 40px); }
+  .sec42__tag { margin-bottom: 24px; }
   .sec42__line { font-size: clamp(28px, 7vw, 48px); white-space: normal; }
-  .sec42__plus { width: 32px; height: 32px; margin: clamp(20px, 4vw, 32px) auto; }
-  .lpill {
-    position: static !important;
-    transform: none !important;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: clamp(24px, 4vw, 32px);
-  }
-  .sec42__title + .lpill { margin-top: clamp(32px, 6vw, 48px); }
+  .sec42__list { flex: 1 1 auto; height: auto; min-height: 420px; }
 }
 @media (max-width: 900px) {
   .footer__top { flex-direction: column; gap: 40px; }
   .footer__cols { flex-wrap: wrap; gap: 40px; }
-  .footer__policy { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .footer__policy { gap: 16px; padding-left: 0; }
   .footer__policy a { white-space: normal; }
-  .footer__legal { flex-direction: column; gap: 12px; padding-bottom: 80px; }
+  .footer__legal { flex-direction: column; gap: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ico-arrow,
@@ -1158,7 +1153,5 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   .bizcard { transform: none !important; opacity: 1 !important; transition: none !important; }
   .stat__num,
   .stat__clip > * { transform: none !important; transition: none !important; }
-  .sec42 { height: auto !important; }
-  .sec42__pin { position: static !important; height: auto !important; min-height: 0 !important; }
-  .lpill { transition: none !important; }
+  .lrow { animation: none !important; }
 }

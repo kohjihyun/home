@@ -249,115 +249,101 @@
     window.addEventListener("resize", layout);
   })();
 
-  /* ---- section 4-2: pinned scroll-scrub expand ------------------------------
-     the section is taller than the viewport; while it's pinned (sticky), the
-     tag/title stay put and each license pill interpolates from its compact
-     "start" position to its spread-out "end" position as the user scrolls.
-     once fully expanded, the pin releases and the page scrolls into section 5. */
-  (function licenseExpand() {
-    const section = document.getElementById("sec42");
-    const canvas = document.getElementById("sec42Canvas");
-    if (!section || !canvas) return;
-    const cards = Array.from(canvas.querySelectorAll(".lpill"));
-    if (!cards.length) return;
+  /* ---- section 4-2: licence arc marquee --------------------------------------
+     The six licence rows scroll upward forever. Each row's horizontal indent traces
+     an arc — left-most near the vertical centre of the band and swinging right toward
+     the top and bottom — matching the Figma "원호 영역". Every frame hero.js sets each
+     row's translate (arc X + scroll Y) and 1:1 Figma sizes; the list mask fades the
+     wrap seam at the edges. Under reduced-motion a single static arc is rendered. */
+  (function licenseArc() {
+    const list = document.getElementById("sec42List");
+    if (!list) return;
+    const rows = Array.from(list.querySelectorAll(".lrow"));
+    const N = rows.length;
+    if (!N) return;
 
-    const CANVAS_W = 1440;
-    const CANVAS_H = 1396;
-    const TAG_TOP = 200; // tag's top edge in canvas coords
-    const ENTER_END = 0.12; // scroll fraction where the top margin has scrolled off and the tag reaches the viewport top
-    const MOTION_END = 0.7; // scroll fraction where the pill expansion finishes
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const mobileQuery = window.matchMedia("(max-width: 900px)");
-    const easeInOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+    // design geometry (Figma "원호 영역", title 64px on two lines, row pitch 163).
+    const PITCH = 163;            // vertical distance between rows
+    const LOOP = N * PITCH;       // one full cycle (= band height, so rows tile it exactly)
+    const DESIGN_BH = LOOP;       // reference band height (→ vUnit = list height / this)
+    const DESIGN_BW = 809;        // reference band width  (Figma arc area → content fits at scale 1)
+    const ROW_H = 128;            // row block height (64px title × 2 lines, for centring)
+    const ICON_W = 82;            // corner-bracket frame width
+    const ICON_H = 112;           // corner-bracket frame height
+    const IMG_W = 70;             // licence thumbnail width (inside the frame)
+    const IMG_H = 100;            // licence thumbnail height (inside the frame)
+    const GAP = 28;               // icon → title gap (Figma text x110 − icon w82)
+    const FONT = 64;              // title font size
+    // arc = the Figma "원호 곡선" circle: rows sit on a circle of radius R, left-most
+    // (indent 0) at the vertical centre and swinging right toward the top/bottom edges.
+    const R = 535;                // circle radius (fitted to the Figma row offsets)
+    const CYC = DESIGN_BH / 2;    // circle centre y within the band (the arc's peak)
 
-    function apply(p) {
-      cards.forEach((card) => {
-        const sx = parseFloat(card.dataset.sx);
-        const sy = parseFloat(card.dataset.sy);
-        const ex = parseFloat(card.dataset.ex);
-        const ey = parseFloat(card.dataset.ey);
-        const x = sx + (ex - sx) * p;
-        const y = sy + (ey - sy) * p;
-        card.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";
-      });
+    const mod = (n, m) => ((n % m) + m) % m;
+    const arcX = (cy) => {
+      const dy = cy - CYC;
+      const s = R * R - dy * dy;
+      return s > 0 ? R - Math.sqrt(s) : R;
+    };
+
+    // hide any thumbnail that fails to load so no broken-image glyph shows
+    rows.forEach((row) => {
+      const img = row.querySelector(".lrow__img");
+      if (!img) return;
+      const hide = () => { img.style.visibility = "hidden"; };
+      if (img.complete && img.naturalWidth === 0) hide();
+      img.addEventListener("error", hide);
+    });
+
+    // vUnit drives vertical layout (fills the band height); sUnit drives everything
+    // horizontal (font, arc, icon, gaps). On narrow screens sUnit shrinks so the
+    // longest title still fits the width instead of overflowing.
+    let vUnit = 1, sUnit = 1;
+    function measure() {
+      vUnit = list.clientHeight / DESIGN_BH;
+      sUnit = Math.min(vUnit, list.clientWidth / DESIGN_BW);
+    }
+    measure();
+    window.addEventListener("resize", measure);
+
+    function layout(scroll) {
+      for (let i = 0; i < N; i++) {
+        const row = rows[i];
+        const topD = mod(i * PITCH - scroll, LOOP); // row top in design px
+        const cy = topD + ROW_H / 2;                // row centre (for the arc)
+        const x = arcX(cy) * sUnit;
+        const y = topD * vUnit;
+        row.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px)";
+        row.style.columnGap = (GAP * sUnit).toFixed(1) + "px";
+        const icon = row.querySelector(".lrow__icon");
+        const img = row.querySelector(".lrow__img");
+        const title = row.querySelector(".lrow__title");
+        if (icon) {
+          icon.style.width = (ICON_W * sUnit).toFixed(1) + "px";
+          icon.style.height = (ICON_H * sUnit).toFixed(1) + "px";
+        }
+        if (img) {
+          img.style.width = (IMG_W * sUnit).toFixed(1) + "px";
+          img.style.height = (IMG_H * sUnit).toFixed(1) + "px";
+        }
+        if (title) title.style.fontSize = (FONT * sUnit).toFixed(1) + "px";
+      }
     }
 
-    // True 1440px size at 100% (viewport >= 1440), width-responsive below that.
-    const scaleFor = (vw) => Math.min(vw / CANVAS_W, 1);
-
-    if (reduced) {
-      const vw = window.innerWidth || document.documentElement.clientWidth;
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const s = scaleFor(vw);
-      const frameH = CANVAS_H * s;
-      canvas.style.setProperty("--s42", s.toFixed(4));
-      canvas.style.transform = "translateY(" + (frameH <= vh ? (vh - frameH) / 2 : -TAG_TOP * s) + "px) scale(" + s + ")";
-      apply(1);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      layout(0);
       return;
     }
 
-    let ticking = false;
-    function frame() {
-      ticking = false;
-      if (mobileQuery.matches) {
-        canvas.style.transform = ""; // hand over to the static mobile layout (see CSS)
-        return;
-      }
-      const vw = window.innerWidth || document.documentElement.clientWidth;
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const s = scaleFor(vw);
-      canvas.style.setProperty("--s42", s.toFixed(4));
-      const frameH = CANVAS_H * s;
-
-      const rect = section.getBoundingClientRect();
-      const total = section.offsetHeight - vh;
-      let P = total > 0 ? -rect.top / total : rect.top <= 0 ? 1 : 0;
-      if (P < 0) P = 0;
-      else if (P > 1) P = 1;
-
-      let pan;
-      // Pills scatter is scrubbed by scroll: the spread is tied directly to the scroll
-      // position across the whole MOTION window, so it moves only as fast as you scroll
-      // (and slowly, since it's spread over a large scroll range). A short hold at the
-      // start keeps them stacked behind the Prepaid pill before they begin to fan out.
-      const HOLD_FRAC = 0.15; // fraction of the motion window to hold stacked first
-      let pillP;
-      if (frameH <= vh) {
-        // Frame fits the viewport: no room to pan — centre it.
-        pan = (vh - frameH) / 2;
-        pillP = easeInOut(Math.max(0, Math.min(1, (P - 0.1) / 0.6)));
-      } else {
-        const panEnter = 0; // pin engages: frame top at viewport top (Figma 200px margin above the tag is visible)
-        const panHold = -TAG_TOP * s; // tag pinned to the viewport top (top margin scrolled off)
-        const panBot = vh - frameH; // frame bottom at viewport bottom (bottom margin)
-        if (P <= ENTER_END) {
-          // Enter: the margin above the tag scrolls up until the tag reaches the top.
-          pan = panEnter + (panHold - panEnter) * (P / ENTER_END);
-          pillP = 0;
-        } else if (P <= MOTION_END) {
-          // Freeze at the tag; the pills scatter, scrubbed by scroll (with a short hold).
-          pan = panHold;
-          const raw = (P - ENTER_END) / (MOTION_END - ENTER_END); // 0..1 across the window
-          pillP = easeInOut(Math.max(0, (raw - HOLD_FRAC) / (1 - HOLD_FRAC)));
-        } else {
-          // Exit: pan down the frame to reveal the lower pills and bottom margin,
-          // then hand off to the next section.
-          pan = panHold + (panBot - panHold) * ((P - MOTION_END) / (1 - MOTION_END));
-          pillP = 1;
-        }
-      }
-      canvas.style.transform = "translateY(" + pan.toFixed(2) + "px) scale(" + s + ")";
-      apply(pillP);
+    const SPEED_PX = 320; // rendered px/s — vertical scroll speed
+    let scroll = 0, lastT = performance.now();
+    function frame(now) {
+      const dt = Math.min(0.05, (now - lastT) / 1000);
+      lastT = now;
+      if (vUnit > 0) scroll = mod(scroll + (SPEED_PX / vUnit) * dt, LOOP);
+      layout(scroll);
+      requestAnimationFrame(frame);
     }
-    function onScroll() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(frame);
-      }
-    }
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    frame();
+    requestAnimationFrame(frame);
   })();
 })();
