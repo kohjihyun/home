@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ICB — Personal : DEBUNK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Inconsolata:wght@400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="css/business-01.css?v=20" />
+</head>
+<body>
+  <!-- ============ GNB (solid bar: this page has no hero video behind it) ============ -->
+  <header class="gnb is-solid" id="gnb">
+    <div class="gnb__bg"></div>
+
+    <div class="gnb__inner">
+      <a class="gnb__logo" href="index.html"><img src="assets/ICB_logo-color.svg" alt="ICB" /></a>
+
+      <nav class="gnb__nav">
+        <div class="gnb__item" data-menu="business"><span class="gnb__label">BUSINESS</span></div>
+        <div class="gnb__item gnb__item--current" data-menu="personal"><span class="gnb__label">PERSONAL</span></div>
+        <div class="gnb__item" data-menu="company"><span class="gnb__label">COMPANY</span></div>
+      </nav>
+
+      <div class="gnb__right">
+        <div class="gnb__flag">
+          <img class="flag" src="assets/flag_en.svg" alt="EN" />
+          <img class="arrow" src="assets/arrow down.svg" alt="" />
+        </div>
+        <a class="gnb__contact" href="#">CONTACT US</a>
+        <button class="gnb__burger" id="gnb-burger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- mobile menu (full-screen panel; the burger bars morph into an X) -->
+    <nav class="gnb__mobile" id="gnb-mobile" aria-label="Mobile menu">
+      <div class="gnb__mobile-inner">
+        <div class="gnb__mgroup">
+          <p class="gnb__mlabel">BUSINESS</p>
+          <a class="gnb__mlink" href="business-01.html">Cross-Border Payment</a>
+          <a class="gnb__mlink" href="business-02.html">B2B Settlement</a>
+          <a class="gnb__mlink" href="business-03.html">Prepaid Card</a>
+        </div>
+
+        <div class="gnb__mgroup">
+          <p class="gnb__mlabel">PERSONAL</p>
+          <a class="gnb__mlink" href="personal.html">DEBUNK</a>
+        </div>
+
+        <div class="gnb__mgroup gnb__mgroup--last">
+          <p class="gnb__mlabel">COMPANY</p>
+          <a class="gnb__mlink" href="#">About us</a>
+          <a class="gnb__mlink" href="#">Our culture</a>
+          <a class="gnb__mlink" href="#">Carears</a>
+          <a class="gnb__mlink" href="#">Media</a>
+          <a class="gnb__mlink" href="#">ICB CI</a>
+        </div>
+      </div>
+
+      <div class="gnb__mobile-foot">
+        <div class="gnb__mflags">
+          <button class="gnb__mflag is-active" type="button" aria-label="English"><img src="assets/flag_en.svg" alt="EN" /></button>
+          <button class="gnb__mflag" type="button" aria-label="Korean"><img src="assets/flag_kr.svg" alt="KR" /></button>
+        </div>
+        <a class="gnb__mobile-contact" href="#">CONTACT US</a>
+      </div>
+    </nav>
+
+    <!-- Mega panels -->
+    <div class="gnb__mega gnb__mega--business">
+      <div class="gnb__mega-inner">
+        <a class="gnb__svc" href="business-01.html">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-globe.png" alt="" /></span><span class="gnb__svc-title">Cross-Border Payment</span></span>
+          <span class="gnb__svc-desc">Integrated global payment infrastructure.</span>
+        </a>
+        <a class="gnb__svc" href="business-02.html">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-btb.png" alt="" /></span><span class="gnb__svc-title">B2B Settlement</span></span>
+          <span class="gnb__svc-desc">Fast and accurate B2B trade settlement.</span>
+        </a>
+        <a class="gnb__svc" href="business-03.html">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-card.png" alt="" /></span><span class="gnb__svc-title">Prepaid Card</span></span>
+          <span class="gnb__svc-desc">Customized corporate prepaid solutions.</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="gnb__mega gnb__mega--personal">
+      <div class="gnb__mega-inner">
+        <a class="gnb__svc" href="personal.html">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-debunk.png" alt="" /></span><span class="gnb__svc-title">DEBUNK</span></span>
+          <span class="gnb__svc-desc">Personal Remmitance</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="gnb__mega gnb__mega--company">
+      <div class="gnb__mega-inner">
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-building.png" alt="" /></span><span class="gnb__svc-title">About us</span></span>
+          <span class="gnb__svc-desc">Get to know us</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-culture.png" alt="" /></span><span class="gnb__svc-title">Our culture</span></span>
+          <span class="gnb__svc-desc">Life at ICB</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-hire.png" alt="" /></span><span class="gnb__svc-title">Carears</span></span>
+          <span class="gnb__svc-desc">Work with us</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-news.png" alt="" /></span><span class="gnb__svc-title">News &amp; Media</span></span>
+          <span class="gnb__svc-desc">Latest news</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-icb.png" alt="" /></span><span class="gnb__svc-title">ICB CI</span></span>
+          <span class="gnb__svc-desc">Visual Guideline</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ Page intro — sections to be built out ============ -->
+  <section class="s5" id="p-intro">
+    <div class="s5__head">
+      <h2 class="s5__title">DEBUNK</h2>
+      <p class="s5__sub">Personal Remmitance</p>
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__cols">
+          <div class="footer__col">
+            <h3 class="footer__heading">Business</h3>
+            <ul class="footer__links">
+              <li><a href="#">Cross-Border Payment</a></li>
+              <li><a href="#">B2B Settlement</a></li>
+              <li><a href="#">Prepaid Card</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h3 class="footer__heading">Personal</h3>
+            <ul class="footer__links">
+              <li><a href="#">Remittance</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h3 class="footer__heading">Company</h3>
+            <ul class="footer__links">
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Our culture</a></li>
+              <li><a href="#">Carears</a></li>
+              <li><a href="#">Media</a></li>
+              <li><a href="#">ICB CI</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <nav class="footer__policy" aria-label="Policies">
+          <a href="#">Privacy Polocy</a>
+          <a href="#">Digital Finance Business User Security Guide</a>
+          <a href="#">Ethical Management Policy</a>
+          <a href="#">Electronic Financial Transaction Terms and Conditions</a>
+        </nav>
+      </div>
+
+      <div class="footer__legal">
+        <span>&copy; 2026, ICB Inc.</span>
+        <span>+82.2.332.1880</span>
+        <span>7th- 8th Floor, 22, World Cup buk-ro, Mapo-gu, Seoul (03992)</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/business-01.js?v=18"></script>
+</body>
+</html>

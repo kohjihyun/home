@@ -1,0 +1,1164 @@
+:root {
+  --orange: #e52006;
+  --orange-500: #ea4109;
+  --redorange-50: #ffe1d5;
+  --subtitle: #d4daeb;
+  --gnb-gray: #e1e1e2;
+  --pad: clamp(20px, 5.56vw, 80px);
+  --maxw: none;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #222; }
+body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
+
+/* ============ GNB ============ */
+.gnb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 100;
+}
+/* expanding dark background revealed on hover (Figma: bg box #090f1a / 90%) */
+.gnb__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: rgba(9, 15, 26, 0);
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+  transition: height .4s cubic-bezier(.16, 1, .3, 1), background .4s ease, backdrop-filter .4s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+/* keep the whole panel area inside the header so hover doesn't drop in the gap */
+.gnb[data-active] { height: 357px; }
+.gnb[data-active] .gnb__bg {
+  height: 357px;
+  background: rgba(9, 15, 26, .9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+/* persistent dark bar once scrolled past the hero (GNB-sections) */
+.gnb.is-solid .gnb__bg {
+  background: rgba(9, 15, 26, .9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.gnb__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: var(--maxw);
+  height: 80px;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.gnb__logo { width: 74px; height: 28px; flex: 0 0 auto; }
+.gnb__logo img { width: 100%; height: 100%; display: block; }
+
+.gnb__nav {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  margin-left: 92px;
+  height: 100%;
+}
+.gnb__item { position: relative; height: 100%; display: flex; align-items: center; }
+.gnb__label {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 17px;
+  color: var(--gnb-gray);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .2s;
+}
+.gnb__item:hover .gnb__label { color: #fff; }
+
+/* current page indicator: white underline under BUSINESS */
+.gnb__item--current .gnb__label { color: #fff; position: relative; }
+.gnb__item--current .gnb__label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 10px);
+  height: 1px;
+  background: #fff;
+}
+
+/* active menu label turns orange (Figma) */
+.gnb[data-active="business"] [data-menu="business"] .gnb__label,
+.gnb[data-active="personal"] [data-menu="personal"] .gnb__label,
+.gnb[data-active="company"]  [data-menu="company"]  .gnb__label { color: var(--orange); }
+
+/* ---- full-width mega panels ---- */
+.gnb__mega {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 180px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity .35s ease, transform .35s cubic-bezier(.16, 1, .3, 1), visibility .35s;
+}
+.gnb[data-active="business"] .gnb__mega--business,
+.gnb[data-active="personal"] .gnb__mega--personal,
+.gnb[data-active="company"]  .gnb__mega--company { opacity: 1; visibility: visible; transform: translateY(0); }
+
+.gnb__mega-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(24px, 4vw, 48px);
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.gnb__mega--business .gnb__mega-inner,
+.gnb__mega--company  .gnb__mega-inner { justify-content: space-between; }
+
+.gnb__svc {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 0 0 auto;
+  text-decoration: none;
+}
+.gnb__svc-head { display: flex; align-items: center; gap: 16px; }
+.gnb__svc-ico { width: 28px; height: 28px; flex: 0 0 auto; }
+.gnb__svc-ico img { width: 100%; height: 100%; object-fit: contain; border-radius: 4px; display: block; }
+.gnb__svc-title {
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.4;
+  color: #fff;
+  white-space: nowrap;
+  transition: color .18s;
+}
+.gnb__svc-desc { font-weight: 300; font-size: 16px; line-height: 1.4; color: #8c8d8e; }
+.gnb__svc:hover .gnb__svc-title { color: var(--orange); }
+
+.gnb__right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.gnb__flag { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.gnb__flag .flag { width: 27px; height: 18px; display: block; }
+.gnb__flag .arrow { width: 16px; height: 16px; display: block; }
+.gnb__contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: var(--orange);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.13px;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ============ b01 Hero ============ */
+.b01-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  background: #222;
+}
+
+/* --- shared video background (Figma "Video" frame) --- */
+.b01-hero__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+.b01-hero__bg video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* four overlay layers from the Figma Video frame */
+.b01-hero__bg .overlay { position: absolute; inset: 0; }
+.ov-1 { background: #002181; mix-blend-mode: hue;        opacity: .30; }
+.ov-2 { background: #0e1828; mix-blend-mode: hard-light; opacity: .30; }
+.ov-3 { background: #000410; mix-blend-mode: hard-light; opacity: .40; }
+.ov-4 { background: #000a28; opacity: .50; }
+
+/* --- hero content --- */
+.b01-hero__inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.b01-hero__crumb {
+  font-size: clamp(14px, 1.1vw, 16px);
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: -0.2px;
+  color: var(--subtitle);
+  opacity: .8;
+  margin-bottom: clamp(16px, 1.9vh, 24px);
+}
+.b01-hero__crumb .sep { margin: 0 8px; opacity: .7; }
+
+.b01-hero__title {
+  width: min(940px, 100%);
+  font-weight: 500;
+  font-size: clamp(40px, 7.4vw, 104px);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  color: #fff;
+  text-shadow: 0 0 12px rgba(0, 0, 0, .25);
+}
+
+.b01-hero__sub {
+  width: min(520px, 100%);
+  margin-top: clamp(20px, 3vh, 40px);
+  font-weight: 300;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.5;
+  color: var(--subtitle);
+  opacity: .75;
+}
+
+/* hero00-style reveal: clip + slide up (no fade) */
+.hero-line { display: block; overflow: hidden; padding-bottom: .2em; }
+.b01-hero__title .hero-line { margin-bottom: -.2em; }
+.hero-line-inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 1s cubic-bezier(.16, 1, .3, 1) var(--delay, 0s);
+  will-change: transform;
+}
+.is-visible .hero-line-inner { transform: translateY(0); }
+
+.b01-hero__sub {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .9s ease, transform .9s ease;
+  transition-delay: .6s;
+}
+.is-visible .b01-hero__sub { opacity: .75; transform: translateY(0); }
+
+.b01-hero__crumb {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.is-visible .b01-hero__crumb { opacity: .8; transform: translateY(0); }
+
+/* ============ Section 1 : pinned two-phase reveal ============ */
+.sec1 {
+  position: relative;
+  height: 320vh;            /* scroll length that drives the pinned reveal */
+  background: #fff;
+}
+.sec1__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #fff;
+}
+.sec1__stage {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+/* single centered block, pinned position */
+.sec1__content {
+  position: absolute;
+  left: var(--pad);
+  right: var(--pad);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* persistent bar: gray track + orange fill (half width) that slides left -> right */
+.sec1__bar { position: relative; width: 400px; max-width: 100%; height: 4px; }
+.sec1__bar-track { position: absolute; inset: 0; background: #d9d9d9; }
+.sec1__bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: var(--orange);
+  transform: translateX(0);
+  will-change: transform;
+}
+
+/* both texts occupy the same spot; #1 sets the height, #2 overlaps it */
+.sec1__texts { position: relative; }
+.sec1__text {
+  font-weight: 500;
+  font-size: clamp(28px, 3.89vw, 56px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #111e36;
+}
+.sec1__text[data-content="2"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+}
+.sec1-line { display: block; overflow: hidden; }
+.sec1-line-inner {
+  display: block;
+  white-space: nowrap;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+/* ============ Section 2 : expanding cards ============ */
+.s2 {
+  background: #0d1426;
+  padding: clamp(88px, 15.35vw, 221px) 0 clamp(96px, 16.67vw, 240px);
+}
+.s2__head {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.s2__title {
+  width: min(1272px, 100%);
+  font-weight: 500;
+  font-size: clamp(40px, 6.1vw, 88px);
+  line-height: 1.1;
+  letter-spacing: -1.76px;
+  color: #fff;
+}
+/* title reveal: clip + slide up, line by line (like the hero) */
+.s2-line { display: block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; }
+.s2-line-inner {
+  display: block;
+  white-space: nowrap;
+  transform: translateY(110%);
+  transition: transform 1s cubic-bezier(.16, 1, .3, 1) var(--d, 0s);
+  will-change: transform;
+}
+.s2.is-inview .s2-line-inner { transform: translateY(0); }
+
+.s2__sub {
+  width: min(813px, 100%);
+  margin-top: clamp(24px, 3.4vh, 40px);
+  font-weight: 400;
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, .3);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .9s ease .45s, transform .9s ease .45s;
+}
+.s2.is-inview .s2__sub { opacity: 1; transform: translateY(0); }
+
+.s2__cards {
+  display: flex;
+  width: 100%;
+  max-width: var(--maxw);
+  height: 510px;
+  margin: clamp(64px, 10.83vw, 156px) auto 0;
+  padding: 0 var(--pad);
+}
+.s2-card {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  transition: flex-grow .6s cubic-bezier(.16, 1, .3, 1);
+  will-change: flex-grow;
+}
+/* fixed background shade per column (lightens left -> right), no dividing lines */
+.s2-card:nth-child(1) { background: #111d36; }
+.s2-card:nth-child(2) { background: #16233f; }
+.s2-card:nth-child(3) { background: #192847; }
+.s2-card:nth-child(4) { background: #212e48; }
+.s2-card.is-active { flex-grow: 4; }
+
+/* fixed-width inner so text stays put and clips (not reflows) as the card narrows */
+.s2-card__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 560px;
+  padding: 48px 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 31px;
+  opacity: .2;
+  transition: opacity .5s ease;
+}
+.s2-card.is-active .s2-card__inner { opacity: 1; }
+.s2-card__ico { width: 24px; height: 24px; color: #fff; flex: 0 0 auto; }
+.s2-card__ico img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.s2-card__title {
+  width: 500px;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  color: #fff;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.s2-card__desc {
+  width: 442px;
+  font-weight: 200;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #fff;
+  opacity: .7;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ============ Section 3 : payment timeline (pinned vertical loop) ========
+   Orange section. A fixed central line (ends faded) runs down the pinned
+   viewport; the four numbered steps sit on a track that scrolls upward as
+   the section is scrolled. At the start 01 & 02 straddle the centre; scroll
+   brings 03 & 04 through, then the loop lands back on 01 (a cloned set fills
+   in from the bottom so there is never a gap). Each step fades in + rises as
+   it passes through the centre band. */
+.s3 {
+  position: relative;
+  height: 420vh;              /* scroll length driving the timeline */
+  background: var(--orange);
+}
+/* the container pins only once it reaches the vertical centre of the viewport
+   (JS sets top + height to the Figma container); the swap runs while stuck */
+.s3__pin {
+  position: sticky;
+  top: 0;                     /* JS overrides to centre the container */
+  height: 420px;             /* JS overrides to the Figma container height */
+  width: 100%;
+}
+
+/* heading scrolls in first (lead-in) above the container */
+.s3__head {
+  padding: clamp(96px, 14vh, 170px) var(--pad) 0;
+  pointer-events: none;
+}
+.s3__title {
+  width: min(645px, 60vw);
+  font-weight: 500;
+  font-size: clamp(40px, 6.1vw, 88px);
+  line-height: 1.2;
+  letter-spacing: -1.76px;
+  color: #fff;
+}
+.s3__sub {
+  width: min(512px, 46vw);
+  margin-top: clamp(20px, 3vh, 32px);
+  font-weight: 400;
+  font-size: clamp(15px, 1.4vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  color: #fff;
+  opacity: .7;
+}
+
+/* the container fills the pin; the line and box are fixed at its centre and the
+   step content swaps in place at that centre as you scroll */
+.s3__stage {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1280px, 100% - (2 * var(--pad)));
+  height: 100%;
+}
+
+/* fixed central line — both ends fade out smoothly */
+.s3__line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg,
+    rgba(146, 23, 7, 0)  0%,
+    rgba(146, 23, 7, 1) 25%,
+    rgba(146, 23, 7, 1) 75%,
+    rgba(146, 23, 7, 0) 100%);
+}
+
+/* fixed node at the container's vertical centre (springs with scroll);
+   sits above the content and hides the seam during a swap */
+.s3__box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  background: #921707;
+  transform: translate(-50%, -50%) translateY(var(--box-dip, 0px));
+  z-index: 2;
+}
+
+/* directional scroll accents, attached to the box (move with its spring) */
+.s3__scroll {
+  position: absolute;
+  left: 50%;
+  width: 4px;
+  height: 60px;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+}
+.s3__scroll--down {           /* above the box; lights up on scroll-down */
+  bottom: calc(100% + 4px);
+  background: linear-gradient(180deg, rgba(0, 78, 205, 0) 0%, #004ecd 100%);
+}
+.s3__scroll--up {             /* below the box; lights up on scroll-up */
+  top: calc(100% + 4px);
+  background: linear-gradient(180deg, #004ecd 0%, rgba(0, 78, 205, 0) 100%);
+}
+
+/* the steps are all stacked at the same fixed centre spot */
+.s3__stack {
+  position: absolute;
+  inset: 0;
+}
+.s3-item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: var(--win, 200px);   /* content band (JS sizes it) */
+  transform: translateY(-50%);
+  opacity: 0;                  /* JS drives translateY + opacity: each step
+                                  scrolls up through the fixed centre, fading
+                                  in as it reaches the box and out as it passes */
+  will-change: transform, opacity;
+}
+
+/* the large step number — top half solid, bottom half faded (two-tone) */
+.s3-item__num {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(300px, 42vw);
+  font-weight: 500;
+  font-size: var(--num, 180px);
+  line-height: 1;
+  letter-spacing: -3.6px;
+  white-space: nowrap;
+  user-select: none;
+  color: transparent;
+  background-image: linear-gradient(180deg,
+    #921707 0%, #921707 50%,
+    rgba(146, 23, 7, .4) 50%, rgba(146, 23, 7, .4) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* the step title + description */
+.s3-item__text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(440px, 40vw);
+  color: var(--navy-bg, #0d1426);
+}
+.s3-item__t {
+  font-weight: 500;
+  font-size: clamp(28px, 4.4vw, 40px);
+  line-height: 1;
+  letter-spacing: -0.8px;
+}
+.s3-item__d {
+  margin-top: 18px;
+  font-weight: 400;
+  font-size: clamp(15px, 1.9vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  opacity: .7;
+}
+
+/* zig-zag placement around the central line (Figma: number hugs the line,
+   text sits ~100px out on the opposite side) */
+.s3-item--num-left  .s3-item__num  { right: calc(50% + clamp(20px, 4vw, 48px));  text-align: right; }
+.s3-item--num-left  .s3-item__text { left:  calc(50% + clamp(40px, 8vw, 100px)); text-align: left; }
+.s3-item--num-right .s3-item__num  { left:  calc(50% + clamp(20px, 4vw, 48px));  text-align: left; }
+.s3-item--num-right .s3-item__text { right: calc(50% + clamp(40px, 8vw, 100px)); text-align: right; }
+
+/* section3's 240px bottom margin — revealed on scroll after the pin releases,
+   before section 4 */
+.s3-margin { height: 240px; background: var(--orange); }
+
+/* ============ Section 4 : reasons — pinned, in-place content swap ==========
+   White section. The title is pinned top-left; below it one content (image +
+   text) shows at a time. Scrolling swaps content 01 -> 02 -> 03 in place: the
+   text rises as it changes and the image zooms while it crossfades. */
+.s4 {
+  position: relative;
+  height: 300vh;            /* scroll length driving the three-step swap (a bit quicker) */
+  background: #fff;
+}
+.s4__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* 190px whitespace above the title when the pin engages; the whole block then
+     drifts up 100px (JS), ending just below the 80px GNB */
+  padding: 190px var(--pad) 240px;
+}
+
+.s4__head { margin-bottom: 160px; will-change: transform; }   /* title -> content gap; drifts up with the content */
+.s4__title {
+  width: min(913px, 100%);
+  font-weight: 600;
+  font-size: clamp(38px, 6.1vw, 88px);
+  line-height: 1.1;
+  letter-spacing: -1.76px;
+  color: #193c4c;
+}
+.s4__sub {
+  margin-top: clamp(16px, 2.2vh, 32px);
+  font-weight: 400;
+  font-size: clamp(15px, 1.4vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  color: #1a4f66;
+}
+
+.s4__stage {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(40px, 8.75vw, 112px);
+  will-change: transform;   /* JS drifts it slowly up while pinned */
+}
+
+/* left media box: per-content image pairs, clipped (no rounding) */
+.s4__media {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(300px, 38vw, 544px);
+  aspect-ratio: 544 / 360;
+  overflow: hidden;
+  background: #ea4109;
+}
+.s4-shot {                    /* one per content; JS shows the active one */
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.s4-shot__img {               /* base image; JS zooms it in on scroll */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+  display: block;
+  will-change: transform;
+}
+
+/* right panel: fixed progress bar + swapping text items */
+.s4__panel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  align-self: stretch;
+  min-height: clamp(200px, 38vw * (360/544), 360px);
+}
+.s4__bar {
+  display: flex;
+  gap: 0;
+  width: min(632px, 100%);
+}
+.s4__seg {
+  flex: 1 1 0;
+  height: 4px;
+  background: #d9d9d9;
+  position: relative;
+  overflow: hidden;
+}
+.s4__seg i {          /* orange fill; JS sets opacity per segment */
+  position: absolute;
+  inset: 0;
+  background: var(--orange);
+  opacity: 0;
+}
+
+/* text items stacked at the same spot; each line clips up (JS drives it) */
+.s4__items {
+  position: relative;
+  margin-top: clamp(32px, 3.4vw, 48px);   /* bar -> number (Figma y52) */
+}
+.s4-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.s4-line { display: block; overflow: hidden; }
+.s4-line__in {
+  display: block;
+  white-space: nowrap;                /* keep Figma's line breaks on PC */
+  transform: translateY(110%);        /* start hidden below the clip */
+  padding-bottom: .14em;
+  margin-bottom: -.14em;
+  will-change: transform;
+}
+.s4-item__no {
+  font-family: "Inconsolata", ui-monospace, monospace;
+  font-stretch: 75%;                  /* Inconsolata Condensed */
+  font-size: 20px;
+  line-height: 1.2;
+  color: #000;
+}
+/* title / description: each line is its own clip span, revealed one by one */
+.s4-item__t {
+  margin-top: clamp(24px, 3.1vw, 44px);   /* number -> title (Figma y120) */
+  font-weight: 400;
+  font-size: clamp(24px, 2.9vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -0.72px;
+  color: #212e48;
+}
+.s4-item__d {
+  margin-top: clamp(18px, 2.8vw, 40px);   /* title -> description (Figma y240) */
+  font-weight: 200;
+  font-size: clamp(15px, 1.4vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  color: #212e48;
+}
+
+/* section4's 240px bottom margin — white space revealed on scroll after the s4
+   pin releases, before section 5 (matches the Figma frame's bottom whitespace) */
+.s4-margin { height: 240px; background: #fff; }
+
+/* ============ Section 5 : audiences — hover swaps the image ============
+   Left: a list of audiences. Hovering an item highlights it (orange), turns the
+   previous one navy briefly, then clears it, and crossfades the matching image
+   panel on the right. Each panel has its own tint layer; the caption inside
+   rises one line at a time. */
+.s5 {
+  background: #0d1426;
+  padding: clamp(88px, 13vw, 190px) 0 clamp(96px, 14vw, 200px);
+  overflow: hidden;
+}
+.s5__head { padding: 0 var(--pad); margin-bottom: clamp(48px, 11vw, 156px); }
+.s5__title {
+  width: min(1114px, 100%);
+  font-weight: 500;
+  font-size: clamp(36px, 6.1vw, 88px);
+  line-height: 1.2;
+  letter-spacing: -1.76px;
+  color: #fff;
+}
+.s5__sub {
+  margin-top: clamp(20px, 3vh, 44px);
+  width: min(440px, 100%);
+  font-weight: 400;
+  font-size: clamp(15px, 1.4vw, 20px);
+  line-height: 1.4;
+  letter-spacing: -0.2px;
+  color: rgba(255, 255, 255, .4);
+}
+
+/* Figma proportions (frame 1440): list 744 · gap 30 · image 666, tops aligned.
+   Everything is sized in vw off the full-bleed body so the list height
+   (4×80 + 3×24 = 392) always equals the image height (666×392/666 = 392). */
+.s5__body { display: flex; align-items: flex-start; gap: 2.083vw; }   /* 30px @1440 */
+
+/* left: audience list */
+.s5__list {
+  flex: 1 1 auto;                 /* fills the remaining 744px (51.66vw @1440) */
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.667vw;                   /* 24px @1440 */
+  list-style: none;
+}
+.s5-item {
+  height: 5.556vw;                /* 80px @1440 */
+  display: flex;
+  align-items: center;
+  padding: 8px 40px 8px var(--pad);
+  cursor: pointer;
+  background: transparent;
+  transition: background-color .35s ease;
+}
+.s5-item span {
+  font-weight: 300;
+  font-size: clamp(22px, 2.9vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -0.72px;
+  color: #fff;
+  white-space: nowrap;
+}
+.s5-item.is-prev   { background: #2e384d; }               /* previous selection */
+.s5-item.is-active { background: var(--orange-500, #ea4109); }
+
+/* right: stacked image panels (one shown at a time) */
+.s5__media {
+  position: relative;
+  flex: 0 0 46.25vw;             /* 666px @1440 — right edge flush to frame */
+  aspect-ratio: 666 / 392;
+  border-radius: 0;              /* no rounding (Figma) */
+  overflow: hidden;
+  background: #0d1426;
+}
+.s5-panel {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;
+}
+.s5-panel.is-active { opacity: 1; }
+.s5-panel__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* tint layers — above the image (__layer/__layer2) or below it (__underlay) */
+.s5-panel__layer,
+.s5-panel__layer2,
+.s5-panel__underlay { position: absolute; inset: 0; pointer-events: none; }
+.s5-panel__desc {
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  font-weight: 300;
+  font-size: clamp(15px, 1.4vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  color: #fff;
+  opacity: .85;
+}
+
+/* per-panel image opacity + tint layers (from Figma) */
+.s5-panel--1 .s5-panel__img   { opacity: .6; }
+.s5-panel--1 .s5-panel__layer { background: #a7523d; mix-blend-mode: hard-light; opacity: .4; }
+
+.s5-panel--2 .s5-panel__img   { opacity: .6; }
+.s5-panel--2 .s5-panel__layer { background: #631907; opacity: .6; }
+
+.s5-panel--3 .s5-panel__img    { opacity: .3; }
+.s5-panel--3 .s5-panel__layer  { background: #cc8f5e; mix-blend-mode: hard-light; opacity: .5; }
+.s5-panel--3 .s5-panel__layer2 { background: #cc755e; mix-blend-mode: hard-light; opacity: .1; }
+
+.s5-panel--4 .s5-panel__underlay { background: #192847; opacity: .5; }
+.s5-panel--4 .s5-panel__img      { opacity: .7; object-position: bottom; }
+.s5-panel--4 .s5-panel__layer    { background: #983500; mix-blend-mode: hard-light; opacity: .45; }
+.s5-panel--4 .s5-panel__desc     { text-shadow: 0 0 15px #212e48; }
+
+/* caption rises one line at a time when its panel becomes active.
+   Lines are authored explicitly in the HTML to match Figma's exact breaks,
+   so each line must never re-wrap. */
+.s5-line { display: block; overflow: hidden; }
+.s5-line__in {
+  display: block;
+  white-space: nowrap;
+  transform: translateY(110%);
+  transition: transform .6s cubic-bezier(.16, 1, .3, 1);
+  will-change: transform;
+}
+.s5-panel.is-active .s5-line__in { transform: translateY(0); }
+/* staggered rise (was set in JS) — 0.08s + 0.09s per line */
+.s5-line:nth-child(1) .s5-line__in { transition-delay: .08s; }
+.s5-line:nth-child(2) .s5-line__in { transition-delay: .17s; }
+.s5-line:nth-child(3) .s5-line__in { transition-delay: .26s; }
+.s5-line:nth-child(4) .s5-line__in { transition-delay: .35s; }
+
+/* section 3–5 title — hero-style line-by-line clip reveal, triggered when the
+   title scrolls into view (JS adds .is-inview). Reuses .hero-line /
+   .hero-line-inner (initial translateY(110%) + staggered --delay); only the
+   trigger differs from the hero (.is-visible → .is-inview). */
+.s3__title .hero-line,
+.s4__title .hero-line,
+.s5__title .hero-line { margin-bottom: -.2em; }
+.s3.is-inview .hero-line-inner,
+.s4.is-inview .hero-line-inner,
+.s5.is-inview .hero-line-inner { transform: translateY(0); }
+
+/* ============ Footer (ported from index.html / hero.css) ============ */
+.footer {
+  position: relative;
+  z-index: 7;
+  background: var(--orange);
+  color: #fff;
+}
+.footer__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-bottom: 48px;
+}
+.footer__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(40px, 5vw, 80px);
+  padding: 80px var(--pad);
+}
+.footer__cols { display: flex; gap: clamp(48px, 7.2vw, 104px); }
+.footer__col { display: flex; flex-direction: column; gap: 16px; }
+.footer__heading {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, .5);
+}
+.footer__links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer__links a {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity .25s ease;
+}
+.footer__links a:hover { opacity: .7; }
+.footer__policy {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  padding-left: clamp(24px, 5.56vw, 80px);
+}
+.footer__policy a {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, .7);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity .25s ease;
+}
+.footer__policy a:hover { opacity: .7; }
+.footer__legal {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin: 0 var(--pad);
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, .8);
+}
+
+/* ===================================================================
+   Responsive — tablet & mobile
+   =================================================================== */
+
+/* burger + mobile menu are hidden until the mobile breakpoint */
+.gnb__burger { display: none; }
+.gnb__mobile { display: none; }
+
+/* ---- tablet (≤ 900px): stack the side-by-side layouts ---- */
+@media (max-width: 900px) {
+  /* section 2 — expanding cards become a simple stack */
+  .s2__cards { flex-direction: column; height: auto; gap: 14px; }
+  .s2-card { flex: none; height: auto; overflow: visible; border-radius: 10px; }
+  .s2-card.is-active { flex-grow: 0; }
+  .s2-card__inner {
+    position: relative; inset: auto; width: 100%;
+    opacity: 1 !important; padding: 28px 24px; gap: 16px;
+  }
+  .s2-card__title { width: 100%; font-size: clamp(24px, 4.6vw, 40px); -webkit-line-clamp: initial; }
+  .s2-card__desc { width: 100%; font-size: clamp(15px, 2vw, 20px); -webkit-line-clamp: initial; }
+
+  /* section 4 — image on top, text below; lines may wrap */
+  .s4__stage { flex-direction: column; gap: 28px; align-items: stretch; }
+  .s4__media { width: 100%; }
+  .s4-line__in { white-space: normal; }
+
+  /* footer — stack columns above the policy list */
+  .footer__top { flex-direction: column; gap: 40px; }
+  .footer__cols { flex-wrap: wrap; gap: 40px; }
+  .footer__policy { gap: 16px; padding-left: 0; }
+  .footer__policy a { white-space: normal; }
+  .footer__legal { flex-direction: column; gap: 12px; }
+}
+
+/* ---- mobile (≤ 768px) ---- */
+@media (max-width: 768px) {
+  /* GNB → compact bar + burger menu */
+  .gnb, .gnb__inner { height: 60px; }
+  .gnb__inner { padding: 0 20px; }
+  .gnb__bg { height: 60px; }
+  .gnb[data-active] { height: 60px; }
+  .gnb[data-active] .gnb__bg { height: 60px; }
+  .gnb__nav, .gnb__flag, .gnb__contact { display: none; }
+  .gnb__mega { display: none !important; }
+  .gnb__logo { width: 64px; height: 24px; }
+
+  /* Figma mobile-menu-open is a SINGLE 28x2 bar (5px above centre); opening
+     rotates it into one stroke of the X while the second stroke fades in from
+     the same spot, so the line appears to split into mobile-menu-close */
+  .gnb__burger {
+    display: block; position: relative;
+    width: 28px; height: 28px; padding: 0; border: 0; background: none; cursor: pointer;
+  }
+  .gnb__burger span {
+    position: absolute; left: 50%; top: 50%;
+    width: 28px; height: 2px; margin: -1px 0 0 -14px;
+    background: #fff; border-radius: 1px;
+    transition: transform .4s cubic-bezier(.16, 1, .3, 1), opacity .3s ease;
+  }
+  /* closed: only the first bar shows — the second hides underneath it */
+  .gnb__burger span:nth-child(1) { transform: translateY(-5px); }
+  .gnb__burger span:nth-child(2) { transform: translateY(-5px); opacity: 0; }
+  /* open: both bars centre and cross at ±45° (matches the exported close SVG) */
+  .gnb.is-menu-open .gnb__burger span:nth-child(1) { transform: rotate(45deg); }
+  .gnb.is-menu-open .gnb__burger span:nth-child(2) { transform: rotate(-45deg); opacity: 1; }
+  .gnb.is-menu-open .gnb__bg { background: rgba(9, 15, 26, .9); backdrop-filter: blur(8px); }
+
+  /* full-screen panel below the bar (Figma mobile-menu: #090f1a @ 90%) */
+  .gnb__mobile {
+    position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+    flex-direction: column; padding: 26px 28px 25px;
+    background: rgba(9, 15, 26, .9);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    overflow-y: auto;
+  }
+  .gnb.is-menu-open .gnb__mobile { display: flex; }
+
+  /* grouped links: orange category label + light items, hairline between groups */
+  .gnb__mobile-inner { display: flex; flex-direction: column; gap: 32px; }
+  .gnb__mgroup { display: flex; flex-direction: column; gap: 20px; }
+  .gnb__mgroup::after {
+    content: ""; display: block; height: 1px; margin-top: 12px; background: #272c38;
+  }
+  .gnb__mgroup--last::after { display: none; }
+  .gnb__mlabel {
+    font-size: 16px; font-weight: 400; line-height: 17px; color: var(--orange);
+  }
+  .gnb__mlink {
+    font-size: 16px; font-weight: 300; line-height: 1.4; color: #fff;
+    text-decoration: none; transition: opacity .25s ease;
+  }
+  .gnb__mlink:hover { opacity: .7; }
+
+  /* bottom row: language flags + CONTACT US pill */
+  .gnb__mobile-foot {
+    margin-top: auto; padding-top: 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .gnb__mflags { display: flex; align-items: center; gap: 18px; }
+  .gnb__mflag {
+    display: block; width: 27px; height: 18px; padding: 0; border: 0; background: none;
+    border-radius: 2px; overflow: hidden; cursor: pointer;
+    transition: opacity .25s ease;
+  }
+  .gnb__mflag:hover { opacity: .7; }
+  .gnb__mflag img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .gnb__mobile-contact {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 8px 16px; border-radius: 6px; background: var(--orange);
+    font-size: 13px; font-weight: 500; line-height: 1.2; letter-spacing: -.13px;
+    color: #fff; text-decoration: none; white-space: nowrap;
+  }
+
+  /* hero */
+  .b01-hero__title { font-size: clamp(32px, 8.6vw, 60px); letter-spacing: -1px; }
+  .b01-hero__sub { width: 100%; }
+
+  /* section 1 — shrink the font and let each sentence wrap inside its clip
+     (keep overflow hidden so the reveal doesn't overlap) */
+  .sec1__text { font-size: clamp(17px, 5vw, 30px); line-height: 1.3; }
+  .sec1-line { padding-bottom: .1em; }
+  .sec1-line-inner { white-space: normal; }
+  .sec1__content { gap: 20px; }
+  .sec1__bar { width: 60%; }
+
+  /* section 2 title lines may wrap */
+  .s2-line { overflow: visible; }
+  .s2-line-inner { white-space: normal; }
+  .s2__title { font-size: clamp(30px, 8.2vw, 56px); letter-spacing: -1px; }
+  /* content title kept clearly smaller than the section head (consistent ratio) */
+  .s2-card__title { font-size: clamp(19px, 4.8vw, 32px); }
+
+  /* unify the section head sizes across sections */
+  .s3__title { font-size: clamp(28px, 7.6vw, 56px); }
+
+  /* section 3 — same PC layout (number beside the line, text opposite), scaled */
+  .s3-item__num { width: auto; }
+  .s3-item--num-left  .s3-item__num  { right: calc(50% + 10px); left: auto;  text-align: right; }
+  .s3-item--num-right .s3-item__num  { left:  calc(50% + 10px); right: auto; text-align: left;  }
+  .s3-item--num-left  .s3-item__text { left:  calc(50% + 16px); right: auto; width: min(190px, 44vw); text-align: left;  }
+  .s3-item--num-right .s3-item__text { right: calc(50% + 16px); left: auto;  width: min(190px, 44vw); text-align: right; }
+  .s3-item__t { font-size: clamp(17px, 4.8vw, 24px); }
+  .s3-item__d { font-size: 13px; margin-top: 8px; }
+  .s3__head { padding: clamp(84px, 22vw, 120px) var(--pad) 0; }
+
+  /* section 4 */
+  .s4__title { font-size: clamp(30px, 8.6vw, 56px); letter-spacing: -1px; }
+  .s4__head { margin-bottom: 48px; }
+  .s4__pin { padding: 84px 20px 120px; }   /* top whitespace kept above the title */
+  .s4-item { transition: opacity .35s ease; }
+  .s4-item__t { font-size: clamp(19px, 4.8vw, 30px); }
+  /* title / description flow as continuous wrapping text (ignore PC breaks) */
+  .s4-item__t .s4-line,
+  .s4-item__d .s4-line { display: inline; overflow: visible; }
+  .s4-item__t .s4-line__in,
+  .s4-item__d .s4-line__in {
+    display: inline; white-space: normal; padding-bottom: 0; margin-bottom: 0;
+  }
+  .s4-item__t .s4-line::after,
+  .s4-item__d .s4-line::after { content: " "; }
+
+  /* section 5 — stack image above the list so the vw sizing can't collapse */
+  .s5__body { flex-direction: column; gap: 24px; }
+  .s5__media { flex: none; width: 100%; }
+  .s5__list { width: 100%; gap: 8px; }
+  .s5-item { height: auto; padding: 16px var(--pad); }
+  .s5-item span { font-size: clamp(20px, 5.4vw, 28px); white-space: normal; }
+}

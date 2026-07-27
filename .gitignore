@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# local tooling / editor state (not part of the site)
+.claude/
+
+# unused local-only media
+assets/hero-video_21mb.mp4
+grok-*.jpg

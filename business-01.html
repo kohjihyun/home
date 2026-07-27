@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ICB — Business : Cross-Border Payment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Inconsolata:wght@400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="css/business-01.css?v=20" />
+</head>
+<body>
+  <!-- ============ GNB ============ -->
+  <header class="gnb" id="gnb">
+    <div class="gnb__bg"></div>
+
+    <div class="gnb__inner">
+      <a class="gnb__logo" href="index.html"><img src="assets/ICB_logo-color.svg" alt="ICB" /></a>
+
+      <nav class="gnb__nav">
+        <div class="gnb__item gnb__item--current" data-menu="business"><span class="gnb__label">BUSINESS</span></div>
+        <div class="gnb__item" data-menu="personal"><span class="gnb__label">PERSONAL</span></div>
+        <div class="gnb__item" data-menu="company"><span class="gnb__label">COMPANY</span></div>
+      </nav>
+
+      <div class="gnb__right">
+        <div class="gnb__flag">
+          <img class="flag" src="assets/flag_en.svg" alt="EN" />
+          <img class="arrow" src="assets/arrow down.svg" alt="" />
+        </div>
+        <a class="gnb__contact" href="#">CONTACT US</a>
+        <button class="gnb__burger" id="gnb-burger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- mobile menu (full-screen panel; the burger bars morph into an X) -->
+    <nav class="gnb__mobile" id="gnb-mobile" aria-label="Mobile menu">
+      <div class="gnb__mobile-inner">
+        <div class="gnb__mgroup">
+          <p class="gnb__mlabel">BUSINESS</p>
+          <a class="gnb__mlink" href="business-01.html">Cross-Border Payment</a>
+          <a class="gnb__mlink" href="business-02.html">B2B Settlement</a>
+          <a class="gnb__mlink" href="business-03.html">Prepaid Card</a>
+        </div>
+
+        <div class="gnb__mgroup">
+          <p class="gnb__mlabel">PERSONAL</p>
+          <a class="gnb__mlink" href="personal.html">DEBUNK</a>
+        </div>
+
+        <div class="gnb__mgroup gnb__mgroup--last">
+          <p class="gnb__mlabel">COMPANY</p>
+          <a class="gnb__mlink" href="#">About us</a>
+          <a class="gnb__mlink" href="#">Our culture</a>
+          <a class="gnb__mlink" href="#">Carears</a>
+          <a class="gnb__mlink" href="#">Media</a>
+          <a class="gnb__mlink" href="#">ICB CI</a>
+        </div>
+      </div>
+
+      <div class="gnb__mobile-foot">
+        <div class="gnb__mflags">
+          <button class="gnb__mflag is-active" type="button" aria-label="English"><img src="assets/flag_en.svg" alt="EN" /></button>
+          <button class="gnb__mflag" type="button" aria-label="Korean"><img src="assets/flag_kr.svg" alt="KR" /></button>
+        </div>
+        <a class="gnb__mobile-contact" href="#">CONTACT US</a>
+      </div>
+    </nav>
+
+    <!-- Mega panels -->
+    <div class="gnb__mega gnb__mega--business">
+      <div class="gnb__mega-inner">
+        <a class="gnb__svc" href="business-01.html">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-globe.png" alt="" /></span><span class="gnb__svc-title">Cross-Border Payment</span></span>
+          <span class="gnb__svc-desc">Integrated global payment infrastructure.</span>
+        </a>
+        <a class="gnb__svc" href="business-02.html">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-btb.png" alt="" /></span><span class="gnb__svc-title">B2B Settlement</span></span>
+          <span class="gnb__svc-desc">Fast and accurate B2B trade settlement.</span>
+        </a>
+        <a class="gnb__svc" href="business-03.html">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-card.png" alt="" /></span><span class="gnb__svc-title">Prepaid Card</span></span>
+          <span class="gnb__svc-desc">Customized corporate prepaid solutions.</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="gnb__mega gnb__mega--personal">
+      <div class="gnb__mega-inner">
+        <a class="gnb__svc" href="personal.html">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-debunk.png" alt="" /></span><span class="gnb__svc-title">DEBUNK</span></span>
+          <span class="gnb__svc-desc">Personal Remmitance</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="gnb__mega gnb__mega--company">
+      <div class="gnb__mega-inner">
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-building.png" alt="" /></span><span class="gnb__svc-title">About us</span></span>
+          <span class="gnb__svc-desc">Get to know us</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-culture.png" alt="" /></span><span class="gnb__svc-title">Our culture</span></span>
+          <span class="gnb__svc-desc">Life at ICB</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-hire.png" alt="" /></span><span class="gnb__svc-title">Carears</span></span>
+          <span class="gnb__svc-desc">Work with us</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-news.png" alt="" /></span><span class="gnb__svc-title">News & Media</span></span>
+          <span class="gnb__svc-desc">Latest news</span>
+        </a>
+        <a class="gnb__svc" href="#">
+          <span class="gnb__svc-head"><span class="gnb__svc-ico"><img src="assets/icon-icb.png" alt="" /></span><span class="gnb__svc-title">ICB CI</span></span>
+          <span class="gnb__svc-desc">Visual Guideline</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ b01 Hero ============ -->
+  <section class="b01-hero" id="b01-hero">
+    <!-- Video background (Figma "Video" frame) -->
+    <div class="b01-hero__bg">
+      <video autoplay muted loop playsinline poster="">
+        <source src="assets/mobile-payment.mp4" type="video/mp4" />
+      </video>
+      <div class="overlay ov-1"></div>
+      <div class="overlay ov-2"></div>
+      <div class="overlay ov-3"></div>
+      <div class="overlay ov-4"></div>
+    </div>
+
+    <div class="b01-hero__inner">
+      <p class="b01-hero__crumb">Business<span class="sep">&gt;</span>Cross-Border Payment</p>
+
+      <h1 class="b01-hero__title">
+        <span class="hero-line"><span class="hero-line-inner">Every global</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">payment method,</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.24s">one partnership.</span></span>
+      </h1>
+
+      <p class="b01-hero__sub">Accept payments from customers worldwide — offline, online, and everywhere in between.</p>
+    </div>
+  </section>
+
+  <!-- ============ Section 1 : pinned two-phase reveal ============ -->
+  <section class="sec1" id="section1">
+    <div class="sec1__pin">
+      <div class="sec1__stage">
+        <div class="sec1__content">
+          <!-- single persistent bar; orange fill slides left -> right during swap -->
+          <div class="sec1__bar">
+            <span class="sec1__bar-track"></span>
+            <span class="sec1__bar-fill"></span>
+          </div>
+          <!-- both texts stacked in the same spot; only the text crossfades -->
+          <div class="sec1__texts">
+            <p class="sec1__text" data-content="1">
+              <span class="sec1-line"><span class="sec1-line-inner">Cross-border payments are transactions</span></span>
+              <span class="sec1-line"><span class="sec1-line-inner">between parties in different countries,</span></span>
+              <span class="sec1-line"><span class="sec1-line-inner">involving multiple currencies, FX conversion, and</span></span>
+              <span class="sec1-line"><span class="sec1-line-inner">international settlement.</span></span>
+            </p>
+            <p class="sec1__text" data-content="2">
+              <span class="sec1-line"><span class="sec1-line-inner">ICB provides a unified infrastructure that</span></span>
+              <span class="sec1-line"><span class="sec1-line-inner">enables businesses to accept,</span></span>
+              <span class="sec1-line"><span class="sec1-line-inner">process, and settle international payments</span></span>
+              <span class="sec1-line"><span class="sec1-line-inner">efficiently and compliantly.</span></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 2 : expanding cards ============ -->
+  <section class="s2" id="section2">
+    <div class="s2__head">
+      <h2 class="s2__title">
+        <span class="s2-line"><span class="s2-line-inner">Everything your business</span></span>
+        <span class="s2-line"><span class="s2-line-inner" style="--d:.12s">needs to collect and settle</span></span>
+        <span class="s2-line"><span class="s2-line-inner" style="--d:.24s">globally</span></span>
+      </h2>
+      <p class="s2__sub">From accepting your first international payment to reconciling settlements across entities — ICB handles the full flow.</p>
+    </div>
+
+    <div class="s2__cards" id="s2-cards">
+      <article class="s2-card is-active" data-card>
+        <div class="s2-card__inner">
+          <span class="s2-card__ico"><img src="assets/svg/icon-s2-globe.svg" alt="" /></span>
+          <h3 class="s2-card__title">Global &amp; local payment acceptance</h3>
+          <p class="s2-card__desc">Accept payments from customers worldwide via the methods they already use — local wallets, cards, and bank transfers.</p>
+        </div>
+      </article>
+
+      <article class="s2-card" data-card>
+        <div class="s2-card__inner">
+          <span class="s2-card__ico"><img src="assets/svg/icon-s2-exchange.svg" alt="" /></span>
+          <h3 class="s2-card__title">Multi-currency processing &amp; FX conversion</h3>
+          <p class="s2-card__desc">Process transactions in 35+ currencies with real-time FX conversion — no manual steps, no hidden rates.</p>
+        </div>
+      </article>
+
+      <article class="s2-card" data-card>
+        <div class="s2-card__inner">
+          <span class="s2-card__ico"><img src="assets/svg/icon-s2-card.svg" alt="" /></span>
+          <h3 class="s2-card__title">Cross-border settlement &amp; reconciliation</h3>
+          <p class="s2-card__desc">Funds settled and reconciled across countries automatically — reducing delays and manual back-office work.</p>
+        </div>
+      </article>
+
+      <article class="s2-card" data-card>
+        <div class="s2-card__inner">
+          <span class="s2-card__ico"><img src="assets/svg/icon-s2-shield.svg" alt="" /></span>
+          <h3 class="s2-card__title">Built-in compliance &amp; transaction monitoring</h3>
+          <p class="s2-card__desc">Every transaction monitored against local regulatory requirements — compliance handled without extra effort from your team.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ Section 3 : payment timeline (pinned vertical loop) ============ -->
+  <section class="s3" id="section3">
+    <div class="s3__head">
+      <h2 class="s3__title">
+        <span class="hero-line"><span class="hero-line-inner">Your payment,</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">end to end</span></span>
+      </h2>
+      <p class="s3__sub">Four steps from customer payment to settled funds — all handled by ICB&#39;s infrastructure.</p>
+    </div>
+
+    <div class="s3__pin">
+      <div class="s3__stage">
+        <!-- fixed central line -->
+        <span class="s3__line"></span>
+
+        <!-- the four steps are stacked at the same fixed centre spot; a clip
+             wipe reveals the next over the current as you scroll -->
+        <div class="s3__stack" id="s3-track">
+          <article class="s3-item s3-item--num-left" data-step>
+            <span class="s3-item__num" aria-hidden="true">01</span>
+            <div class="s3-item__text">
+              <h3 class="s3-item__t">Accept</h3>
+              <p class="s3-item__d">Collect funds from the sender quickly and accurate</p>
+            </div>
+          </article>
+
+          <article class="s3-item s3-item--num-right" data-step>
+            <span class="s3-item__num" aria-hidden="true">02</span>
+            <div class="s3-item__text">
+              <h3 class="s3-item__t">Currency conversion</h3>
+              <p class="s3-item__d">Your funds travel the fastest available corridor</p>
+            </div>
+          </article>
+
+          <article class="s3-item s3-item--num-left" data-step>
+            <span class="s3-item__num" aria-hidden="true">03</span>
+            <div class="s3-item__text">
+              <h3 class="s3-item__t">Settle</h3>
+              <p class="s3-item__d">Settle and reconcile funds seamlessly across countries and entities.</p>
+            </div>
+          </article>
+
+          <article class="s3-item s3-item--num-right" data-step>
+            <span class="s3-item__num" aria-hidden="true">04</span>
+            <div class="s3-item__text">
+              <h3 class="s3-item__t">Monitor</h3>
+              <p class="s3-item__d">Every transaction checked for compliance in real time</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- fixed node at the centre (springs with scroll); carries the accents -->
+        <span class="s3__box" id="s3-box">
+          <span class="s3__scroll s3__scroll--down" id="s3-scroll-down"></span>
+          <span class="s3__scroll s3__scroll--up" id="s3-scroll-up"></span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 240px bottom margin: after the pinned swap this scrolls into view before section 4 -->
+  <div class="s3-margin" aria-hidden="true"></div>
+
+  <!-- ============ Section 4 : reasons (pinned, in-place content swap) ============ -->
+  <section class="s4" id="section4">
+    <div class="s4__pin">
+      <div class="s4__head">
+        <h2 class="s4__title">
+          <span class="hero-line"><span class="hero-line-inner">Built for Cross-Border,</span></span>
+          <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">Ready for Scale</span></span>
+        </h2>
+        <p class="s4__sub">Three reasons businesses choose ICB for cross-border payments.</p>
+      </div>
+
+      <div class="s4__stage">
+        <!-- left: one image per content; the base image is zoomed in on scroll -->
+        <div class="s4__media">
+          <div class="s4-shot" data-shot>
+            <img class="s4-shot__img s4-shot__img--base" src="assets/section4-01.png" alt="One unified infrastructure" />
+          </div>
+          <div class="s4-shot" data-shot>
+            <img class="s4-shot__img s4-shot__img--base" src="assets/section4-02.png" alt="Faster, predictable settlement" />
+          </div>
+          <div class="s4-shot" data-shot>
+            <img class="s4-shot__img s4-shot__img--base" src="assets/section4-03.png" alt="Multi-currency ready" />
+          </div>
+        </div>
+
+        <!-- right: fixed progress bar + text items; lines match Figma and clip up one by one -->
+        <div class="s4__panel">
+          <div class="s4__bar" id="s4-bar">
+            <span class="s4__seg"><i></i></span>
+            <span class="s4__seg"><i></i></span>
+            <span class="s4__seg"><i></i></span>
+          </div>
+
+          <div class="s4__items">
+            <article class="s4-item" data-item>
+              <span class="s4-line s4-line--no"><span class="s4-line__in s4-item__no">01.</span></span>
+              <h3 class="s4-item__t">
+                <span class="s4-line"><span class="s4-line__in">One unified infrastructure for</span></span>
+                <span class="s4-line"><span class="s4-line__in">payments, FX, and settlement</span></span>
+              </h3>
+              <p class="s4-item__d">
+                <span class="s4-line"><span class="s4-line__in">Payments, FX, and settlement are connected in a single</span></span>
+                <span class="s4-line"><span class="s4-line__in">platform — no need to integrate and manage multiple</span></span>
+                <span class="s4-line"><span class="s4-line__in">vendors separately.</span></span>
+              </p>
+            </article>
+
+            <article class="s4-item" data-item>
+              <span class="s4-line s4-line--no"><span class="s4-line__in s4-item__no">02.</span></span>
+              <h3 class="s4-item__t">
+                <span class="s4-line"><span class="s4-line__in">Faster, predictable settlement</span></span>
+                <span class="s4-line"><span class="s4-line__in">across regions</span></span>
+              </h3>
+              <p class="s4-item__d">
+                <span class="s4-line"><span class="s4-line__in">Get faster and more predictable settlement across regions</span></span>
+                <span class="s4-line"><span class="s4-line__in">— so your cash flow is reliable, no matter where your</span></span>
+                <span class="s4-line"><span class="s4-line__in">customers are.</span></span>
+              </p>
+            </article>
+
+            <article class="s4-item" data-item>
+              <span class="s4-line s4-line--no"><span class="s4-line__in s4-item__no">03.</span></span>
+              <h3 class="s4-item__t">
+                <span class="s4-line"><span class="s4-line__in">Multi-currency ready with</span></span>
+                <span class="s4-line"><span class="s4-line__in">transparent FX</span></span>
+              </h3>
+              <p class="s4-item__d">
+                <span class="s4-line"><span class="s4-line__in">Support multiple currencies with clear FX rates you can</span></span>
+                <span class="s4-line"><span class="s4-line__in">see upfront — no surprises when funds arrive.</span></span>
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 240px bottom margin: revealed on scroll after the s4 pin releases, before section 5 -->
+  <div class="s4-margin" aria-hidden="true"></div>
+
+  <!-- ============ Section 5 : audiences — hover a list item swaps the image ============ -->
+  <section class="s5" id="section5">
+    <div class="s5__head">
+      <h2 class="s5__title">
+        <span class="hero-line"><span class="hero-line-inner">Made for global businesses</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">of every scale</span></span>
+      </h2>
+      <p class="s5__sub">Whether you&#39;re a physical retailer or a global fintech, ICB is built to fit your payment needs.</p>
+    </div>
+
+    <div class="s5__body">
+      <ul class="s5__list" id="s5-list">
+        <li class="s5-item is-active" data-i="0"><span>Road shops</span></li>
+        <li class="s5-item" data-i="1"><span>Marketplaces and platforms</span></li>
+        <li class="s5-item" data-i="2"><span>E-commerce merchants</span></li>
+        <li class="s5-item" data-i="3"><span>Fintech companies and PSPs</span></li>
+      </ul>
+
+      <div class="s5__media" id="s5-media">
+        <figure class="s5-panel s5-panel--1 is-active" data-panel="0">
+          <img class="s5-panel__img" src="assets/section5-img1.png" alt="" />
+          <span class="s5-panel__layer"></span>
+          <p class="s5-panel__desc">
+            <span class="s5-line"><span class="s5-line__in">Physical retailers who want to accept payments from</span></span>
+            <span class="s5-line"><span class="s5-line__in">international visitors — quickly and without complexity.</span></span>
+            <span class="s5-line"><span class="s5-line__in">ICB connects you to the wallets and methods your</span></span>
+            <span class="s5-line"><span class="s5-line__in">customers carry.</span></span>
+          </p>
+        </figure>
+        <figure class="s5-panel s5-panel--2" data-panel="1">
+          <img class="s5-panel__img" src="assets/section5-img2.png" alt="" />
+          <span class="s5-panel__layer"></span>
+          <p class="s5-panel__desc">
+            <span class="s5-line"><span class="s5-line__in">Multi-sided platforms that need to collect</span></span>
+            <span class="s5-line"><span class="s5-line__in">from buyers in one country and pay out to</span></span>
+            <span class="s5-line"><span class="s5-line__in">sellers in another. ICB handles the settlement</span></span>
+            <span class="s5-line"><span class="s5-line__in">layer so your platform doesn&#39;t have to.</span></span>
+          </p>
+        </figure>
+        <figure class="s5-panel s5-panel--3" data-panel="2">
+          <img class="s5-panel__img" src="assets/section5-img3.png" alt="" />
+          <span class="s5-panel__layer"></span>
+          <span class="s5-panel__layer2"></span>
+          <p class="s5-panel__desc">
+            <span class="s5-line"><span class="s5-line__in">Online sellers with international customers who need</span></span>
+            <span class="s5-line"><span class="s5-line__in">local payment methods, reliable FX, and automated</span></span>
+            <span class="s5-line"><span class="s5-line__in">reconciliation — all from a single integration.</span></span>
+          </p>
+        </figure>
+        <figure class="s5-panel s5-panel--4" data-panel="3">
+          <span class="s5-panel__underlay"></span>
+          <img class="s5-panel__img" src="assets/section5-img4.png" alt="" />
+          <span class="s5-panel__layer"></span>
+          <p class="s5-panel__desc">
+            <span class="s5-line"><span class="s5-line__in">Payment service providers and fintechs who want to</span></span>
+            <span class="s5-line"><span class="s5-line__in">embed compliant cross-border payment capabilities into</span></span>
+            <span class="s5-line"><span class="s5-line__in">their own product via API.</span></span>
+          </p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Footer (from index.html) ============ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__cols">
+          <div class="footer__col">
+            <h3 class="footer__heading">Business</h3>
+            <ul class="footer__links">
+              <li><a href="#">Cross-Border Payment</a></li>
+              <li><a href="#">B2B Settlement</a></li>
+              <li><a href="#">Prepaid Card</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h3 class="footer__heading">Personal</h3>
+            <ul class="footer__links">
+              <li><a href="#">Remittance</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h3 class="footer__heading">Company</h3>
+            <ul class="footer__links">
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Our culture</a></li>
+              <li><a href="#">Carears</a></li>
+              <li><a href="#">Media</a></li>
+              <li><a href="#">ICB CI</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <nav class="footer__policy" aria-label="Policies">
+          <a href="#">Privacy Polocy</a>
+          <a href="#">Digital Finance Business User Security Guide</a>
+          <a href="#">Ethical Management Policy</a>
+          <a href="#">Electronic Financial Transaction Terms and Conditions</a>
+        </nav>
+      </div>
+
+      <div class="footer__legal">
+        <span>&copy; 2026, ICB Inc.</span>
+        <span>+82.2.332.1880</span>
+        <span>7th- 8th Floor, 22, World Cup buk-ro, Mapo-gu, Seoul (03992)</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/business-01.js?v=18"></script>
+</body>
+</html>
