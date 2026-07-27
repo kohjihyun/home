@@ -240,8 +240,11 @@
       // design width (180px in the 1280 container) and scales down responsively
       const stageW = stage.clientWidth || (vh * 1.5);
       const mobile = (window.innerWidth || vh) <= 768;
-      // number keeps the PC proportion (180 in a 1280 container), just scaled
-      const num = Math.min(stageW * (180 / 1280) * (mobile ? 1.35 : 1), mobile ? 76 : 180);
+      // the number keeps its Figma proportion: 180px in the 1280 desktop
+      // container, 108px in the 412 mobile container (≈26% of the width)
+      const num = mobile
+        ? Math.min(stageW * (108 / 412), 108)
+        : Math.min(stageW * (180 / 1280), 180);
       const winH = mobile
         ? Math.min(vh * 0.26, 200)                      // band fits number + wrapped text
         : Math.max(num * 1.3, 140);
@@ -383,12 +386,28 @@
       const ph = clamp(p * N - active, 0, 1);       // progress within the content
       const rev = clamp(ph / 0.72, 0, 1);           // lines reveal, then hold
 
-      // on mobile the text flows (no per-line clip); fade the whole content in
       const mobile = (window.innerWidth || vh) <= 768;
+
+      // Phones list every content in order instead of swapping one in place
+      // (CSS unrolls the stage into a grid). Clear anything a desktop-sized
+      // frame may have written so nothing stays hidden or offset.
+      if (mobile) {
+        for (let i = 0; i < N; i++) {
+          shots[i].style.opacity = "";
+          items[i].style.opacity = "";
+          if (bases[i]) bases[i].style.transform = "";
+          const ls = itemLines[i];
+          for (let k = 0; k < ls.length; k++) ls[k].style.transform = "";
+        }
+        for (let i = 0; i < segs.length; i++) segs[i].style.opacity = "";
+        if (head) head.style.transform = "";
+        if (stage) stage.style.transform = "";
+        return;
+      }
 
       // the whole block (title + content list) drifts slowly upward while
       // pinned (desktop only) — much slower than the content swap
-      const drift = mobile ? "" : "translateY(" + (-p * DRIFT_PX) + "px)";
+      const drift = "translateY(" + (-p * DRIFT_PX) + "px)";
       if (head) head.style.transform = drift;
       if (stage) stage.style.transform = drift;
 
@@ -397,12 +416,6 @@
         shots[i].style.opacity = isActive ? "1" : "0";   // hard swap between contents
 
         const ls = itemLines[i];
-        if (mobile) {
-          items[i].style.opacity = isActive ? String(clamp(rev * 1.4, 0, 1)) : "0";
-          for (let k = 0; k < ls.length; k++) ls[k].style.transform = "translateY(0)";
-          bases[i].style.transform = "scale(" + (isActive ? 1 + easeOut(ph) * 0.14 : 1) + ")";
-          continue;
-        }
         items[i].style.opacity = "1";
         if (isActive) {
           // base image zooms in (grows) across the whole content, no swap

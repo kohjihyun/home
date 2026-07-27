@@ -1315,3 +1315,14 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   .stat__clip > * { transform: none !important; transition: none !important; }
   .lrow { animation: none !important; }
 }
+
+/* ===================================================================
+   Mobile typography: no negative tracking
+   The desktop type is tracked tight (down to -3.6px on the big numerals);
+   at phone sizes that reads cramped, so letter-spacing is reset to 0.
+   Declared last and with !important because the per-element values are
+   spread across many rules (and some sit inside media queries).
+   =================================================================== */
+@media (max-width: 768px) {
+  * { letter-spacing: 0 !important; }
+}
