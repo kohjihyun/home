@@ -317,11 +317,17 @@
     // arc reads calmly on a small screen; desktop/tablet keep the original speed.
     const SPEED_DESKTOP = 320, SPEED_MOBILE = 110;
 
-    let vUnit = 1, sUnit = 1, speedPx = SPEED_DESKTOP;
+    // phones drop the arc curve entirely and run the rows flush left, so the
+    // narrow width goes to the text instead of the arc's indent
+    const DESIGN_BW_FLAT = 520;   // row content width once the arc indent is gone
+
+    let vUnit = 1, sUnit = 1, speedPx = SPEED_DESKTOP, flatLeft = false;
     function measure() {
+      const mobile = window.matchMedia("(max-width: 768px)").matches;
+      flatLeft = mobile;
+      speedPx = mobile ? SPEED_MOBILE : SPEED_DESKTOP;
       vUnit = list.clientHeight / DESIGN_BH;
-      sUnit = Math.min(vUnit, list.clientWidth / DESIGN_BW);
-      speedPx = window.matchMedia("(max-width: 768px)").matches ? SPEED_MOBILE : SPEED_DESKTOP;
+      sUnit = Math.min(vUnit, list.clientWidth / (flatLeft ? DESIGN_BW_FLAT : DESIGN_BW));
     }
     measure();
     window.addEventListener("resize", measure);
@@ -331,7 +337,7 @@
         const row = rows[i];
         const topD = mod(i * PITCH - scroll, LOOP); // row top in design px
         const cy = topD + ROW_H / 2;                // row centre (for the arc)
-        const x = arcX(cy) * sUnit;
+        const x = flatLeft ? 0 : arcX(cy) * sUnit;  // phones: no arc, flush left
         const y = topD * vUnit;
         row.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px)";
         row.style.columnGap = (GAP * sUnit).toFixed(1) + "px";

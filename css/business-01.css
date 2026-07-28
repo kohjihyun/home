@@ -1008,7 +1008,16 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
 /* ---- tablet (≤ 900px): stack the side-by-side layouts ---- */
 @media (max-width: 900px) {
   /* section 2 — expanding cards become a simple stack */
-  .s2__cards { flex-direction: column; height: auto; gap: 14px; }
+  /* Stack them as equal-height rows: `1fr` rows in an auto-height grid all take
+     the tallest card's height, so a card with an extra description line no
+     longer makes its box taller than the others. gap 0 keeps them butted
+     together exactly as they are on PC. */
+  .s2__cards {
+    display: grid;
+    grid-auto-rows: 1fr;
+    height: auto;
+    gap: 0;
+  }
   .s2-card { flex: none; height: auto; overflow: visible; border-radius: 0; }
   .s2-card.is-active { flex-grow: 0; }
   .s2-card__inner {
@@ -1114,10 +1123,12 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   .b01-hero__title { font-size: clamp(40px, 12.8vw, 48px); line-height: 1.2; }
   .b01-hero__sub { width: 100%; }
 
-  /* section 1 — the statement carries the whole pinned screen, so set it big
-     and let each sentence wrap; that fills the height instead of leaving a
-     large empty band above and below */
-  .sec1__text { font-size: clamp(24px, 8.7vw, 40px); line-height: 1.3; }
+  /* section 1 — the statement carries the whole pinned screen and each sentence
+     wraps. One step below the .s2__title scale it briefly shared (32 → 28 at
+     390px). Leading stays looser (1.3) because this is a paragraph, and the
+     -2% tracking is re-applied as an exception to the mobile reset at the end
+     of this file. */
+  .sec1__text { font-size: clamp(26px, 7.2vw, 50px); line-height: 1.3; }
   .sec1-line { padding-bottom: .1em; }
   .sec1-line-inner { white-space: normal; }
   .sec1__content { gap: 24px; }
@@ -1168,6 +1179,9 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
     /* bottom padding matches the other sections (s2 / s5 use the same value) */
     padding: clamp(64px, 16vw, 96px) var(--pad) clamp(96px, 16.67vw, 240px);
   }
+  /* orange band trailing section 3 — half the desktop 240px on phones */
+  .s3-margin { height: 120px; }
+
   /* the 240px spacer only existed to be revealed as the pin released; with the
      section unrolled it is just dead white space */
   .s4-margin { display: none; }
@@ -1205,15 +1219,27 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
       #d9d9d9 0 66.666%, var(--orange) 66.666% 100%);
   }
 
+  /* The image is in normal flow here and sets the box height itself. Do NOT go
+     back to `aspect-ratio` + an absolutely positioned img: in WebKit a grid item
+     hoisted by `display: contents` whose height comes only from aspect-ratio and
+     whose only child is absolutely positioned resolves to height 0, and the
+     images vanish (seen on iPhone Safari). The PNGs are 1632x1080 = exactly the
+     544/360 design ratio, so the natural height matches the old box. */
   .s4-shot {
     position: relative;
     inset: auto;
     opacity: 1 !important;
-    aspect-ratio: 544 / 360;
+    aspect-ratio: auto;
     overflow: hidden;
     background: var(--orange-500);
   }
-  .s4-shot__img { transform: none !important; }
+  .s4-shot__img {
+    position: static;            /* in flow, so it gives .s4-shot its height */
+    width: 100%;
+    height: auto;
+    transform: none !important;  /* neutralise the PC zoom the script applies */
+    will-change: auto;
+  }
 
   .s4-item {
     position: static;
@@ -1259,4 +1285,9 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
    =================================================================== */
 @media (max-width: 768px) {
   * { letter-spacing: 0 !important; }
+  /* exception: section 1's statement keeps a -2% tuck. The class selector wins
+     over `*` on specificity, and the descendants need it too because the reset
+     above hits them directly rather than letting the value inherit. */
+  .sec1__text,
+  .sec1__text * { letter-spacing: -0.02em !important; }
 }
