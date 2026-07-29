@@ -1,0 +1,716 @@
+/* ===================================================================
+   personal.html — DEBUNK remittance
+   Loaded AFTER css/business-01.css, which supplies the shared pieces:
+   GNB + mobile menu, footer, the .hero-line clip reveal and the mobile
+   letter-spacing reset. Everything here is page specific.
+   Figma: personal-debunk (1440 wide) — sizes are given as
+   clamp(min, designPx/1440*100vw, designPx).
+   =================================================================== */
+:root {
+  --debunk: #004ecd;          /* debunk-primary */
+  --sky-200: #a5c6f2;
+  --sky-400: #59a1e9;
+  --sky-500: #0090e4;
+  --sky-600: #1876ba;
+  --cyan-400: #4d8dad;
+  --cyan-900: #152934;
+  --cyan-950: #10181d;
+  --navy-light: #111e36;
+  --gray-800: #2d2e2f;
+}
+
+/* Headings use the shared .hero-line clip reveal. business-01.css only wires
+   it to .is-visible (hero) and its own .s3/.s4/.s5, so hook up this page's
+   sections too — without this the titles stay parked below their clip. */
+.p2.is-inview .hero-line-inner,
+.p3.is-inview .hero-line-inner,
+.p4.is-inview .hero-line-inner,
+.p6.is-inview .hero-line-inner { transform: translateY(0); }
+
+/* .hero-line carries a .2em padding as descender room for the clip; cancel it
+   with an equal negative margin so a heading's box is exactly
+   lines x line-height — that is what the Figma frames measure.
+   flow-root is required: without a block formatting context the LAST line's
+   negative margin collapses out through the heading instead of trimming its
+   height, leaving every title one padding (~.2em) too tall. */
+.p2__title,
+.p3__title,
+.p4__title,
+.p6__title { display: flow-root; }
+.p2__title .hero-line,
+.p3__title .hero-line,
+.p4__title .hero-line,
+.p6__title .hero-line { margin-bottom: -.2em; }
+
+/* ============ Hero ============ */
+.ph {
+  position: relative;
+  min-height: 100vh;
+  background: #005eb4;
+  overflow: hidden;
+}
+.ph__bg { position: absolute; inset: 0; }
+/* the artwork is exported at the hero frame's own ratio (4320x2760 = 1440:920),
+   so `cover` centred crops next to nothing — the earlier `center 20%` nudge only
+   existed to rescue a square source and would now shift the composition. */
+.ph__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+.ph__inner {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  /* Figma: title at y184, app block ends at y864 in a 920 frame → 56 below */
+  padding: clamp(120px, 12.8vw, 184px) var(--pad) clamp(40px, 3.89vw, 56px);
+  display: flex;
+  flex-direction: column;
+}
+.ph__title {
+  width: min(693px, 100%);
+  font-weight: 600;
+  font-size: clamp(38px, 7.2vw, 104px);
+  line-height: 1.1;
+  letter-spacing: -2.08px;
+  color: #fff;
+  opacity: .7;
+  text-shadow: 0 0 8px rgba(0, 0, 0, .2);
+}
+.ph__title .hero-line { margin-bottom: -.2em; }
+.ph__sub {
+  width: min(681px, 100%);
+  margin-top: auto;
+  font-weight: 400;
+  font-size: clamp(15px, 1.39vw, 20px);
+  line-height: 1.2;
+  color: #fff;
+  opacity: .7;
+  text-shadow: 0 0 4px #013669;
+  /* rises with the title (see .is-visible below) */
+  transform: translateY(24px);
+  transition: opacity .9s ease .5s, transform .9s ease .5s;
+}
+.ph .ph__sub { opacity: 0; }
+.ph.is-visible .ph__sub { opacity: .7; transform: translateY(0); }
+
+/* app badges, bottom-right of the hero */
+.ph__app {
+  position: absolute;
+  right: var(--pad);
+  bottom: clamp(40px, 3.89vw, 56px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .9s ease .7s, transform .9s ease .7s;
+}
+.ph.is-visible .ph__app { opacity: 1; transform: translateY(0); }
+.ph__app-logo { width: 119px; height: 24px; display: block; }
+.ph__app-row { display: flex; align-items: center; gap: 16px; }
+.ph__app-row img { height: 40px; width: auto; display: block; }
+
+/* ============ Section 1 — two marquees ==============================
+   Each track holds the sentence twice and slides to -50%, so the loop is
+   seamless. The sub runs at a lower px/s than the big line (see the
+   durations below) — it is the slower of the two on purpose. */
+.p1 {
+  background: var(--debunk);
+  padding: clamp(10px, 0.97vw, 14px) 0 clamp(20px, 2.08vw, 30px);
+  overflow: hidden;
+}
+.p1__row { overflow: hidden; }
+.p1__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.p1__track > span { flex: 0 0 auto; white-space: nowrap; }
+
+.p1__big .p1__track { animation: p1-scroll 40s linear infinite; }   /* ≈88 px/s */
+.p1__big span {
+  font-weight: 300;
+  font-size: clamp(52px, 11.1vw, 160px);
+  line-height: 1;
+  letter-spacing: -3.2px;
+  color: #fff;
+  padding-right: clamp(24px, 3vw, 44px);
+}
+.p1__sub { margin-top: clamp(8px, 1.5vw, 22px); padding: 8px 0; }
+.p1__sub .p1__track { animation: p1-scroll 41s linear infinite; }   /* ≈60 px/s — slower */
+.p1__sub span {
+  font-weight: 300;
+  font-size: clamp(14px, 1.39vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  color: #fff;
+  opacity: .9;
+  padding-right: clamp(24px, 3vw, 44px);
+}
+@keyframes p1-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ============ Section 2 — regulated infrastructure ============ */
+/* every section below the hero closes with Figma's 240px band */
+.p2 {
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+  padding-bottom: clamp(96px, 16.67vw, 240px);
+}
+.p2__head {
+  padding: clamp(96px, 13.2vw, 190px) var(--pad) clamp(20px, 2.08vw, 30px);
+}
+.p2__title {
+  width: min(1000px, 100%);
+  font-weight: 500;
+  font-size: clamp(36px, 6.11vw, 88px);
+  line-height: 1.1;
+  letter-spacing: -1.76px;
+  color: var(--navy-light);
+}
+.p2__sub {
+  margin-top: clamp(20px, 2.22vw, 32px);
+  font-weight: 400;
+  font-size: clamp(14px, 1.25vw, 18px);
+  line-height: 1.2;
+  letter-spacing: -0.08px;
+  color: var(--navy-light);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .8s ease .35s, transform .8s ease .35s;
+}
+.p2.is-inview .p2__sub { opacity: 1; transform: translateY(0); }
+
+/* The globe film sits behind the list: the film starts at the top of the stage
+   and the padding is the stretch where it shows on its own before the rows
+   begin (Figma: list starts 275px into the video area). Padding rather than a
+   margin on the list, because a margin collapses straight through the stage
+   and both would start at the same y. The rows are 90% white on purpose, so
+   the globe keeps showing through them. */
+.p2__stage {
+  position: relative;
+  padding-top: clamp(120px, 19.1vw, 275px);
+}
+.p2__video {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(1263px, 88vw);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.p2__video video { width: 100%; height: auto; display: block; }
+
+/* still counterpart of the film, shown on phones only (see the mobile block).
+   Figma places debunk-glabal.png over the same area at 50% opacity. */
+.p2__still { display: none; }
+.p2__still img { width: 100%; height: auto; display: block; opacity: .5; }
+
+/* ---- accordion ---- */
+.p2__list {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  list-style: none;
+}
+.p2-item {
+  border-bottom: 1px solid var(--cyan-400);
+  background: rgba(255, 255, 255, .9);
+}
+.p2-item:first-child { border-top: 1px solid var(--cyan-400); }
+.p2-item__btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: clamp(32px, 3.33vw, 48px) clamp(44px, 4vw, 58px) clamp(32px, 3.33vw, 48px) 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: var(--gray-800);
+}
+.p2-item__t {
+  font-weight: 400;
+  font-size: clamp(20px, 2.5vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -0.72px;
+  color: var(--gray-800);
+}
+/* +/- built from two bars so the cross rotates into a minus on open */
+.p2-item__ico {
+  position: absolute;
+  right: 0;
+  top: clamp(38px, 4.03vw, 58px);
+  width: 25px;
+  height: 25px;
+}
+.p2-item__ico span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 24px;
+  height: 2px;
+  margin: -1px 0 0 -12px;
+  background: var(--navy-bg, #0d1426);
+  transition: transform .4s cubic-bezier(.16, 1, .3, 1), opacity .3s ease;
+}
+.p2-item__ico span:nth-child(2) { transform: rotate(90deg); }
+.p2-item.is-open .p2-item__ico span:nth-child(2) { transform: rotate(0deg); opacity: 0; }
+
+/* the panel animates on its own wrapper height */
+.p2-item__panel {
+  overflow: hidden;
+  height: 0;
+  transition: height .5s cubic-bezier(.16, 1, .3, 1);
+}
+.p2-item__panel-in {
+  padding: 0 clamp(44px, 4vw, 58px) clamp(28px, 3.33vw, 48px) 0;
+  width: min(709px, 100%);
+  font-weight: 400;
+  font-size: clamp(14px, 1.39vw, 20px);
+  line-height: 1.2;
+  color: var(--gray-800);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .45s ease .08s, transform .45s ease .08s;
+}
+.p2-item.is-open .p2-item__panel-in { opacity: 1; transform: translateY(0); }
+
+/* ============ Section 3 — motion flow ============ */
+.p3 {
+  background: var(--debunk);
+  padding: clamp(96px, 13.2vw, 190px) 0 clamp(96px, 16.67vw, 240px);
+  overflow: hidden;
+}
+.p3__head { padding: 0 var(--pad); }
+.p3__title {
+  width: min(1216px, 100%);
+  font-weight: 500;
+  font-size: clamp(36px, 6.11vw, 88px);
+  line-height: 1.1;
+  letter-spacing: -1.76px;
+  color: #fff;
+}
+.p3__sub {
+  width: min(555px, 100%);
+  margin-top: clamp(20px, 2.22vw, 32px);
+  font-weight: 400;
+  font-size: clamp(15px, 1.39vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .8s ease .35s, transform .8s ease .35s;
+}
+.p3.is-inview .p3__sub { opacity: .9; transform: translateY(0); }
+
+.p3__flow {
+  display: flex;
+  justify-content: space-between;
+  gap: clamp(20px, 4vw, 57px);
+  margin-top: clamp(64px, 8.75vw, 126px);
+  padding: 0 var(--pad);
+}
+.p3-step {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  /* Figma step block: 277 wide, number band 163 then the content box */
+  padding-top: clamp(74px, 10vw, 144px);
+}
+/* the oversized ghost number, clipped to its band */
+.p3-step__num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: clamp(84px, 11.3vw, 163px);
+  overflow: hidden;
+  pointer-events: none;
+}
+.p3-step__num i {
+  display: block;
+  font-style: normal;
+  font-weight: 500;
+  font-size: clamp(92px, 12.5vw, 180px);
+  line-height: 1;
+  letter-spacing: -3.6px;
+  color: rgba(255, 255, 255, .22);
+  transform: translateY(60%);
+  transition: transform .9s cubic-bezier(.16, 1, .3, 1);
+}
+.p3-step.is-in .p3-step__num i { transform: translateY(14%); }
+
+/* arrow / end-bar sit on top of the content box.
+   display:block matters — these are spans, and an inline box ignores the
+   height, which left steps 1-3 (arrow) sitting lower than step 4 (end bar). */
+.p3-step__rule {
+  display: block;
+  height: clamp(24px, 3.05vw, 44px);
+}
+.p3-step__rule img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: left center;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform .8s cubic-bezier(.16, 1, .3, 1) .12s;
+}
+.p3-step.is-in .p3-step__rule img { transform: scaleX(1); }
+.p3-step__rule--end {
+  display: flex;
+  align-items: center;
+}
+.p3-step__rule--end b {
+  display: block;
+  width: 100%;
+  height: 5px;
+  background: #8cb5f7;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform .8s cubic-bezier(.16, 1, .3, 1) .12s;
+}
+.p3-step.is-in .p3-step__rule--end b { transform: scaleX(1); }
+
+.p3-step__t {
+  margin-top: clamp(18px, 1.94vw, 28px);
+  font-weight: 500;
+  font-size: clamp(22px, 2.5vw, 36px);
+  line-height: 1;
+  letter-spacing: -0.72px;
+  color: var(--cyan-950);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease .3s, transform .6s cubic-bezier(.16, 1, .3, 1) .3s;
+}
+.p3-step.is-in .p3-step__t { opacity: 1; transform: translateY(0); }
+.p3-step__d {
+  margin-top: clamp(14px, 1.66vw, 24px);
+  font-weight: 400;
+  font-size: clamp(14px, 1.39vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  color: var(--cyan-950);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease .45s, transform .6s cubic-bezier(.16, 1, .3, 1) .45s;
+}
+.p3-step.is-in .p3-step__d { opacity: 1; transform: translateY(0); }
+
+/* ============ Section 4 — four reasons ============ */
+.p4 { background: #fff; padding: clamp(96px, 13.2vw, 190px) 0 clamp(96px, 16.67vw, 240px); }
+.p4__head { padding: 0 var(--pad); }
+.p4__title {
+  width: min(854px, 100%);
+  font-weight: 500;
+  font-size: clamp(36px, 6.11vw, 88px);
+  line-height: 1.1;
+  letter-spacing: -1.76px;
+  color: var(--navy-light);
+}
+.p4__sub {
+  margin-top: clamp(20px, 2.22vw, 32px);
+  font-weight: 400;
+  font-size: clamp(15px, 1.39vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  color: var(--navy-light);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .8s ease .35s, transform .8s ease .35s;
+}
+.p4.is-inview .p4__sub { opacity: 1; transform: translateY(0); }
+
+.p4__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  max-width: var(--maxw);
+  margin: clamp(64px, 11vw, 156px) auto 0;
+  padding: 0 var(--pad);
+}
+.p4-card {
+  position: relative;
+  aspect-ratio: 640 / 400;
+  padding: clamp(20px, 2.78vw, 40px);
+  color: var(--navy-bg, #0d1426);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s ease var(--d, 0s), transform .7s cubic-bezier(.16, 1, .3, 1) var(--d, 0s);
+}
+.p4.is-inview .p4-card { opacity: 1; transform: translateY(0); }
+.p4-card--1 { background: var(--sky-400); }
+.p4-card--2 { background: var(--sky-200); }
+.p4-card--3 { background: var(--sky-600); }
+.p4-card--4 { background: var(--sky-500); }
+.p4-card__ico { width: clamp(38px, 3.89vw, 56px); height: clamp(38px, 3.89vw, 56px); display: block; }
+.p4-card__no {
+  position: absolute;
+  right: clamp(20px, 2.78vw, 40px);
+  top: clamp(24px, 3.33vw, 48px);
+  font-family: "Inconsolata", ui-monospace, monospace;
+  font-stretch: 75%;
+  font-size: clamp(14px, 1.39vw, 20px);
+  line-height: 1.2;
+}
+.p4-card__body {
+  position: absolute;
+  left: clamp(20px, 2.78vw, 40px);
+  right: clamp(20px, 2.78vw, 40px);
+  bottom: clamp(28px, 3.89vw, 56px);
+}
+.p4-card__t {
+  width: min(439px, 100%);
+  font-weight: 400;
+  font-size: clamp(20px, 2.5vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -0.72px;
+  opacity: .8;
+}
+.p4-card__d {
+  width: min(332px, 100%);
+  margin-top: clamp(14px, 2.22vw, 32px);
+  font-weight: 400;
+  font-size: clamp(14px, 1.39vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  opacity: .8;
+}
+
+/* the card's contents rise in after the card itself lands — the site-wide
+   rise + fade idiom, sequenced icon -> number -> title -> description on top of
+   each card's own --d stagger. The resting opacity differs per element (the
+   title and description sit at .8), so each one restores its own value. */
+.p4-card__ico,
+.p4-card__no,
+.p4-card__t,
+.p4-card__d {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .6s ease var(--dd, 0s),
+              transform .75s cubic-bezier(.16, 1, .3, 1) var(--dd, 0s);
+}
+.p4-card__ico { --dd: calc(var(--d, 0s) + .14s); }
+.p4-card__no  { --dd: calc(var(--d, 0s) + .20s); }
+.p4-card__t   { --dd: calc(var(--d, 0s) + .28s); }
+.p4-card__d   { --dd: calc(var(--d, 0s) + .36s); }
+
+.p4.is-inview .p4-card__ico,
+.p4.is-inview .p4-card__no { opacity: 1; transform: translateY(0); }
+.p4.is-inview .p4-card__t,
+.p4.is-inview .p4-card__d  { opacity: .8; transform: translateY(0); }
+
+/* ============ Section 5 — reuses the .s5 machinery from
+   business-01.css (auto-rotate every 1.5s + hover), recoloured for
+   DEBUNK: orange band, blue active row, blue 40% layer. ============ */
+.s5.p5 {
+  background: #e52006;
+  padding-bottom: clamp(96px, 16.67vw, 240px);   /* business-01 ends at 200 */
+}
+.s5.p5 .s5-item.is-active { background: var(--debunk); }
+.s5.p5 .s5-item.is-prev { background: rgba(0, 78, 205, .45); }
+.s5.p5 .s5-item span { letter-spacing: -0.72px; }
+.s5.p5 .s5__media { background: var(--sky-500); }
+.s5.p5 .s5-panel__img { opacity: 1; }
+.s5.p5 .s5-panel__layer {
+  background: var(--debunk);
+  mix-blend-mode: normal;
+  opacity: .4;
+}
+/* the caption is a display line here, not body copy */
+.s5.p5 .s5-panel__desc {
+  left: 32px;
+  top: 16px;
+  width: min(431px, calc(100% - 64px));
+  font-weight: 300;
+  font-size: clamp(20px, 2.78vw, 40px);
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  opacity: 1;
+  text-shadow: none;
+}
+
+/* ============ Section 6 — get the app ==============================
+   Figma frame is 733 tall: title at y180, badges at y565 (copy ends 611 →
+   122 below), and the phone sits at y160 but is 774 tall, so it runs past
+   the frame and is cut off at the bottom. Reproduced with the phone
+   absolutely placed and the section clipping it. */
+.p6 {
+  position: relative;
+  background: #fff;
+  padding: clamp(96px, 12.5vw, 180px) 0 clamp(64px, 8.47vw, 122px);
+  overflow: hidden;
+}
+.p6__inner {
+  /* static on purpose: .p6__phone anchors to the section, matching Figma's
+     y160 from the section top rather than from below the heading padding */
+  position: static;
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.p6__copy { position: relative; z-index: 1; }
+.p6__title {
+  width: min(885px, 100%);
+  font-weight: 500;
+  font-size: clamp(36px, 6.11vw, 88px);
+  line-height: 1.24;
+  letter-spacing: -1.76px;
+  color: var(--cyan-900);
+}
+.p6__app {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  /* Figma: title ends at y507, badges start at y565 → 58.
+     180 + 327 + 58 + 46 + 122 = the frame's 733. */
+  margin-top: clamp(32px, 4.03vw, 58px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .8s ease .4s, transform .8s ease .4s;
+}
+.p6.is-inview .p6__app { opacity: 1; transform: translateY(0); }
+.p6__app img { height: clamp(38px, 3.19vw, 46px); width: auto; display: block; }
+
+/* flat artwork used instead of the phone mock on phones (see the mobile block) */
+.p6__still { display: none; }
+.p6__still img { width: 100%; height: auto; display: block; }
+
+/* phone mock: the frame PNG is the bezel, the screen sits inside it.
+   Anchored to the section top like Figma (y160) and left to overflow. */
+.p6__phone {
+  position: absolute;
+  right: var(--pad);
+  top: clamp(64px, 11.1vw, 160px);
+  width: clamp(220px, 26.4vw, 380px);
+  aspect-ratio: 380 / 773;
+}
+.p6__phone-screen {
+  position: absolute;
+  left: 4.85%;
+  right: 5.08%;
+  top: 1.89%;
+  bottom: 2.52%;
+  border-radius: clamp(24px, 2.9vw, 42px);
+  overflow: hidden;
+  background: #2f2f2f;
+}
+.p6__phone-screen img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.p6__phone-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+/* ===================================================================
+   Responsive
+   =================================================================== */
+@media (max-width: 900px) {
+  .p4__grid { grid-template-columns: 1fr; }
+  .p4-card { aspect-ratio: auto; min-height: clamp(300px, 52vw, 400px); }
+  /* the phone stops overlapping the copy and sits below it, fully visible —
+     clipping it only reads as intentional at the wide layout */
+  .p6 { padding-bottom: clamp(56px, 9vw, 96px); }
+  .p6__inner { display: flex; flex-direction: column; align-items: center; }
+  .p6__phone {
+    position: static;
+    width: min(300px, 70vw);
+    margin-top: clamp(32px, 6vw, 56px);
+  }
+}
+
+@media (max-width: 768px) {
+  .ph__inner { padding-top: clamp(96px, 26vw, 140px); }
+  /* Sit the store block over the subject's forearm, low in the frame. In the
+     flow (right under the copy) it crossed his head, and at chest height the
+     white t-shirt washed out the badges' white outlines — the arm is an even
+     mid-tone, so they read cleanly there. Anchored to the hero bottom because
+     the photo covers the hero, which fixes the arm at a set fraction of its
+     height; left edge lines up with the copy. */
+  .ph__app {
+    position: absolute;
+    left: var(--pad);
+    right: auto;
+    bottom: 10%;
+    align-items: flex-start;
+    margin-top: 0;
+  }
+  .ph__app-row img { height: 34px; }
+  .ph__sub { margin-top: clamp(32px, 9vw, 48px); }
+
+  /* The artwork covers the whole hero, same as PC. Constraining it to the
+     1440:920 frame ratio here left the top of the section as flat blue with a
+     hard seam where the image began, so the box keeps the section's own shape
+     and the crop is allowed to be tall. 62% centres the slice on the subject
+     (measured off the desktop render, where the crop is ~0). */
+  .ph__bg img { object-position: 62% center; }
+
+  /* marquee durations are set by personal.js from the measured track width,
+     so the two keep their px/s relationship at every viewport */
+
+  /* swap the globe film for the still: the video is heavy on a phone and the
+     Figma mobile layer is debunk-glabal.png */
+  .p2__video { display: none; }
+  .p2__still {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: min(1263px, 100vw);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .p2__list { margin-top: clamp(32px, 9vw, 48px); }
+  .p2-item__t { font-size: clamp(18px, 4.8vw, 24px); }
+
+  /* motion flow stacks; the ghost numbers stay legible */
+  .p3__flow { flex-direction: column; gap: clamp(28px, 9vw, 40px); }
+  .p3-step { padding-top: clamp(56px, 17vw, 84px); }
+  /* Run the number band down to the arrow's stroke so the digits sit ON the
+     line. The arrow is `contain`-fitted and therefore drawn in the vertical
+     middle of its box, i.e. half a rule-height below where the band used to
+     stop — that half is the gap that was showing. Motion is untouched, so the
+     rise is identical to PC. */
+  .p3-step__num {
+    height: calc(clamp(56px, 17vw, 84px) + clamp(24px, 3.05vw, 44px) / 2);
+  }
+  .p3-step__num i { font-size: clamp(64px, 19vw, 92px); }
+
+  .p4-card__t { font-size: clamp(19px, 4.8vw, 28px); }
+
+  /* Section 6 follows its own Figma mobile frame (440 wide): the phone mock is
+     replaced by the flat app-screen artwork at 321/440 of the width, offset
+     59/440 from the left, and cut off by the section bottom exactly as the
+     frame shows (472 of the image's 652 is visible). Offsets are vw-based so
+     they stay proportional; --pad is subtracted because the still sits inside
+     the padded inner. */
+  .p6__phone { display: none; }
+  .p6__still {
+    display: block;
+    position: relative;
+    width: 72.95vw;                       /* 321/440 */
+    margin-left: calc(13.41vw - var(--pad));   /* 59/440 */
+    margin-top: clamp(40px, 12vw, 64px);
+    height: 107.27vw;                     /* 472/440 — the visible slice */
+    overflow: hidden;
+  }
+}
