@@ -195,19 +195,18 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   overflow: hidden;
   z-index: 0;
 }
-.b01-hero__bg video {
+/* One flat image now, exported at the hero frame's own 1440x920, so `cover`
+   centred crops next to nothing. The four tint layers that used to sit over the
+   video are gone — the Figma frame carries the grade in the artwork itself. */
+.b01-hero__bg img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
+  display: block;
 }
-/* four overlay layers from the Figma Video frame */
-.b01-hero__bg .overlay { position: absolute; inset: 0; }
-.ov-1 { background: #002181; mix-blend-mode: hue;        opacity: .30; }
-.ov-2 { background: #0e1828; mix-blend-mode: hard-light; opacity: .30; }
-.ov-3 { background: #000410; mix-blend-mode: hard-light; opacity: .40; }
-.ov-4 { background: #000a28; opacity: .50; }
 
 /* --- hero content --- */
 .b01-hero__inner {

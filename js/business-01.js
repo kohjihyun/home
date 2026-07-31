@@ -45,7 +45,7 @@
     onScroll();
   }
 
-  /* ---- hero reveal on DOM ready (don't wait for the heavy video) ---- */
+  /* ---- hero reveal on DOM ready (don't wait for the background image) ---- */
   function revealHero() {
     if (hero) hero.classList.add("is-visible");
   }
@@ -59,16 +59,6 @@
     scheduleReveal();
   } else {
     document.addEventListener("DOMContentLoaded", scheduleReveal);
-  }
-
-  /* ---- autoplay the hero video (muted, inline) ---- */
-  const v = hero && hero.querySelector("video");
-  if (v) {
-    v.muted = true;
-    v.playsInline = true;
-    const tryPlay = () => { const p = v.play(); if (p) p.catch(() => {}); };
-    if (v.readyState >= 2) tryPlay();
-    else v.addEventListener("loadeddata", tryPlay, { once: true });
   }
 
   /* ---- section1: pinned two-phase, line-by-line reveal ----------------------
