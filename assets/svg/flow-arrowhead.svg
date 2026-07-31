@@ -1,0 +1,8 @@
+<svg width="26" height="44" viewBox="0 0 25.456 43.841" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- just the chevron from flow-arrow.svg, shifted to x=0 so the shaft can be
+       drawn separately in CSS and grow without stretching this head -->
+  <g fill="#8CB5F7">
+    <path d="M25.456 21.9203L3.536 43.8406L0 40.3051L21.92 18.3848L25.456 21.9203Z"/>
+    <path d="M3.536 0L25.456 21.9203L21.92 25.4558L0 3.53553L3.536 0Z"/>
+  </g>
+</svg>

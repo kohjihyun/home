@@ -30,11 +30,16 @@
     }
   }
 
-  /* ---- GNB turns into a solid dark bar once scrolled past the hero ---- */
   const hero = document.getElementById("b01-hero");
-  if (hero && gnb) {
+
+  /* ---- GNB turns into a solid dark bar once scrolled past the hero ----
+     personal.html shares this script but names its hero #p-hero, so match
+     either: without this the toggle never ran there and the page had to hard-code
+     .is-solid, which cost it the transparent bar over its own hero. */
+  const gnbHero = hero || document.getElementById("p-hero");
+  if (gnbHero && gnb) {
     const onScroll = () => {
-      gnb.classList.toggle("is-solid", hero.getBoundingClientRect().bottom <= 80);
+      gnb.classList.toggle("is-solid", gnbHero.getBoundingClientRect().bottom <= 80);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();

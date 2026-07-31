@@ -8,15 +8,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Inconsolata:wght@400&display=swap" rel="stylesheet" />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-<link rel="stylesheet" href="css/business-01.css?v=35" />
+<link rel="stylesheet" href="css/business-01.css?v=40" />
+<link rel="stylesheet" href="css/personal.css?v=24" />
 </head>
 <body>
-  <!-- ============ GNB (solid bar: this page has no hero video behind it) ============ -->
-  <header class="gnb is-solid" id="gnb">
+  <!-- ============ GNB (transparent over the hero, like business-01; the script
+       turns it solid once the hero scrolls past) ============ -->
+  <header class="gnb" id="gnb">
     <div class="gnb__bg"></div>
 
     <div class="gnb__inner">
-      <a class="gnb__logo" href="index.html"><img src="assets/ICB_logo-color.svg" alt="ICB" /></a>
+      <!-- lighter wordmark (#C4C4C5) than the shared logo, for this page's dark hero -->
+      <a class="gnb__logo" href="index.html"><img src="assets/svg/ICB_logo-color-personal-hero.svg" alt="ICB" /></a>
 
       <nav class="gnb__nav">
         <div class="gnb__item" data-menu="business"><span class="gnb__label">BUSINESS</span></div>
@@ -123,11 +126,273 @@
     </div>
   </header>
 
-  <!-- ============ Page intro — sections to be built out ============ -->
-  <section class="s5" id="p-intro">
+  <!-- ============ Hero ============ -->
+  <section class="ph" id="p-hero">
+    <div class="ph__bg"><img src="assets/debunk-hero.jpg?v=3" alt="" /></div>
+
+    <div class="ph__inner">
+      <h1 class="ph__title">
+        <span class="hero-line"><span class="hero-line-inner">Your money moves.</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">Borders don&#39;t stop it.</span></span>
+      </h1>
+
+      <p class="ph__sub">Send to 150+ countries in minutes — fast, secure, and compliant international transfers built for everyone.</p>
+
+      <div class="ph__app">
+        <img class="ph__app-logo" src="assets/svg/logo-debunk-white.svg" alt="DEBUNK" />
+        <div class="ph__app-row">
+          <a href="#"><img src="assets/svg/badge-google.svg" alt="Get it on Google Play" /></a>
+          <a href="#"><img src="assets/svg/badge-apple.svg" alt="Download on the App Store" /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 1 : two marquees, sub slower than big ============ -->
+  <section class="p1" id="p-section1" aria-label="Remittance in one line">
+    <div class="p1__row p1__big">
+      <div class="p1__track" data-marquee>
+        <span>Send money across borders, simply and securely</span>
+      </div>
+    </div>
+    <div class="p1__row p1__sub">
+      <div class="p1__track" data-marquee>
+        <span>Remittance refers to the transfer of funds from one country to another, typically sent by individuals or businesses to recipients overseas. ICB provides a remittance infrastructure that enables fast, secure, and compliant international money transfers across supported corridors.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 2 : regulated infrastructure + accordion ============ -->
+  <section class="p2" id="p-section2">
+    <div class="p2__head">
+      <h2 class="p2__title">
+        <span class="hero-line"><span class="hero-line-inner">More than a transfer —</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">regulated infrastructure</span></span>
+      </h2>
+      <p class="p2__sub">ICB delivers remittance as a regulated money transfer infrastructure, not just a point-to-point transfer.</p>
+    </div>
+
+    <div class="p2__stage">
+      <div class="p2__video" aria-hidden="true">
+        <video autoplay muted loop playsinline>
+          <source src="assets/debunk-glabal.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <!-- phones show the still instead of the film (Figma: debunk-glabal.png) -->
+      <div class="p2__still" aria-hidden="true">
+        <img src="assets/debunk-glabal.png" alt="" />
+      </div>
+
+      <ul class="p2__list" id="p2-list">
+        <li class="p2-item is-open">
+          <button class="p2-item__btn" type="button" aria-expanded="true">
+            <span class="p2-item__t">Cross-border money transfer processing</span>
+            <span class="p2-item__ico" aria-hidden="true"><span></span><span></span></span>
+          </button>
+          <div class="p2-item__panel">
+            <p class="p2-item__panel-in">Send money to 150+ countries through optimized, reliable routes. No more guessing which service will work best — we automatically connect you to the fastest and most stable path available.</p>
+          </div>
+        </li>
+        <li class="p2-item">
+          <button class="p2-item__btn" type="button" aria-expanded="false">
+            <span class="p2-item__t">Multi-currency support and FX handling</span>
+            <span class="p2-item__ico" aria-hidden="true"><span></span><span></span></span>
+          </button>
+          <div class="p2-item__panel">
+            <p class="p2-item__panel-in">Convert between currencies with real-time, fully transparent FX rates. You&rsquo;ll always see exactly how much the recipient will receive before you confirm — no hidden costs, no surprises.</p>
+          </div>
+        </li>
+        <li class="p2-item">
+          <button class="p2-item__btn" type="button" aria-expanded="false">
+            <span class="p2-item__t">Pay-in / Pay-out management</span>
+            <span class="p2-item__ico" aria-hidden="true"><span></span><span></span></span>
+          </button>
+          <div class="p2-item__panel">
+            <p class="p2-item__panel-in">Easily receive money from others or send payouts worldwide with complete visibility. Track every step in real time and stay in full control from start to finish.</p>
+          </div>
+        </li>
+        <li class="p2-item">
+          <button class="p2-item__btn" type="button" aria-expanded="false">
+            <span class="p2-item__t">Built-in AML and transaction monitoring</span>
+            <span class="p2-item__ico" aria-hidden="true"><span></span><span></span></span>
+          </button>
+          <div class="p2-item__panel">
+            <p class="p2-item__panel-in">Every transfer is automatically protected by advanced compliance monitoring. You get peace of mind knowing your money moves safely and meets global regulatory standards — without any extra effort from you.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ Section 3 : motion flow, four steps in order ============ -->
+  <section class="p3" id="p-section3">
+    <div class="p3__head">
+      <h2 class="p3__title">
+        <span class="hero-line"><span class="hero-line-inner">Your money in</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">4 simple steps</span></span>
+      </h2>
+      <p class="p3__sub">From the moment you send to the moment funds arrive — every step is optimised and monitored.</p>
+    </div>
+
+    <div class="p3__flow" id="p3-flow">
+      <article class="p3-step" data-step>
+        <span class="p3-step__num" aria-hidden="true"><i>01</i></span>
+        <span class="p3-step__rule"><img src="assets/svg/flow-arrow.svg" alt="" /></span>
+        <h3 class="p3-step__t">Collect</h3>
+        <p class="p3-step__d">Collect funds from the sender quickly and accurate</p>
+      </article>
+
+      <article class="p3-step" data-step>
+        <span class="p3-step__num" aria-hidden="true"><i>02</i></span>
+        <span class="p3-step__rule"><img src="assets/svg/flow-arrow.svg" alt="" /></span>
+        <h3 class="p3-step__t">Transfer</h3>
+        <p class="p3-step__d">Your funds travel the fastest available corridor</p>
+      </article>
+
+      <article class="p3-step" data-step>
+        <span class="p3-step__num" aria-hidden="true"><i>03</i></span>
+        <span class="p3-step__rule"><img src="assets/svg/flow-arrow.svg" alt="" /></span>
+        <h3 class="p3-step__t">Payout</h3>
+        <p class="p3-step__d">Recipient gets the exact amount, safely</p>
+      </article>
+
+      <article class="p3-step" data-step>
+        <span class="p3-step__num" aria-hidden="true"><i>04</i></span>
+        <span class="p3-step__rule p3-step__rule--end"><b></b></span>
+        <h3 class="p3-step__t">Monitor</h3>
+        <p class="p3-step__d">Every step is watched for compliance in real time</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ Section 4 : the smarter way ============ -->
+  <section class="p4" id="p-section4">
+    <div class="p4__head">
+      <h2 class="p4__title">
+        <span class="hero-line"><span class="hero-line-inner">The smarter way to</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">send money globally</span></span>
+      </h2>
+      <p class="p4__sub">Complex cross-border transfers, made simple and reliable for you.</p>
+    </div>
+
+    <div class="p4__grid">
+      <article class="p4-card p4-card--1">
+        <img class="p4-card__ico" src="assets/svg/icon-p-loop.svg" alt="" />
+        <span class="p4-card__no">01.</span>
+        <div class="p4-card__body">
+          <h3 class="p4-card__t">Fast and reliable international transfers</h3>
+          <p class="p4-card__d">Send money abroad quickly with stable, predictable</p>
+        </div>
+      </article>
+
+      <article class="p4-card p4-card--2" style="--d:.1s">
+        <img class="p4-card__ico" src="assets/svg/icon-p-fx.svg" alt="" />
+        <span class="p4-card__no">02.</span>
+        <div class="p4-card__body">
+          <h3 class="p4-card__t">Transparent FX and fees</h3>
+          <p class="p4-card__d">No hidden charges — see the exact rate and fee before you confirm.</p>
+        </div>
+      </article>
+
+      <article class="p4-card p4-card--3" style="--d:.2s">
+        <img class="p4-card__ico" src="assets/svg/icon-p-shield.svg" alt="" />
+        <span class="p4-card__no">03.</span>
+        <div class="p4-card__body">
+          <h3 class="p4-card__t">Regulatory-compliant flows</h3>
+          <p class="p4-card__d">Built-in compliance processes that meet global regulatory standards.</p>
+        </div>
+      </article>
+
+      <article class="p4-card p4-card--4" style="--d:.3s">
+        <img class="p4-card__ico" src="assets/svg/icon-p-scale.svg" alt="" />
+        <span class="p4-card__no">04.</span>
+        <div class="p4-card__body">
+          <h3 class="p4-card__t">Scales with your needs</h3>
+          <p class="p4-card__d">Handles increased traffic without disruption or downtime.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ Section 5 : who uses it — same behaviour as business-01
+       (auto-rotates every 1.5s, hover jumps to a row) ============ -->
+  <section class="s5 p5" id="section5">
     <div class="s5__head">
-      <h2 class="s5__title">DEBUNK</h2>
-      <p class="s5__sub">Personal Remmitance</p>
+      <h2 class="s5__title">
+        <span class="hero-line"><span class="hero-line-inner">Who uses</span></span>
+        <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">ICB remittance?</span></span>
+      </h2>
+      <p class="s5__sub">Built for anyone who needs to move money across borders — reliably.</p>
+    </div>
+
+    <div class="s5__body">
+      <ul class="s5__list" id="s5-list">
+        <li class="s5-item is-active" data-i="0"><span>Individuals sending money overseas</span></li>
+        <li class="s5-item" data-i="1"><span>Businesses with international payouts</span></li>
+        <li class="s5-item" data-i="2"><span>Platforms and fintech services</span></li>
+        <li class="s5-item" data-i="3"><span>Migrant workers and global users</span></li>
+      </ul>
+
+      <div class="s5__media" id="s5-media">
+        <figure class="s5-panel is-active" data-panel="0">
+          <img class="s5-panel__img" src="assets/personal-s5-01.png" alt="" />
+          <span class="s5-panel__layer"></span>
+          <p class="s5-panel__desc">
+            <span class="s5-line"><span class="s5-line__in">Take care of your daily expenses</span></span>
+            <span class="s5-line"><span class="s5-line__in">abroad simply and quickly.</span></span>
+          </p>
+        </figure>
+        <figure class="s5-panel" data-panel="1">
+          <img class="s5-panel__img" src="assets/personal-s5-02.jpg" alt="" />
+          <span class="s5-panel__layer"></span>
+          <p class="s5-panel__desc">
+            <span class="s5-line"><span class="s5-line__in">Pay suppliers, partners,</span></span>
+            <span class="s5-line"><span class="s5-line__in">and staff globally</span></span>
+          </p>
+        </figure>
+        <figure class="s5-panel" data-panel="2">
+          <img class="s5-panel__img" src="assets/personal-s5-03.jpg" alt="" />
+          <span class="s5-panel__layer"></span>
+          <p class="s5-panel__desc">
+            <span class="s5-line"><span class="s5-line__in">Embed remittance into your</span></span>
+            <span class="s5-line"><span class="s5-line__in">product with our API</span></span>
+          </p>
+        </figure>
+        <figure class="s5-panel" data-panel="3">
+          <img class="s5-panel__img" src="assets/personal-s5-04.jpg" alt="" />
+          <span class="s5-panel__layer"></span>
+          <p class="s5-panel__desc">
+            <span class="s5-line"><span class="s5-line__in">Support family or pay bills</span></span>
+            <span class="s5-line"><span class="s5-line__in">abroad with ease</span></span>
+          </p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 6 : get the app ============ -->
+  <section class="p6" id="p-section6">
+    <div class="p6__inner">
+      <div class="p6__copy">
+        <h2 class="p6__title">
+          <span class="hero-line"><span class="hero-line-inner">Send money anytime,</span></span>
+          <span class="hero-line"><span class="hero-line-inner" style="--delay:.12s">anywhere — start</span></span>
+          <span class="hero-line"><span class="hero-line-inner" style="--delay:.24s">with the app.</span></span>
+        </h2>
+        <div class="p6__app">
+          <a href="#"><img src="assets/svg/badge-google-lg.svg" alt="Get it on Google Play" /></a>
+          <a href="#"><img src="assets/svg/badge-apple-lg.svg" alt="Download on the App Store" /></a>
+        </div>
+      </div>
+
+      <div class="p6__phone" aria-hidden="true">
+        <span class="p6__phone-screen"><img src="assets/phone-screen.png" alt="" /></span>
+        <img class="p6__phone-frame" src="assets/phone-frame.png" alt="" />
+      </div>
+      <!-- phones use the single flat artwork from the Figma mobile frame -->
+      <div class="p6__still" aria-hidden="true">
+        <img src="assets/app-screen-img.png" alt="" />
+      </div>
     </div>
   </section>
 
@@ -147,7 +412,7 @@
           <div class="footer__col">
             <h3 class="footer__heading">Personal</h3>
             <ul class="footer__links">
-              <li><a href="#">Remittance</a></li>
+              <li><a href="personal.html">DEBUNK</a></li>
             </ul>
           </div>
           <div class="footer__col">
@@ -178,6 +443,7 @@
     </div>
   </footer>
 
-  <script src="js/business-01.js?v=26"></script>
+  <script src="js/business-01.js?v=27"></script>
+  <script src="js/personal.js?v=5"></script>
 </body>
 </html>

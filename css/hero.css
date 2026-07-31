@@ -35,10 +35,11 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   pointer-events: none;
   z-index: -1;
 }
-/* keep the whole panel area inside the header so hover doesn't drop in the gap */
-.gnb[data-active] { height: 357px; }
+/* keep the whole panel area inside the header so hover doesn't drop in the gap.
+   Figma's open panel measures 280 (the 80 bar plus its content). */
+.gnb[data-active] { height: 280px; }
 .gnb[data-active] .gnb__bg {
-  height: 357px;
+  height: 280px;
   background: rgba(9, 15, 26, .9);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -49,6 +50,7 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
+
 .gnb__inner {
   position: relative;
   display: flex;
@@ -91,7 +93,7 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
   position: absolute;
   left: 0;
   right: 0;
-  top: 180px;
+  top: 132px;
   opacity: 0;
   visibility: hidden;
   transform: translateY(12px);
@@ -112,6 +114,12 @@ body { font-family: "Inter", -apple-system, sans-serif; color: #fff; }
 }
 .gnb__mega--business .gnb__mega-inner,
 .gnb__mega--company  .gnb__mega-inner { justify-content: space-between; }
+
+/* Figma: Personal's single item sits under the PERSONAL label (x=374 at 1440)
+   rather than flush left like Business/Company. Offset from --pad so it tracks
+   the nav when the padding shrinks. */
+.gnb__mega--personal .gnb__mega-inner { padding-left: calc(var(--pad) + 294px); }
+
 
 .gnb__svc {
   display: flex;

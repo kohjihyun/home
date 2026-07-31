@@ -7,3 +7,6 @@
 # unused local-only media
 assets/hero-video_21mb.mp4
 grok-*.jpg
+
+# full-res exports kept locally, not published
+assets/_originals/
