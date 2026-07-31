@@ -640,6 +640,10 @@
 
 @media (max-width: 768px) {
   .ph__inner { padding-top: clamp(96px, 26vw, 140px); }
+  /* same step-down the other heroes use (index .hero-title, business-01
+     .b01-hero__title); without it this one fell back to its base clamp's 38px
+     floor and read smaller than the rest of the site */
+  .ph__title { font-size: clamp(40px, 12.8vw, 48px); line-height: 1.2; }
   /* Sit the store block over the subject's forearm, low in the frame. In the
      flow (right under the copy) it crossed his head, and at chest height the
      white t-shirt washed out the badges' white outlines — the arm is an even
